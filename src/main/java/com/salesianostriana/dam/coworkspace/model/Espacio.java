@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 
 public class Espacio {
-
+	
+	private Long id;
 	private String nombre;
 	private Integer capacidad;
 	private Double precio;

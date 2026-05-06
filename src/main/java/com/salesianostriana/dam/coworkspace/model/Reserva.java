@@ -11,7 +11,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 
 public class Reserva {
-
+	
+	private Long id;
 	private String codigo;
 	private LocalDate fecha;
 	private int duracion;

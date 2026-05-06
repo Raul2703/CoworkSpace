@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 
 public class ReservaEspacio {
-
+	
+	private Long id;
 	private Reserva reserva;
 	private Espacio espacio;
 	private EstadoReserva estado;
