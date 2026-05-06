@@ -1,5 +1,6 @@
 package com.salesianostriana.dam.coworkspace.model;
 
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,5 +14,7 @@ public class Usuario {
 	private String nombre;
 	private String email;
 	private String telefono;
+	
+	private List<Reserva> reservas;
 
 }

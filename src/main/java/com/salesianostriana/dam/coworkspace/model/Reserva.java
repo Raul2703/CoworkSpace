@@ -1,7 +1,7 @@
 package com.salesianostriana.dam.coworkspace.model;
 
 import java.time.LocalDate;
-
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +14,8 @@ public class Reserva {
 
 	private String codigo;
 	private LocalDate fecha;
-	private Integer duracion;
-	private Double precioTotal;
+	private int duracion;
+	private double precioTotal;
+
+	private List<Espacio> espacios;
 }
