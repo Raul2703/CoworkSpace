@@ -27,3 +27,4 @@ public class Reserva {
 	private double precioTotal;
 
 }
+
