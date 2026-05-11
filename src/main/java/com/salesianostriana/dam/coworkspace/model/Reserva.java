@@ -21,10 +21,10 @@ public class Reserva {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	private String codigo;
+	private String nombreReserva;
 	private LocalDate fecha;
-	private int duracion;
-	private double precioTotal;
+	private String horaInicio;
+	private String horaFin;
+	private Double precioTotal;
 
 }
-

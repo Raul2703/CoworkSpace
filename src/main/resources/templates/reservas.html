@@ -11,14 +11,19 @@
 
 	<h1>Lista de Reservas</h1>
 
+	<a th:href="@{/reservas/nuevo}">Nueva Reserva</a>
+
+	<br><br>
+
 	<table border="1">
 
 		<thead>
 			<tr>
 				<th>ID</th>
-				<th>Código</th>
+				<th>Nombre Reserva</th>
 				<th>Fecha</th>
-				<th>Duración</th>
+				<th>Hora inicio</th>
+				<th>Hora fin</th>
 				<th>Precio Total</th>
 			</tr>
 		</thead>
@@ -26,9 +31,10 @@
 		<tbody>
 			<tr th:each="reserva : ${reservas}">
 				<td th:text="${reserva.id}"></td>
-				<td th:text="${reserva.codigo}"></td>
+				<td th:text="${reserva.nombreReserva}"></td>
 				<td th:text="${reserva.fecha}"></td>
-				<td th:text="${reserva.duracion}"></td>
+				<td th:text="${reserva.horaInicio}"></td>
+				<td th:text="${reserva.horaFin}"></td>
 				<td th:text="${reserva.precioTotal}"></td>
 			</tr>
 		</tbody>
