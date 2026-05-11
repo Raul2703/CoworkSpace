@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Nueva Reserva</title>
+</head>
+
+<body>
+
+	<h1>Nueva Reserva</h1>
+
+	<form th:action="@{/reservas/guardar}" th:object="${reserva}" method="post">
+
+		<label>Código:</label>
+		<input type="text" th:field="*{codigo}">
+
+		<br>
+
+		<label>Fecha:</label>
+		<input type="date" th:field="*{fecha}">
+
+		<br>
+
+		<label>Duración:</label>
+		<input type="number" th:field="*{duracion}">
+
+		<br>
+
+		<label>Precio total:</label>
+		<input type="number" step="0.01" th:field="*{precioTotal}">
+
+		<br><br>
+
+		<button type="submit">Guardar</button>
+
+	</form>
+
+	<a th:href="@{/reservas}">Volver</a>
+
+</body>
+
+</html>

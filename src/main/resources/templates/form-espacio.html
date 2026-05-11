@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Nuevo Espacio</title>
+</head>
+
+<body>
+
+	<h1>Nuevo Espacio</h1>
+
+	<form th:action="@{/espacios/guardar}" th:object="${espacio}" method="post">
+
+		<label>Nombre:</label>
+		<input type="text" th:field="*{nombre}">
+
+		<br>
+
+		<label>Capacidad:</label>
+		<input type="number" th:field="*{capacidad}">
+
+		<br>
+
+		<label>Precio:</label>
+		<input type="number" step="0.01" th:field="*{precio}">
+
+		<br><br>
+
+		<button type="submit">Guardar</button>
+
+	</form>
+
+	<a th:href="@{/espacios}">Volver</a>
+
+</body>
+
+</html>
