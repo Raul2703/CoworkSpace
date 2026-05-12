@@ -5,33 +5,85 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Usuarios</title>
+
+	<link href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/css/tabler.min.css" rel="stylesheet">
 </head>
 
 <body>
 
-	<h1>Lista de Usuarios</h1>
+	<div class="page">
 
-	<table border="1">
+		<header class="navbar navbar-expand-md navbar-dark bg-dark">
+			<div class="container-xl">
+				<a class="navbar-brand" href="#">
+					CoworkSpace
+				</a>
 
-		<thead>
-			<tr>  
-				<th>ID</th>
-				<th>Nombre</th>
-				<th>Email</th>
-				<th>Teléfono</th>
-			</tr>
-		</thead>
+				<div class="navbar-nav">
+					<a class="nav-link" th:href="@{/usuarios}">Usuarios</a>
+					<a class="nav-link" th:href="@{/espacios}">Espacios</a>
+					<a class="nav-link" th:href="@{/reservas}">Reservas</a>
+				</div>
+			</div>
+		</header>
 
-		<tbody>
-			<tr th:each="usuario : ${usuarios}">
-				<td th:text="${usuario.id}"></td>
-				<td th:text="${usuario.nombre}"></td>
-				<td th:text="${usuario.email}"></td>
-				<td th:text="${usuario.telefono}"></td>
-			</tr>
-		</tbody>
+		<div class="page-wrapper">
 
-	</table>
+			<div class="page-header">
+				<div class="container-xl">
+					<div class="row align-items-center">
+						<div class="col">
+							<h2 class="page-title">Usuarios</h2>
+						</div>
+						<div class="col-auto">
+							<a th:href="@{/usuarios/nuevo}" class="btn btn-primary">
+								Nuevo Usuario
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="page-body">
+				<div class="container-xl">
+
+					<div class="card">
+						<div class="card-header">
+							<h3 class="card-title">Listado de usuarios</h3>
+						</div>
+
+						<div class="table-responsive">
+							<table class="table table-vcenter card-table table-striped">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th>Nombre</th>
+										<th>Email</th>
+										<th>Teléfono</th>
+									</tr>
+								</thead>
+
+								<tbody>
+									<tr th:each="usuario : ${usuarios}">
+										<td th:text="${usuario.id}"></td>
+										<td th:text="${usuario.nombre}"></td>
+										<td th:text="${usuario.email}"></td>
+										<td th:text="${usuario.telefono}"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/js/tabler.min.js"></script>
 
 </body>
 

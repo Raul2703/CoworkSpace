@@ -40,7 +40,7 @@ public class UsuarioController {
 
 		if (result.hasErrors()) {
 			return "form-usuario";
-		}
+		}  
 
 		usuarioService.save(usuario);
 
