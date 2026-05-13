@@ -5,42 +5,62 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Nuevo Espacio</title>
+
+	<link href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/css/tabler.min.css" rel="stylesheet">
 </head>
 
 <body>
 
-	<h1>Nuevo Espacio</h1>
+	<div class="page">
+		<div class="page-wrapper">
+			<div class="container-xl py-5">
 
-	<form th:action="@{/espacios/guardar}" th:object="${espacio}" method="post">
+				<div class="card">
+					<div class="card-header">
+						<h3 class="card-title">Nuevo Espacio</h3>
+					</div>
 
-		<label>Nombre:</label>
-		<input type="text" th:field="*{nombre}">
+					<div class="card-body">
+						<form th:action="@{/espacios/guardar}" th:object="${espacio}" method="post">
 
-		<div th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div>
+							<div class="mb-3">
+								<label class="form-label">Nombre</label>
+								<input type="text" th:field="*{nombre}" class="form-control">
 
-		<br><br>
+								<div class="text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">
+								</div>
+							</div>
 
-		<label>Capacidad:</label>
-		<input type="number" th:field="*{capacidad}">
+							<div class="mb-3">
+								<label class="form-label">Capacidad</label>
+								<input type="number" th:field="*{capacidad}" class="form-control">
 
-		<div th:if="${#fields.hasErrors('capacidad')}" th:errors="*{capacidad}"></div>
+								<div class="text-danger" th:if="${#fields.hasErrors('capacidad')}"
+									th:errors="*{capacidad}"></div>
+							</div>
 
-		<br><br>
+							<div class="mb-3">
+								<label class="form-label">Precio</label>
+								<input type="number" step="0.01" th:field="*{precio}" class="form-control">
 
-		<label>Precio:</label>
-		<input type="number" step="0.01" th:field="*{precio}">
+								<div class="text-danger" th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}">
+								</div>
+							</div>
 
-		<div th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"></div>
+							<div class="d-flex gap-2">
+								<button type="submit" class="btn btn-primary">Guardar</button>
+								<a th:href="@{/espacios}" class="btn btn-secondary">Volver</a>
+							</div>
 
-		<br><br>
+						</form>
+					</div>
+				</div>
 
-		<button type="submit">Guardar</button>
+			</div>
+		</div>
+	</div>
 
-	</form>
-
-	<br>
-
-	<a th:href="@{/espacios}">Volver</a>
+	<script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/js/tabler.min.js"></script>
 
 </body>
 

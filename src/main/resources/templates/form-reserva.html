@@ -3,117 +3,132 @@
 
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Nueva Reserva</title>
+
+	<link href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/css/tabler.min.css" rel="stylesheet">
 </head>
 
 <body>
 
-	<h1>Nueva Reserva</h1>
+	<div class="page">
+		<div class="page-wrapper">
+			<div class="container-xl py-5">
 
-	<form th:action="@{/reservas/guardar}" th:object="${reserva}" method="post">
+				<div class="card">
+					<div class="card-header">
+						<h3 class="card-title">Nueva Reserva</h3>
+					</div>
 
-		<label>Nombre Reserva:</label>
-		<input type="text" th:field="*{nombreReserva}">
+					<div class="card-body">
+						<form th:action="@{/reservas/guardar}" th:object="${reserva}" method="post">
 
-		<div th:if="${#fields.hasErrors('nombreReserva')}" th:errors="*{nombreReserva}"></div>
+							<div class="mb-3">
+								<label class="form-label">Nombre Reserva</label>
+								<input type="text" th:field="*{nombreReserva}" class="form-control">
 
-		<br><br>
+								<div class="text-danger" th:if="${#fields.hasErrors('nombreReserva')}"
+									th:errors="*{nombreReserva}"></div>
+							</div>
 
-		<label>Fecha:</label>
-		<input type="date" th:field="*{fecha}">
+							<div class="mb-3">
+								<label class="form-label">Fecha</label>
+								<input type="date" th:field="*{fecha}" class="form-control">
 
-		<div th:if="${#fields.hasErrors('fecha')}" th:errors="*{fecha}"></div>
+								<div class="text-danger" th:if="${#fields.hasErrors('fecha')}" th:errors="*{fecha}">
+								</div>
+							</div>
 
-		<br><br>
+							<div class="mb-3">
+								<label class="form-label">Hora inicio</label>
+								<select th:field="*{horaInicio}" class="form-select">
+									<option value="">Selecciona una hora</option>
+									<option value="00:00">00:00</option>
+									<option value="01:00">01:00</option>
+									<option value="02:00">02:00</option>
+									<option value="03:00">03:00</option>
+									<option value="04:00">04:00</option>
+									<option value="05:00">05:00</option>
+									<option value="06:00">06:00</option>
+									<option value="07:00">07:00</option>
+									<option value="08:00">08:00</option>
+									<option value="09:00">09:00</option>
+									<option value="10:00">10:00</option>
+									<option value="11:00">11:00</option>
+									<option value="12:00">12:00</option>
+									<option value="13:00">13:00</option>
+									<option value="14:00">14:00</option>
+									<option value="15:00">15:00</option>
+									<option value="16:00">16:00</option>
+									<option value="17:00">17:00</option>
+									<option value="18:00">18:00</option>
+									<option value="19:00">19:00</option>
+									<option value="20:00">20:00</option>
+									<option value="21:00">21:00</option>
+									<option value="22:00">22:00</option>
+									<option value="23:00">23:00</option>
+								</select>
 
-		<label>Hora inicio:</label>
+								<div class="text-danger" th:if="${#fields.hasErrors('horaInicio')}"
+									th:errors="*{horaInicio}"></div>
+							</div>
 
-		<select th:field="*{horaInicio}">
+							<div class="mb-3">
+								<label class="form-label">Hora fin</label>
+								<select th:field="*{horaFin}" class="form-select">
+									<option value="">Selecciona una hora</option>
+									<option value="00:00">00:00</option>
+									<option value="01:00">01:00</option>
+									<option value="02:00">02:00</option>
+									<option value="03:00">03:00</option>
+									<option value="04:00">04:00</option>
+									<option value="05:00">05:00</option>
+									<option value="06:00">06:00</option>
+									<option value="07:00">07:00</option>
+									<option value="08:00">08:00</option>
+									<option value="09:00">09:00</option>
+									<option value="10:00">10:00</option>
+									<option value="11:00">11:00</option>
+									<option value="12:00">12:00</option>
+									<option value="13:00">13:00</option>
+									<option value="14:00">14:00</option>
+									<option value="15:00">15:00</option>
+									<option value="16:00">16:00</option>
+									<option value="17:00">17:00</option>
+									<option value="18:00">18:00</option>
+									<option value="19:00">19:00</option>
+									<option value="20:00">20:00</option>
+									<option value="21:00">21:00</option>
+									<option value="22:00">22:00</option>
+									<option value="23:00">23:00</option>
+								</select>
 
-			<option value="">Selecciona una hora</option>
+								<div class="text-danger" th:if="${#fields.hasErrors('horaFin')}" th:errors="*{horaFin}">
+								</div>
+							</div>
 
-			<option value="00:00">00:00</option>
-			<option value="01:00">01:00</option>
-			<option value="02:00">02:00</option>
-			<option value="03:00">03:00</option>
-			<option value="04:00">04:00</option>
-			<option value="05:00">05:00</option>
-			<option value="06:00">06:00</option>
-			<option value="07:00">07:00</option>
-			<option value="08:00">08:00</option>
-			<option value="09:00">09:00</option>
-			<option value="10:00">10:00</option>
-			<option value="11:00">11:00</option>
-			<option value="12:00">12:00</option>
-			<option value="13:00">13:00</option>
-			<option value="14:00">14:00</option>
-			<option value="15:00">15:00</option>
-			<option value="16:00">16:00</option>
-			<option value="17:00">17:00</option>
-			<option value="18:00">18:00</option>
-			<option value="19:00">19:00</option>
-			<option value="20:00">20:00</option>
-			<option value="21:00">21:00</option>
-			<option value="22:00">22:00</option>
-			<option value="23:00">23:00</option>
+							<div class="mb-3">
+								<label class="form-label">Precio total</label>
+								<input type="number" step="0.01" th:field="*{precioTotal}" class="form-control">
 
-		</select>
+								<div class="text-danger" th:if="${#fields.hasErrors('precioTotal')}"
+									th:errors="*{precioTotal}"></div>
+							</div>
 
-		<div th:if="${#fields.hasErrors('horaInicio')}" th:errors="*{horaInicio}"></div>
+							<div class="d-flex gap-2">
+								<button type="submit" class="btn btn-primary">Guardar</button>
+								<a th:href="@{/reservas}" class="btn btn-secondary">Volver</a>
+							</div>
 
-		<br><br>
+						</form>
+					</div>
+				</div>
 
-		<label>Hora fin:</label>
+			</div>
+		</div>
+	</div>
 
-		<select th:field="*{horaFin}">
-
-			<option value="">Selecciona una hora</option>
-
-			<option value="00:00">00:00</option>
-			<option value="01:00">01:00</option>
-			<option value="02:00">02:00</option>
-			<option value="03:00">03:00</option>
-			<option value="04:00">04:00</option>
-			<option value="05:00">05:00</option>
-			<option value="06:00">06:00</option>
-			<option value="07:00">07:00</option>
-			<option value="08:00">08:00</option>
-			<option value="09:00">09:00</option>
-			<option value="10:00">10:00</option>
-			<option value="11:00">11:00</option>
-			<option value="12:00">12:00</option>
-			<option value="13:00">13:00</option>
-			<option value="14:00">14:00</option>
-			<option value="15:00">15:00</option>
-			<option value="16:00">16:00</option>
-			<option value="17:00">17:00</option>
-			<option value="18:00">18:00</option>
-			<option value="19:00">19:00</option>
-			<option value="20:00">20:00</option>
-			<option value="21:00">21:00</option>
-			<option value="22:00">22:00</option>
-			<option value="23:00">23:00</option>
-
-		</select>
-
-		<div th:if="${#fields.hasErrors('horaFin')}" th:errors="*{horaFin}"></div>
-
-		<br><br>
-
-		<label>Precio total:</label>
-		<input type="number" step="0.01" th:field="*{precioTotal}">
-
-		<div th:if="${#fields.hasErrors('precioTotal')}" th:errors="*{precioTotal}"></div>
-
-		<br><br>
-
-		<button type="submit">Guardar</button>
-
-	</form>
-
-	<br>
-
-	<a th:href="@{/reservas}">Volver</a>
+	<script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/js/tabler.min.js"></script>
 
 </body>
 
