@@ -41,6 +41,7 @@
 
 							<div class="mb-3">
 								<label class="form-label">Hora inicio</label>
+
 								<select th:field="*{horaInicio}" class="form-select">
 									<option value="">Selecciona una hora</option>
 									<option value="00:00">00:00</option>
@@ -75,6 +76,7 @@
 
 							<div class="mb-3">
 								<label class="form-label">Hora fin</label>
+
 								<select th:field="*{horaFin}" class="form-select">
 									<option value="">Selecciona una hora</option>
 									<option value="00:00">00:00</option>
@@ -105,6 +107,28 @@
 
 								<div class="text-danger" th:if="${#fields.hasErrors('horaFin')}" th:errors="*{horaFin}">
 								</div>
+							</div>
+
+							<div class="mb-3">
+								<label class="form-label">Usuario</label>
+
+								<select th:field="*{usuario}" class="form-select">
+									<option value="">Selecciona un usuario</option>
+									<option th:each="usuario : ${usuarios}" th:value="${usuario.id}"
+										th:text="${usuario.nombre}">
+									</option>
+								</select>
+							</div>
+
+							<div class="mb-3">
+								<label class="form-label">Espacio</label>
+
+								<select th:field="*{espacio}" class="form-select">
+									<option value="">Selecciona un espacio</option>
+									<option th:each="espacio : ${espacios}" th:value="${espacio.id}"
+										th:text="${espacio.nombre}">
+									</option>
+								</select>
 							</div>
 
 							<div class="mb-3">

@@ -71,6 +71,8 @@
 										<th>Fecha</th>
 										<th>Hora Inicio</th>
 										<th>Hora Fin</th>
+										<th>Usuario</th>
+										<th>Espacio</th>
 										<th>Precio Total</th>
 									</tr>
 								</thead>
@@ -84,6 +86,12 @@
 										<td th:text="${reserva.fecha}"></td>
 										<td th:text="${reserva.horaInicio}"></td>
 										<td th:text="${reserva.horaFin}"></td>
+										<td
+											th:text="${reserva.usuario != null ? reserva.usuario.nombre : 'Sin usuario'}">
+										</td>
+										<td
+											th:text="${reserva.espacio != null ? reserva.espacio.nombre : 'Sin espacio'}">
+										</td>
 										<td th:text="${reserva.precioTotal}"></td>
 
 									</tr>
