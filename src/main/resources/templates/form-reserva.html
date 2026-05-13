@@ -16,15 +16,20 @@
 			<div class="container-xl py-5">
 
 				<div class="card">
+
 					<div class="card-header">
 						<h3 class="card-title">Nueva Reserva</h3>
 					</div>
 
 					<div class="card-body">
+
 						<form th:action="@{/reservas/guardar}" th:object="${reserva}" method="post">
+
+							<input type="hidden" th:field="*{id}">
 
 							<div class="mb-3">
 								<label class="form-label">Nombre Reserva</label>
+
 								<input type="text" th:field="*{nombreReserva}" class="form-control">
 
 								<div class="text-danger" th:if="${#fields.hasErrors('nombreReserva')}"
@@ -33,6 +38,7 @@
 
 							<div class="mb-3">
 								<label class="form-label">Fecha</label>
+
 								<input type="date" th:field="*{fecha}" class="form-control">
 
 								<div class="text-danger" th:if="${#fields.hasErrors('fecha')}" th:errors="*{fecha}">
@@ -43,7 +49,9 @@
 								<label class="form-label">Hora inicio</label>
 
 								<select th:field="*{horaInicio}" class="form-select">
+
 									<option value="">Selecciona una hora</option>
+
 									<option value="00:00">00:00</option>
 									<option value="01:00">01:00</option>
 									<option value="02:00">02:00</option>
@@ -68,6 +76,7 @@
 									<option value="21:00">21:00</option>
 									<option value="22:00">22:00</option>
 									<option value="23:00">23:00</option>
+
 								</select>
 
 								<div class="text-danger" th:if="${#fields.hasErrors('horaInicio')}"
@@ -78,7 +87,9 @@
 								<label class="form-label">Hora fin</label>
 
 								<select th:field="*{horaFin}" class="form-select">
+
 									<option value="">Selecciona una hora</option>
+
 									<option value="00:00">00:00</option>
 									<option value="01:00">01:00</option>
 									<option value="02:00">02:00</option>
@@ -103,6 +114,7 @@
 									<option value="21:00">21:00</option>
 									<option value="22:00">22:00</option>
 									<option value="23:00">23:00</option>
+
 								</select>
 
 								<div class="text-danger" th:if="${#fields.hasErrors('horaFin')}" th:errors="*{horaFin}">
@@ -113,10 +125,13 @@
 								<label class="form-label">Usuario</label>
 
 								<select th:field="*{usuario}" class="form-select">
+
 									<option value="">Selecciona un usuario</option>
+
 									<option th:each="usuario : ${usuarios}" th:value="${usuario.id}"
 										th:text="${usuario.nombre}">
 									</option>
+
 								</select>
 							</div>
 
@@ -124,15 +139,19 @@
 								<label class="form-label">Espacio</label>
 
 								<select th:field="*{espacio}" class="form-select">
+
 									<option value="">Selecciona un espacio</option>
+
 									<option th:each="espacio : ${espacios}" th:value="${espacio.id}"
 										th:text="${espacio.nombre}">
 									</option>
+
 								</select>
 							</div>
 
 							<div class="mb-3">
 								<label class="form-label">Precio total</label>
+
 								<input type="number" step="0.01" th:field="*{precioTotal}" class="form-control">
 
 								<div class="text-danger" th:if="${#fields.hasErrors('precioTotal')}"
@@ -140,12 +159,21 @@
 							</div>
 
 							<div class="d-flex gap-2">
-								<button type="submit" class="btn btn-primary">Guardar</button>
-								<a th:href="@{/reservas}" class="btn btn-secondary">Volver</a>
+
+								<button type="submit" class="btn btn-primary">
+									Guardar
+								</button>
+
+								<a th:href="@{/reservas}" class="btn btn-secondary">
+									Volver
+								</a>
+
 							</div>
 
 						</form>
+
 					</div>
+
 				</div>
 
 			</div>

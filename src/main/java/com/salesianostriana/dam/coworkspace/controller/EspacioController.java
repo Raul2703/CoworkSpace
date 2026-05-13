@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.salesianostriana.dam.coworkspace.model.Espacio;
@@ -36,13 +37,35 @@ public class EspacioController {
 	}
 
 	@PostMapping("/espacios/guardar")
-	public String guardarEspacio(@Valid @ModelAttribute Espacio espacio, BindingResult result) {
+	public String guardarEspacio(@Valid @ModelAttribute("espacios") Espacio espacio, BindingResult result) {
 
 		if (result.hasErrors()) {
 			return "form-espacio";
 		}
 
 		espacioService.save(espacio);
+
+		return "redirect:/espacios";
+	}
+
+	@GetMapping("/espacios/editar/{id}")
+	public String editarEspacio(@PathVariable Long id, Model model) {
+
+		Espacio espacio = espacioService.findById(id).orElse(null);
+
+		if (espacio == null) {
+			return "redirect:/espacios";
+		}
+
+		model.addAttribute("espacio", espacio);
+
+		return "form-espacio";
+	}
+
+	@GetMapping("/espacios/borrar/{id}")
+	public String borrarEspacio(@PathVariable Long id) {
+
+		espacioService.deleteById(id);
 
 		return "redirect:/espacios";
 	}

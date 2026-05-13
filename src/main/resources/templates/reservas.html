@@ -15,17 +15,13 @@
 
 		<header class="navbar navbar-expand-md navbar-dark bg-dark">
 			<div class="container-xl">
-
-				<a class="navbar-brand" href="#">
-					CoworkSpace
-				</a>
+				<a class="navbar-brand" href="#">CoworkSpace</a>
 
 				<div class="navbar-nav">
 					<a class="nav-link" th:href="@{/usuarios}">Usuarios</a>
 					<a class="nav-link" th:href="@{/espacios}">Espacios</a>
 					<a class="nav-link" th:href="@{/reservas}">Reservas</a>
 				</div>
-
 			</div>
 		</header>
 
@@ -33,9 +29,7 @@
 
 			<div class="page-header">
 				<div class="container-xl">
-
 					<div class="row align-items-center">
-
 						<div class="col">
 							<h2 class="page-title">Reservas</h2>
 						</div>
@@ -45,9 +39,7 @@
 								Nueva Reserva
 							</a>
 						</div>
-
 					</div>
-
 				</div>
 			</div>
 
@@ -55,51 +47,58 @@
 				<div class="container-xl">
 
 					<div class="card">
-
 						<div class="card-header">
 							<h3 class="card-title">Listado de reservas</h3>
 						</div>
 
 						<div class="table-responsive">
-
 							<table class="table table-vcenter card-table table-striped">
 
 								<thead>
 									<tr>
 										<th>ID</th>
-										<th>Nombre Reserva</th>
+										<th>Nombre</th>
 										<th>Fecha</th>
-										<th>Hora Inicio</th>
-										<th>Hora Fin</th>
+										<th>Hora inicio</th>
+										<th>Hora fin</th>
+										<th>Precio total</th>
 										<th>Usuario</th>
 										<th>Espacio</th>
-										<th>Precio Total</th>
+										<th>Acciones</th>
 									</tr>
 								</thead>
 
 								<tbody>
-
 									<tr th:each="reserva : ${reservas}">
-
 										<td th:text="${reserva.id}"></td>
 										<td th:text="${reserva.nombreReserva}"></td>
 										<td th:text="${reserva.fecha}"></td>
 										<td th:text="${reserva.horaInicio}"></td>
 										<td th:text="${reserva.horaFin}"></td>
+										<td th:text="${reserva.precioTotal}"></td>
+
 										<td
 											th:text="${reserva.usuario != null ? reserva.usuario.nombre : 'Sin usuario'}">
 										</td>
 										<td
 											th:text="${reserva.espacio != null ? reserva.espacio.nombre : 'Sin espacio'}">
 										</td>
-										<td th:text="${reserva.precioTotal}"></td>
 
+										<td>
+											<a th:href="@{/reservas/editar/{id}(id=${reserva.id})}"
+												class="btn btn-warning btn-sm">
+												Editar
+											</a>
+
+											<a th:href="@{/reservas/borrar/{id}(id=${reserva.id})}"
+												class="btn btn-danger btn-sm">
+												Borrar
+											</a>
+										</td>
 									</tr>
-
 								</tbody>
 
 							</table>
-
 						</div>
 
 					</div>

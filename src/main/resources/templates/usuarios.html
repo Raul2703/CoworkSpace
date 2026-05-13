@@ -15,6 +15,7 @@
 
 		<header class="navbar navbar-expand-md navbar-dark bg-dark">
 			<div class="container-xl">
+
 				<a class="navbar-brand" href="#">
 					CoworkSpace
 				</a>
@@ -24,6 +25,7 @@
 					<a class="nav-link" th:href="@{/espacios}">Espacios</a>
 					<a class="nav-link" th:href="@{/reservas}">Reservas</a>
 				</div>
+
 			</div>
 		</header>
 
@@ -31,16 +33,21 @@
 
 			<div class="page-header">
 				<div class="container-xl">
+
 					<div class="row align-items-center">
+
 						<div class="col">
 							<h2 class="page-title">Usuarios</h2>
 						</div>
+
 						<div class="col-auto">
 							<a th:href="@{/usuarios/nuevo}" class="btn btn-primary">
 								Nuevo Usuario
 							</a>
 						</div>
+
 					</div>
+
 				</div>
 			</div>
 
@@ -48,30 +55,57 @@
 				<div class="container-xl">
 
 					<div class="card">
+
 						<div class="card-header">
 							<h3 class="card-title">Listado de usuarios</h3>
 						</div>
 
 						<div class="table-responsive">
+
 							<table class="table table-vcenter card-table table-striped">
+
 								<thead>
 									<tr>
 										<th>ID</th>
 										<th>Nombre</th>
 										<th>Email</th>
 										<th>Teléfono</th>
+										<th>Acciones</th>
 									</tr>
 								</thead>
 
 								<tbody>
+
 									<tr th:each="usuario : ${usuarios}">
+
 										<td th:text="${usuario.id}"></td>
+
 										<td th:text="${usuario.nombre}"></td>
+
 										<td th:text="${usuario.email}"></td>
+
 										<td th:text="${usuario.telefono}"></td>
+
+										<td>
+
+											<a th:href="@{/usuarios/editar/{id}(id=${usuario.id})}"
+												class="btn btn-warning btn-sm">
+												Editar
+											</a>
+
+											<a th:href="@{/usuarios/borrar/{id}(id=${usuario.id})}"
+												class="btn btn-danger btn-sm">
+												Borrar
+											</a>
+
+										</td>
+
 									</tr>
+
 								</tbody>
+
 							</table>
+
 						</div>
 
 					</div>
