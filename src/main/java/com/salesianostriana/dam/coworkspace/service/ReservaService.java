@@ -9,6 +9,8 @@ import com.salesianostriana.dam.coworkspace.service.base.BaseServiceImpl;
 @Service
 public class ReservaService extends BaseServiceImpl<Reserva, Long, ReservaRepository> {
 
+	private final double PRECIO_HORA = 30.0;
+
 	@Override
 	public Reserva save(Reserva reserva) {
 
@@ -24,7 +26,7 @@ public class ReservaService extends BaseServiceImpl<Reserva, Long, ReservaReposi
 
 		int horasReservadas = horaFin - horaInicio;
 
-		reserva.setPrecioTotal(horasReservadas * 30.0);
+		reserva.setPrecioTotal(horasReservadas * PRECIO_HORA);
 	}
 
 }

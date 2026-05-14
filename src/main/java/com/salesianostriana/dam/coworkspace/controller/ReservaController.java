@@ -36,7 +36,6 @@ public class ReservaController {
 	public String nuevaReserva(Model model) {
 
 		model.addAttribute("reserva", new Reserva());
-
 		model.addAttribute("usuarios", usuarioService.findAll());
 		model.addAttribute("espacios", espacioService.findAll());
 
@@ -44,9 +43,22 @@ public class ReservaController {
 	}
 
 	@PostMapping("/reservas/guardar")
-	public String guardarReserva(@Valid @ModelAttribute("reservas") Reserva reserva, BindingResult result, Model model) {
+	public String guardarReserva(@Valid @ModelAttribute Reserva reserva, BindingResult result, Model model) {
 
 		if (result.hasErrors()) {
+
+			model.addAttribute("usuarios", usuarioService.findAll());
+			model.addAttribute("espacios", espacioService.findAll());
+
+			return "form-reserva";
+		}
+
+		int horaInicio = Integer.parseInt(reserva.getHoraInicio().substring(0, 2));
+		int horaFin = Integer.parseInt(reserva.getHoraFin().substring(0, 2));
+
+		if (horaFin <= horaInicio) {
+
+			model.addAttribute("errorHora", "La hora de fin debe ser posterior a la hora de inicio");
 
 			model.addAttribute("usuarios", usuarioService.findAll());
 			model.addAttribute("espacios", espacioService.findAll());
@@ -64,12 +76,7 @@ public class ReservaController {
 
 		Reserva reserva = reservaService.findById(id).orElse(null);
 
-		if (reserva == null) {
-			return "redirect:/reservas";
-		}
-
 		model.addAttribute("reserva", reserva);
-
 		model.addAttribute("usuarios", usuarioService.findAll());
 		model.addAttribute("espacios", espacioService.findAll());
 
