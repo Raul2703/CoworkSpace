@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>CoworkSpace</title>
+
+	<link href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/css/tabler.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+	<header class="navbar navbar-expand-md navbar-light bg-white border-bottom">
+		<div class="container-fluid px-4">
+
+			<a class="navbar-brand fw-bold fs-2" th:href="@{/}">
+				Cowork<span class="text-primary">Space</span>
+			</a>
+
+			<div class="navbar-nav ms-auto">
+				<a class="nav-link" th:href="@{/usuarios}">Usuarios</a>
+				<a class="nav-link" th:href="@{/espacios}">Espacios</a>
+				<a class="nav-link" th:href="@{/reservas}">Reservas</a>
+			</div>
+
+		</div>
+	</header>
+
+	<div class="container-fluid">
+
+		<div class="row">
+
+			<aside class="col-md-3 col-lg-2 bg-white border-end min-vh-100 p-4">
+
+				<h3 class="mb-4">Filtros</h3>
+
+				<div class="mb-3">
+					<label class="form-label">Ubicación</label>
+					<input type="text" class="form-control" value="España" readonly>
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label">Tipo de espacio</label>
+					<select class="form-select">
+						<option>Todos los espacios</option>
+						<option>Puesto individual</option>
+						<option>Sala de reuniones</option>
+						<option>Oficina privada</option>
+					</select>
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label">Número de personas</label>
+					<select class="form-select">
+						<option>Cualquier</option>
+						<option>1 persona</option>
+						<option>2 - 5 personas</option>
+						<option>6 - 10 personas</option>
+						<option>Más de 10 personas</option>
+					</select>
+
+					</select>
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label">Precio por hora</label>
+					<input type="text" class="form-control" value="30 € / hora" readonly>
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label">Fecha</label>
+					<input type="date" class="form-control">
+				</div>
+
+			</aside>
+
+			<main class="col-md-9 col-lg-10 p-5">
+
+				<div class="d-flex justify-content-between align-items-start mb-4">
+
+					<div>
+						<h1 class="fw-bold mb-2">Espacios de coworking</h1>
+						<p class="text-secondary fs-3">
+							Gestiona usuarios, espacios y reservas desde una única plataforma.
+						</p>
+					</div>
+
+					<a th:href="@{/reservas/nuevo}" class="btn btn-primary btn-lg">
+						Nueva reserva
+					</a>
+
+				</div>
+
+				<div class="row g-4">
+
+					<div class="col-md-6 col-xl-4">
+
+						<div class="card shadow-sm h-100">
+
+							<div class="card-img-top bg-primary-lt d-flex align-items-center justify-content-center"
+								style="height: 180px;">
+								<h2 class="text-primary">Usuarios</h2>
+							</div>
+
+							<div class="card-body">
+
+								<h3 class="card-title">Gestión de usuarios</h3>
+
+								<p class="text-secondary">
+									Registra y consulta los usuarios que utilizan los espacios de coworking.
+								</p>
+
+								<a th:href="@{/usuarios}" class="btn btn-outline-primary">
+									Ver usuarios
+								</a>
+
+							</div>
+
+						</div>
+
+					</div>
+
+					<div class="col-md-6 col-xl-4">
+
+						<div class="card shadow-sm h-100">
+
+							<div class="card-img-top bg-success-lt d-flex align-items-center justify-content-center"
+								style="height: 180px;">
+								<h2 class="text-success">Espacios</h2>
+							</div>
+
+							<div class="card-body">
+
+								<h3 class="card-title">Espacios disponibles</h3>
+
+								<p class="text-secondary">
+									Administra salas, puestos individuales y zonas disponibles del coworking.
+								</p>
+
+								<a th:href="@{/espacios}" class="btn btn-outline-success">
+									Ver espacios
+								</a>
+
+							</div>
+
+						</div>
+
+					</div>
+
+					<div class="col-md-6 col-xl-4">
+
+						<div class="card shadow-sm h-100">
+
+							<div class="card-img-top bg-purple-lt d-flex align-items-center justify-content-center"
+								style="height: 180px;">
+								<h2 class="text-purple">Reservas</h2>
+							</div>
+
+							<div class="card-body">
+
+								<h3 class="card-title">Reservas activas</h3>
+
+								<p class="text-secondary">
+									Crea reservas asociadas a usuarios y espacios con cálculo automático del precio.
+								</p>
+
+								<a th:href="@{/reservas}" class="btn btn-outline-purple">
+									Ver reservas
+								</a>
+
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</main>
+
+		</div>
+
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/js/tabler.min.js"></script>
+
+</body>
+
+</html>
