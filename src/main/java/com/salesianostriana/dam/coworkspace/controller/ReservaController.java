@@ -66,6 +66,16 @@ public class ReservaController {
 			return "form-reserva";
 		}
 
+		if (reservaService.existeSolapamiento(reserva)) {
+
+			model.addAttribute("errorSolapamiento", "El espacio ya está reservado en ese horario");
+
+			model.addAttribute("usuarios", usuarioService.findAll());
+			model.addAttribute("espacios", espacioService.findAll());
+
+			return "form-reserva";
+		}
+
 		reservaService.save(reserva);
 
 		return "redirect:/reservas";
