@@ -24,7 +24,7 @@ public class ReservaService extends BaseServiceImpl<Reserva, Long, ReservaReposi
 
 		int horasReservadas = horaFin - horaInicio;
 
-		reserva.setPrecioTotal(horasReservadas * 150.0);
+		reserva.setPrecioTotal(horasReservadas * 30.0);
 	}
 
 }

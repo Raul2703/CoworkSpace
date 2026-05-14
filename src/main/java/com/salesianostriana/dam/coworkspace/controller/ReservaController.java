@@ -44,7 +44,7 @@ public class ReservaController {
 	}
 
 	@PostMapping("/reservas/guardar")
-	public String guardarReserva(@Valid @ModelAttribute("reserva") Reserva reserva, BindingResult result, Model model) {
+	public String guardarReserva(@Valid @ModelAttribute("reservas") Reserva reserva, BindingResult result, Model model) {
 
 		if (result.hasErrors()) {
 

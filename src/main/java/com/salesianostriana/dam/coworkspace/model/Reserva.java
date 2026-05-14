@@ -36,12 +36,11 @@ public class Reserva {
 	@NotBlank
 	private String horaFin;
 
-	@NotNull
 	private Double precioTotal;
-	
+
 	@ManyToOne
 	private Usuario usuario;
-	
+
 	@ManyToOne
 	private Espacio espacio;
 
