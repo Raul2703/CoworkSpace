@@ -62,7 +62,7 @@ public class ReservaService extends BaseServiceImpl<Reserva, Long, ReservaReposi
 		reserva.setPrecioTotal(horasReservadas * PRECIO_HORA);
 	}
 
-	private int obtenerHora(String hora) {
+	public int obtenerHora(String hora) {
 		return Integer.parseInt(hora.substring(0, 2));
 	}
 

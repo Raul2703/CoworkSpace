@@ -1,4 +1,4 @@
-package com.salesianostriana.dam.coworkspace.model;
+ package com.salesianostriana.dam.coworkspace.model;
 
 public enum EstadoReserva {
 	

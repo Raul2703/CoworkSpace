@@ -31,12 +31,12 @@ public class Espacio {
 
 	@NotNull
 	@Min(1)
-	private int capacidad;
+	private Integer capacidad;
 
 	@NotNull
 	@Min(0)
-	private double precio;
-	
+	private Double precio;
+
 	@OneToMany(mappedBy = "espacio")
 	private List<Reserva> reservas = new ArrayList<>();
 

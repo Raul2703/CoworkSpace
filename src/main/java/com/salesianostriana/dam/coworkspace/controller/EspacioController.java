@@ -22,51 +22,36 @@ public class EspacioController {
 
 	@GetMapping("/espacios")
 	public String getEspacios(Model model) {
-
 		model.addAttribute("espacios", espacioService.findAll());
-
 		return "espacios";
 	}
 
 	@GetMapping("/espacios/nuevo")
 	public String nuevoEspacio(Model model) {
-
 		model.addAttribute("espacio", new Espacio());
-
 		return "form-espacio";
 	}
 
 	@PostMapping("/espacios/guardar")
-	public String guardarEspacio(@Valid @ModelAttribute("espacios") Espacio espacio, BindingResult result) {
+	public String guardarEspacio(@Valid @ModelAttribute Espacio espacio, BindingResult result) {
 
 		if (result.hasErrors()) {
 			return "form-espacio";
 		}
 
 		espacioService.save(espacio);
-
 		return "redirect:/espacios";
 	}
 
 	@GetMapping("/espacios/editar/{id}")
 	public String editarEspacio(@PathVariable Long id, Model model) {
-
-		Espacio espacio = espacioService.findById(id).orElse(null);
-
-		if (espacio == null) {
-			return "redirect:/espacios";
-		}
-
-		model.addAttribute("espacio", espacio);
-
+		model.addAttribute("espacio", espacioService.findById(id).orElse(null));
 		return "form-espacio";
 	}
 
 	@GetMapping("/espacios/borrar/{id}")
 	public String borrarEspacio(@PathVariable Long id) {
-
 		espacioService.deleteById(id);
-
 		return "redirect:/espacios";
 	}
 

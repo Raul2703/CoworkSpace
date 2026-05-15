@@ -26,19 +26,15 @@ public class ReservaController {
 
 	@GetMapping("/reservas")
 	public String getReservas(Model model) {
-
 		model.addAttribute("reservas", reservaService.findAll());
-
 		return "reservas";
 	}
 
 	@GetMapping("/reservas/nuevo")
 	public String nuevaReserva(Model model) {
-
 		model.addAttribute("reserva", new Reserva());
 		model.addAttribute("usuarios", usuarioService.findAll());
 		model.addAttribute("espacios", espacioService.findAll());
-
 		return "form-reserva";
 	}
 
@@ -46,59 +42,45 @@ public class ReservaController {
 	public String guardarReserva(@Valid @ModelAttribute Reserva reserva, BindingResult result, Model model) {
 
 		if (result.hasErrors()) {
-
-			model.addAttribute("usuarios", usuarioService.findAll());
-			model.addAttribute("espacios", espacioService.findAll());
-
+			cargarUsuariosYEspacios(model);
 			return "form-reserva";
 		}
 
-		int horaInicio = Integer.parseInt(reserva.getHoraInicio().substring(0, 2));
-		int horaFin = Integer.parseInt(reserva.getHoraFin().substring(0, 2));
+		int horaInicio = reservaService.obtenerHora(reserva.getHoraInicio());
+		int horaFin = reservaService.obtenerHora(reserva.getHoraFin());
 
 		if (horaFin <= horaInicio) {
-
 			model.addAttribute("errorHora", "La hora de fin debe ser posterior a la hora de inicio");
-
-			model.addAttribute("usuarios", usuarioService.findAll());
-			model.addAttribute("espacios", espacioService.findAll());
-
+			cargarUsuariosYEspacios(model);
 			return "form-reserva";
 		}
 
 		if (reservaService.existeSolapamiento(reserva)) {
-
 			model.addAttribute("errorSolapamiento", "El espacio ya está reservado en ese horario");
-
-			model.addAttribute("usuarios", usuarioService.findAll());
-			model.addAttribute("espacios", espacioService.findAll());
-
+			cargarUsuariosYEspacios(model);
 			return "form-reserva";
 		}
 
 		reservaService.save(reserva);
-
 		return "redirect:/reservas";
 	}
 
 	@GetMapping("/reservas/editar/{id}")
 	public String editarReserva(@PathVariable Long id, Model model) {
-
-		Reserva reserva = reservaService.findById(id).orElse(null);
-
-		model.addAttribute("reserva", reserva);
-		model.addAttribute("usuarios", usuarioService.findAll());
-		model.addAttribute("espacios", espacioService.findAll());
-
+		model.addAttribute("reserva", reservaService.findById(id).orElse(null));
+		cargarUsuariosYEspacios(model);
 		return "form-reserva";
 	}
 
 	@GetMapping("/reservas/borrar/{id}")
 	public String borrarReserva(@PathVariable Long id) {
-
 		reservaService.deleteById(id);
-
 		return "redirect:/reservas";
+	}
+
+	private void cargarUsuariosYEspacios(Model model) {
+		model.addAttribute("usuarios", usuarioService.findAll());
+		model.addAttribute("espacios", espacioService.findAll());
 	}
 
 }

@@ -27,14 +27,14 @@ public class Usuario {
 
 	@NotBlank
 	private String nombre;
-	
+
 	@NotBlank
 	@Email
 	private String email;
-	
+
 	@NotBlank
 	private String telefono;
-	
+
 	@OneToMany(mappedBy = "usuario")
 	private List<Reserva> reservas = new ArrayList<>();
 

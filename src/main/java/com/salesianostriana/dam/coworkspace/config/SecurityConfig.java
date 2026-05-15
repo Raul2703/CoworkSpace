@@ -2,14 +2,18 @@ package com.salesianostriana.dam.coworkspace.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
+
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 
 @Configuration
 @EnableWebSecurity
@@ -21,12 +25,6 @@ public class SecurityConfig {
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/", "/index", "/login", "/css/**", "/js/**", "/img/**")
 				.permitAll().requestMatchers("/admin/**", "/usuarios/**", "/espacios/**", "/reservas/**")
 				.authenticated().anyRequest().authenticated())
-
-				.requestCache(cache -> {
-					HttpSessionRequestCache requestCache = new HttpSessionRequestCache();
-					requestCache.setMatchingRequestParameterName(null);
-					cache.requestCache(requestCache);
-				})
 
 				.formLogin(login -> login.loginPage("/login").defaultSuccessUrl("/admin", true).permitAll())
 
