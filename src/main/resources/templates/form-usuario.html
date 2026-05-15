@@ -2,65 +2,120 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head>
+
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Nuevo Usuario</title>
 
-	<link href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/css/tabler.min.css" rel="stylesheet">
+	<title>Formulario Usuario</title>
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+	<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap"
+		rel="stylesheet">
+
 </head>
 
-<body>
+<body class="bg-light" style="font-family: 'Manrope', sans-serif;">
 
-	<div class="page">
-		<div class="page-wrapper">
-			<div class="container-xl py-5">
+	<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom py-3">
 
-				<div class="card">
-					<div class="card-header">
-						<h3 class="card-title">Nuevo Usuario</h3>
+		<div class="container">
+
+			<a class="navbar-brand fw-bold fs-2" th:href="@{/}">
+				Cowork<span class="text-primary">Space</span>
+			</a>
+
+			<div class="ms-auto">
+				<a th:href="@{/admin}" class="btn btn-dark rounded-pill px-4">
+					Panel admin
+				</a>
+			</div>
+
+		</div>
+
+	</nav>
+
+	<section class="py-5">
+
+		<div class="container">
+
+			<div class="row justify-content-center">
+
+				<div class="col-lg-6">
+
+					<div class="card border-0 shadow-sm rounded-4">
+
+						<div class="card-body p-5">
+
+							<h1 class="fw-bold mb-4 text-center">
+								Usuario
+							</h1>
+
+							<form th:action="@{/usuarios/guardar}" th:object="${usuario}" method="post">
+
+								<input type="hidden" th:field="*{id}">
+
+								<div class="mb-4">
+									<label class="form-label">Nombre</label>
+
+									<input type="text" th:field="*{nombre}" class="form-control rounded-3">
+
+									<div class="text-danger" th:if="${#fields.hasErrors('nombre')}"
+										th:errors="*{nombre}">
+									</div>
+								</div>
+
+								<div class="mb-4">
+									<label class="form-label">Email</label>
+
+									<input type="email" th:field="*{email}" class="form-control rounded-3">
+
+									<div class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
+									</div>
+								</div>
+
+								<div class="mb-4">
+									<label class="form-label">Teléfono</label>
+
+									<input type="text" th:field="*{telefono}" class="form-control rounded-3">
+
+									<div class="text-danger" th:if="${#fields.hasErrors('telefono')}"
+										th:errors="*{telefono}">
+									</div>
+								</div>
+
+								<div class="d-flex gap-3">
+
+									<button type="submit" class="btn btn-dark rounded-pill px-4">
+										Guardar
+									</button>
+
+									<a th:href="@{/usuarios}" class="btn btn-outline-secondary rounded-pill px-4">
+										Cancelar
+									</a>
+
+								</div>
+
+							</form>
+
+						</div>
+
 					</div>
 
-					<div class="card-body">
-						<form th:action="@{/usuarios/guardar}" th:object="${usuario}" method="post">
-
-							<div class="mb-3">
-								<label class="form-label">Nombre</label>
-								<input type="text" th:field="*{nombre}" class="form-control">
-
-								<div class="text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">
-								</div>
-							</div>
-
-							<div class="mb-3">
-								<label class="form-label">Email</label>
-								<input type="email" th:field="*{email}" class="form-control">
-
-								<div class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
-								</div>
-							</div>
-
-							<div class="mb-3">
-								<label class="form-label">Teléfono</label>
-								<input type="text" th:field="*{telefono}" class="form-control">
-
-								<div class="text-danger" th:if="${#fields.hasErrors('telefono')}"
-									th:errors="*{telefono}"></div>
-							</div>
-
-							<div class="d-flex gap-2">
-								<button type="submit" class="btn btn-primary">Guardar</button>
-								<a th:href="@{/usuarios}" class="btn btn-secondary">Volver</a>
-							</div>
-
-						</form>
-					</div>
 				</div>
 
 			</div>
-		</div>
-	</div>
 
-	<script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/js/tabler.min.js"></script>
+		</div>
+
+	</section>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 
