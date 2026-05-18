@@ -16,7 +16,6 @@
 
 	<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap"
 		rel="stylesheet">
-
 </head>
 
 <body class="bg-light" style="font-family: 'Manrope', sans-serif;">
@@ -34,16 +33,9 @@
 				<div class="dropdown">
 
 					<button class="btn btn-dark rounded-pill px-4 dropdown-toggle" type="button"
-						data-bs-toggle="dropdown" aria-expanded="false">
+						data-bs-toggle="dropdown">
 
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-							class="bi bi-person me-2" viewBox="0 0 16 16">
-
-							<path
-								d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
-
-						</svg>
-
+						<i class="bi bi-person me-2"></i>
 						<span sec:authentication="name"></span>
 
 					</button>
@@ -51,19 +43,14 @@
 					<ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-4">
 
 						<li>
-
 							<form th:action="@{/logout}" method="post">
 
 								<button type="submit" class="dropdown-item py-2">
-
 									<i class="bi bi-box-arrow-right me-2"></i>
-
 									Cerrar sesión
-
 								</button>
 
 							</form>
-
 						</li>
 
 					</ul>
@@ -87,8 +74,108 @@
 				</h1>
 
 				<p class="fs-5 text-secondary">
-					Gestiona usuarios, espacios y reservas.
+					Resumen general del sistema.
 				</p>
+
+			</div>
+
+			<div class="row g-4 mb-5">
+
+				<div class="col-md-3">
+
+					<div class="card border-0 shadow-sm rounded-4 h-100">
+
+						<div class="card-body p-4">
+
+							<div class="fs-1 text-primary mb-3">
+								<i class="bi bi-people"></i>
+							</div>
+
+							<h2 class="fw-bold" th:text="${totalUsuarios}">
+								0
+							</h2>
+
+							<p class="text-secondary mb-0">
+								Usuarios registrados
+							</p>
+
+						</div>
+
+					</div>
+
+				</div>
+
+				<div class="col-md-3">
+
+					<div class="card border-0 shadow-sm rounded-4 h-100">
+
+						<div class="card-body p-4">
+
+							<div class="fs-1 text-success mb-3">
+								<i class="bi bi-building"></i>
+							</div>
+
+							<h2 class="fw-bold" th:text="${totalEspacios}">
+								0
+							</h2>
+
+							<p class="text-secondary mb-0">
+								Espacios disponibles
+							</p>
+
+						</div>
+
+					</div>
+
+				</div>
+
+				<div class="col-md-3">
+
+					<div class="card border-0 shadow-sm rounded-4 h-100">
+
+						<div class="card-body p-4">
+
+							<div class="fs-1 text-dark mb-3">
+								<i class="bi bi-calendar-check"></i>
+							</div>
+
+							<h2 class="fw-bold" th:text="${totalReservas}">
+								0
+							</h2>
+
+							<p class="text-secondary mb-0">
+								Reservas realizadas
+							</p>
+
+						</div>
+
+					</div>
+
+				</div>
+
+				<div class="col-md-3">
+
+					<div class="card border-0 shadow-sm rounded-4 h-100">
+
+						<div class="card-body p-4">
+
+							<div class="fs-1 text-warning mb-3">
+								<i class="bi bi-currency-euro"></i>
+							</div>
+
+							<h2 class="fw-bold">
+								<span th:text="${ingresosTotales}">0</span>€
+							</h2>
+
+							<p class="text-secondary mb-0">
+								Ingresos totales
+							</p>
+
+						</div>
+
+					</div>
+
+				</div>
 
 			</div>
 
@@ -113,9 +200,7 @@
 							</p>
 
 							<a th:href="@{/usuarios}" class="btn btn-primary rounded-pill px-4">
-
 								Gestionar
-
 							</a>
 
 						</div>
@@ -143,9 +228,7 @@
 							</p>
 
 							<a th:href="@{/espacios}" class="btn btn-success rounded-pill px-4">
-
 								Gestionar
-
 							</a>
 
 						</div>
@@ -173,9 +256,7 @@
 							</p>
 
 							<a th:href="@{/reservas}" class="btn btn-dark rounded-pill px-4">
-
 								Gestionar
-
 							</a>
 
 						</div>
