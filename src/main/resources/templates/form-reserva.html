@@ -40,6 +40,7 @@
 						data-bs-toggle="dropdown">
 
 						<i class="bi bi-person me-2"></i>
+
 						<span sec:authentication="name"></span>
 
 					</button>
@@ -48,11 +49,28 @@
 
 						<li>
 
+							<a th:href="@{/admin}" class="dropdown-item py-2">
+
+								<i class="bi bi-speedometer2 me-2"></i>
+
+								Panel admin
+
+							</a>
+
+						</li>
+
+						<li>
+							<hr class="dropdown-divider">
+						</li>
+
+						<li>
+
 							<form th:action="@{/logout}" method="post">
 
 								<button type="submit" class="dropdown-item py-2">
 
 									<i class="bi bi-box-arrow-right me-2"></i>
+
 									Cerrar sesión
 
 								</button>
@@ -107,10 +125,6 @@
 
 									<input type="text" th:field="*{nombreReserva}" class="form-control rounded-3">
 
-									<div class="text-danger" th:if="${#fields.hasErrors('nombreReserva')}"
-										th:errors="*{nombreReserva}">
-									</div>
-
 								</div>
 
 								<div class="mb-4">
@@ -120,9 +134,6 @@
 									</label>
 
 									<input type="date" th:field="*{fecha}" class="form-control rounded-3">
-
-									<div class="text-danger" th:if="${#fields.hasErrors('fecha')}" th:errors="*{fecha}">
-									</div>
 
 								</div>
 
@@ -138,14 +149,6 @@
 
 											<option value="">Selecciona una hora</option>
 
-											<option value="00:00">00:00</option>
-											<option value="01:00">01:00</option>
-											<option value="02:00">02:00</option>
-											<option value="03:00">03:00</option>
-											<option value="04:00">04:00</option>
-											<option value="05:00">05:00</option>
-											<option value="06:00">06:00</option>
-											<option value="07:00">07:00</option>
 											<option value="08:00">08:00</option>
 											<option value="09:00">09:00</option>
 											<option value="10:00">10:00</option>
@@ -159,15 +162,8 @@
 											<option value="18:00">18:00</option>
 											<option value="19:00">19:00</option>
 											<option value="20:00">20:00</option>
-											<option value="21:00">21:00</option>
-											<option value="22:00">22:00</option>
-											<option value="23:00">23:00</option>
 
 										</select>
-
-										<div class="text-danger" th:if="${#fields.hasErrors('horaInicio')}"
-											th:errors="*{horaInicio}">
-										</div>
 
 									</div>
 
@@ -181,15 +177,6 @@
 
 											<option value="">Selecciona una hora</option>
 
-											<option value="00:00">00:00</option>
-											<option value="01:00">01:00</option>
-											<option value="02:00">02:00</option>
-											<option value="03:00">03:00</option>
-											<option value="04:00">04:00</option>
-											<option value="05:00">05:00</option>
-											<option value="06:00">06:00</option>
-											<option value="07:00">07:00</option>
-											<option value="08:00">08:00</option>
 											<option value="09:00">09:00</option>
 											<option value="10:00">10:00</option>
 											<option value="11:00">11:00</option>
@@ -203,14 +190,8 @@
 											<option value="19:00">19:00</option>
 											<option value="20:00">20:00</option>
 											<option value="21:00">21:00</option>
-											<option value="22:00">22:00</option>
-											<option value="23:00">23:00</option>
 
 										</select>
-
-										<div class="text-danger" th:if="${#fields.hasErrors('horaFin')}"
-											th:errors="*{horaFin}">
-										</div>
 
 									</div>
 
@@ -223,8 +204,6 @@
 									</label>
 
 									<select th:field="*{usuario}" class="form-select rounded-3">
-
-										<option value="">Selecciona un usuario</option>
 
 										<option th:each="u : ${usuarios}" th:value="${u.id}" th:text="${u.nombre}">
 										</option>
@@ -240,8 +219,6 @@
 									</label>
 
 									<select th:field="*{espacio}" class="form-select rounded-3">
-
-										<option value="">Selecciona un espacio</option>
 
 										<option th:each="e : ${espacios}" th:value="${e.id}" th:text="${e.nombre}">
 										</option>
@@ -267,6 +244,7 @@
 									<button type="submit" class="btn btn-dark rounded-pill px-4">
 
 										<i class="bi bi-floppy me-2"></i>
+
 										Guardar
 
 									</button>

@@ -22,6 +22,7 @@ public class HomeController {
 	public String index() {
 		return "index";
 	}
+
 // 
 	@GetMapping("/admin")
 	public String admin(Model model) {
@@ -34,6 +35,9 @@ public class HomeController {
 				.mapToDouble(r -> r.getPrecioTotal()).sum();
 
 		model.addAttribute("ingresosTotales", ingresosTotales);
+
+		model.addAttribute("ultimasReservas",
+				reservaService.findAll().stream().sorted((a, b) -> b.getId().compareTo(a.getId())).limit(5).toList());
 
 		return "admin";
 	}

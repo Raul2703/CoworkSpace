@@ -38,6 +38,7 @@
 						data-bs-toggle="dropdown">
 
 						<i class="bi bi-person me-2"></i>
+
 						<span sec:authentication="name"></span>
 
 					</button>
@@ -46,11 +47,28 @@
 
 						<li>
 
+							<a th:href="@{/admin}" class="dropdown-item py-2">
+
+								<i class="bi bi-speedometer2 me-2"></i>
+
+								Panel admin
+
+							</a>
+
+						</li>
+
+						<li>
+							<hr class="dropdown-divider">
+						</li>
+
+						<li>
+
 							<form th:action="@{/logout}" method="post">
 
 								<button type="submit" class="dropdown-item py-2">
 
 									<i class="bi bi-box-arrow-right me-2"></i>
+
 									Cerrar sesión
 
 								</button>
@@ -90,6 +108,7 @@
 				<a th:href="@{/espacios/nuevo}" class="btn btn-dark rounded-pill px-4">
 
 					<i class="bi bi-plus-lg me-2"></i>
+
 					Nuevo espacio
 
 				</a>

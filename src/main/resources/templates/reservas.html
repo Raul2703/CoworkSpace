@@ -25,7 +25,9 @@
 		<div class="container">
 
 			<a class="navbar-brand fw-bold fs-2" th:href="@{/}">
+
 				Cowork<span class="text-primary">Space</span>
+
 			</a>
 
 			<div class="ms-auto">
@@ -36,6 +38,7 @@
 						data-bs-toggle="dropdown">
 
 						<i class="bi bi-person me-2"></i>
+
 						<span sec:authentication="name"></span>
 
 					</button>
@@ -44,11 +47,28 @@
 
 						<li>
 
+							<a th:href="@{/admin}" class="dropdown-item py-2">
+
+								<i class="bi bi-speedometer2 me-2"></i>
+
+								Panel admin
+
+							</a>
+
+						</li>
+
+						<li>
+							<hr class="dropdown-divider">
+						</li>
+
+						<li>
+
 							<form th:action="@{/logout}" method="post">
 
 								<button type="submit" class="dropdown-item py-2">
 
 									<i class="bi bi-box-arrow-right me-2"></i>
+
 									Cerrar sesión
 
 								</button>
@@ -88,6 +108,7 @@
 				<a th:href="@{/reservas/nuevo}" class="btn btn-dark rounded-pill px-4">
 
 					<i class="bi bi-plus-lg me-2"></i>
+
 					Nueva reserva
 
 				</a>
@@ -106,14 +127,37 @@
 
 								<tr>
 
-									<th class="ps-4 py-3">ID</th>
-									<th>Reserva</th>
-									<th>Fecha</th>
-									<th>Horario</th>
-									<th>Usuario</th>
-									<th>Espacio</th>
-									<th>Precio</th>
-									<th class="text-end pe-4">Acciones</th>
+									<th class="ps-4 py-3">
+										ID
+									</th>
+
+									<th>
+										Reserva
+									</th>
+
+									<th>
+										Fecha
+									</th>
+
+									<th>
+										Horario
+									</th>
+
+									<th>
+										Usuario
+									</th>
+
+									<th>
+										Espacio
+									</th>
+
+									<th>
+										Precio
+									</th>
+
+									<th class="text-end pe-4">
+										Acciones
+									</th>
 
 								</tr>
 
