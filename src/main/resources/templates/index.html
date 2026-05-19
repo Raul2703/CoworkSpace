@@ -20,9 +20,19 @@
 	<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap"
 		rel="stylesheet">
 
+	<style>
+		.nav-link {
+			transition: 0.2s ease;
+		}
+
+		.nav-link:hover {
+			color: #0d6efd !important;
+		}
+	</style>
+
 </head>
 
-<body class="bg-light" style="font-family: 'Manrope', sans-serif;">
+<body style="font-family: 'Manrope', sans-serif; background-color: #f5f7fb;">
 
 	<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom py-3">
 
@@ -115,7 +125,7 @@
 
 							</button>
 
-							<ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-4">
+							<ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 rounded-4">
 
 								<li sec:authorize="hasRole('ADMIN')">
 
@@ -163,21 +173,21 @@
 
 	</nav>
 
-	<section class="bg-light pt-4 pb-4">
+	<section class="py-4">
 
-		<div class="container pt-3 pb-4">
+		<div class="container py-3">
 
 			<div class="row align-items-center g-5">
 
-				<div class="col-lg-6">
+				<div class="col-lg-5">
 
-					<h1 class="display-3 fw-bold lh-1 mb-4">
+					<h1 class="display-3 fw-bold lh-1 mb-4" style="max-width: 500px;">
 
 						Reserva espacios de coworking modernos
 
 					</h1>
 
-					<p class="fs-5 text-secondary mb-5">
+					<p class="fs-5 text-secondary mb-5" style="max-width: 520px;">
 
 						Gestiona reservas, usuarios y espacios desde una plataforma elegante,
 						rápida y profesional.
@@ -203,199 +213,88 @@
 
 				</div>
 
-				<div class="col-lg-6">
+				<div class="col-lg-7">
 
-					<div class="row g-4">
+					<div class="row g-4 text-center">
 
 						<div class="col-md-4">
 
-							<div class="card border-0 shadow-lg rounded-5 overflow-hidden h-100">
+							<img th:src="@{/img/oficinaIndividual.png}" class="img-fluid rounded-5 mb-4"
+								style="height: 300px; width: 100%; object-fit: cover;" alt="Oficina individual">
 
-								<img th:src="@{/img/oficinaIndividual.png}" class="card-img-top"
-									style="height: 140px; object-fit: cover;" alt="Oficina individual">
+							<i class="bi bi-person-workspace text-primary fs-1 mb-3 d-block"></i>
 
-								<div class="card-body p-3 d-flex flex-column">
+							<h4 class="fw-bold mb-3">
 
-									<i class="bi bi-person-workspace text-primary fs-1 mb-3 d-block"></i>
+								Oficina individual
 
-									<h5 class="fw-bold mb-2">
+							</h4>
 
-										Oficina individual
+							<p class="text-secondary mb-4">
 
-									</h5>
+								Privacidad y concentración para trabajar mejor.
 
-									<p class="small text-secondary mb-2">
+							</p>
 
-										Privacidad y concentración para trabajar mejor.
+							<a th:href="@{/espacios}" class="btn btn-outline-primary rounded-pill px-4">
 
-									</p>
+								Ver detalles
 
-									<ul class="list-unstyled small text-secondary mb-3">
-
-										<li class="mb-2">
-
-											<i class="bi bi-check-circle-fill text-primary me-2"></i>
-
-											Espacio privado
-
-										</li>
-
-										<li class="mb-2">
-
-											<i class="bi bi-check-circle-fill text-primary me-2"></i>
-
-											Ambiente silencioso
-
-										</li>
-
-										<li>
-
-											<i class="bi bi-check-circle-fill text-primary me-2"></i>
-
-											Ergonomía
-
-										</li>
-
-									</ul>
-
-									<a th:href="@{/espacios}"
-										class="btn btn-outline-primary btn-sm rounded-pill mt-auto px-4">
-
-										Ver detalles
-
-									</a>
-
-								</div>
-
-							</div>
+							</a>
 
 						</div>
 
 						<div class="col-md-4">
 
-							<div class="card border-0 shadow-lg rounded-5 overflow-hidden h-100">
+							<img th:src="@{/img/oficinaCooperativa.png}" class="img-fluid rounded-5 mb-4"
+								style="height: 300px; width: 100%; object-fit: cover;" alt="Zona de equipos">
 
-								<img th:src="@{/img/oficinaCooperativa.png}" class="card-img-top"
-									style="height: 140px; object-fit: cover;" alt="Zona de equipos">
+							<i class="bi bi-people-fill text-primary fs-1 mb-3 d-block"></i>
 
-								<div class="card-body p-3 d-flex flex-column">
+							<h4 class="fw-bold mb-3">
 
-									<i class="bi bi-people-fill text-primary fs-1 mb-3 d-block"></i>
+								Zona de equipos
 
-									<h5 class="fw-bold mb-2">
+							</h4>
 
-										Zona de equipos
+							<p class="text-secondary mb-4">
 
-									</h5>
+								Espacios colaborativos para equipos productivos.
 
-									<p class="small text-secondary mb-2">
+							</p>
 
-										Espacios colaborativos para equipos productivos.
+							<a th:href="@{/espacios}" class="btn btn-outline-primary rounded-pill px-4">
 
-									</p>
+								Ver detalles
 
-									<ul class="list-unstyled small text-secondary mb-3">
-
-										<li class="mb-2">
-
-											<i class="bi bi-check-circle-fill text-primary me-2"></i>
-
-											Colaboración
-
-										</li>
-
-										<li class="mb-2">
-
-											<i class="bi bi-check-circle-fill text-primary me-2"></i>
-
-											Networking
-
-										</li>
-
-										<li>
-
-											<i class="bi bi-check-circle-fill text-primary me-2"></i>
-
-											Ambiente dinámico
-
-										</li>
-
-									</ul>
-
-									<a th:href="@{/espacios}"
-										class="btn btn-outline-primary btn-sm rounded-pill mt-auto px-4">
-
-										Ver detalles
-
-									</a>
-
-								</div>
-
-							</div>
+							</a>
 
 						</div>
 
 						<div class="col-md-4">
 
-							<div class="card border-0 shadow-lg rounded-5 overflow-hidden h-100">
+							<img th:src="@{/img/salaDeReuniones.png}" class="img-fluid rounded-5 mb-4"
+								style="height: 300px; width: 100%; object-fit: cover;" alt="Sala de reuniones">
 
-								<img th:src="@{/img/salaDeReuniones.png}" class="card-img-top"
-									style="height: 140px; object-fit: cover;" alt="Sala de reuniones">
+							<i class="bi bi-easel-fill text-primary fs-1 mb-3 d-block"></i>
 
-								<div class="card-body p-3 d-flex flex-column">
+							<h4 class="fw-bold mb-3">
 
-									<i class="bi bi-easel-fill text-primary fs-1 mb-3 d-block"></i>
+								Sala de reuniones
 
-									<h5 class="fw-bold mb-2">
+							</h4>
 
-										Sala de reuniones
+							<p class="text-secondary mb-4">
 
-									</h5>
+								Espacios modernos para reuniones profesionales.
 
-									<p class="small text-secondary mb-2">
+							</p>
 
-										Espacios modernos para reuniones profesionales.
+							<a th:href="@{/espacios}" class="btn btn-outline-primary rounded-pill px-4">
 
-									</p>
+								Ver detalles
 
-									<ul class="list-unstyled small text-secondary mb-3">
-
-										<li class="mb-2">
-
-											<i class="bi bi-check-circle-fill text-primary me-2"></i>
-
-											Audiovisual
-
-										</li>
-
-										<li class="mb-2">
-
-											<i class="bi bi-check-circle-fill text-primary me-2"></i>
-
-											Ambiente ejecutivo
-
-										</li>
-
-										<li>
-
-											<i class="bi bi-check-circle-fill text-primary me-2"></i>
-
-											Presentaciones
-
-										</li>
-
-									</ul>
-
-									<a th:href="@{/espacios}"
-										class="btn btn-outline-primary btn-sm rounded-pill mt-auto px-4">
-
-										Ver detalles
-
-									</a>
-
-								</div>
-
-							</div>
+							</a>
 
 						</div>
 

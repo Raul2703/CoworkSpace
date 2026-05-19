@@ -6,4 +6,5 @@ import com.salesianostriana.dam.coworkspace.model.Reserva;
 
 public interface ReservaRepository extends JpaRepository<Reserva, Long> {
 
+	
 }
