@@ -21,24 +21,39 @@
 		rel="stylesheet">
 
 	<style>
+		body {
+			font-family: 'Manrope', sans-serif;
+			background-color: #ffffff;
+		}
+
+		.navbar-custom {
+			background: rgba(0, 0, 0, 0.25);
+			backdrop-filter: blur(10px);
+		}
+
 		.nav-link {
+			color: white !important;
 			transition: 0.2s ease;
 		}
 
 		.nav-link:hover {
-			color: #0d6efd !important;
+			color: #60a5fa !important;
+		}
+
+		.hero-overlay {
+			background: rgba(0, 0, 0, 0.45);
 		}
 	</style>
 
 </head>
 
-<body style="font-family: 'Manrope', sans-serif; background-color: #f5f7fb;">
+<body>
 
-	<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom py-3">
+	<nav class="navbar navbar-expand-lg navbar-dark navbar-custom py-3 position-absolute top-0 start-0 w-100 z-3">
 
 		<div class="container">
 
-			<a class="navbar-brand fw-bold fs-2" th:href="@{/}">
+			<a class="navbar-brand fw-bold fs-2 text-white" th:href="@{/}">
 
 				Cowork<span class="text-primary">Space</span>
 
@@ -104,7 +119,7 @@
 
 					<div sec:authorize="isAnonymous()">
 
-						<a th:href="@{/login}" class="btn btn-dark rounded-pill px-4">
+						<a th:href="@{/login}" class="btn btn-light rounded-pill px-4 fw-semibold">
 
 							Iniciar sesión
 
@@ -116,8 +131,8 @@
 
 						<div class="dropdown">
 
-							<button class="btn border-0 bg-transparent shadow-none p-0 dropdown-toggle" type="button"
-								data-bs-toggle="dropdown">
+							<button class="btn border-0 bg-transparent shadow-none p-0 dropdown-toggle text-white"
+								type="button" data-bs-toggle="dropdown">
 
 								<i class="bi bi-person me-1"></i>
 
@@ -125,7 +140,7 @@
 
 							</button>
 
-							<ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 rounded-4">
+							<ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-4">
 
 								<li sec:authorize="hasRole('ADMIN')">
 
@@ -140,7 +155,9 @@
 								</li>
 
 								<li sec:authorize="hasRole('ADMIN')">
+
 									<hr class="dropdown-divider">
+
 								</li>
 
 								<li>
@@ -173,132 +190,46 @@
 
 	</nav>
 
-	<section class="py-4">
+	<section class="position-relative overflow-hidden" style="height: 100vh;">
 
-		<div class="container py-3">
+		<img src="/img/ofis.png" class="w-100 h-100 object-fit-cover position-absolute top-0 start-0"
+			alt="Edificio de oficinas">
 
-			<div class="row align-items-center g-5">
+		<div class="hero-overlay position-absolute top-0 start-0 w-100 h-100"></div>
 
-				<div class="col-lg-5">
+		<div class="container position-relative h-100 d-flex align-items-center">
 
-					<h1 class="display-3 fw-bold lh-1 mb-4" style="max-width: 500px;">
+			<div class="text-white" style="max-width: 720px;">
 
-						Reserva espacios de coworking modernos
 
-					</h1>
 
-					<p class="fs-5 text-secondary mb-5" style="max-width: 520px;">
+				<h1 class="display-1 fw-bold mb-4">
 
-						Gestiona reservas, usuarios y espacios desde una plataforma elegante,
-						rápida y profesional.
+					Espacios modernos para equipos profesionales
 
-					</p>
+				</h1>
 
-					<div class="d-flex flex-wrap gap-3">
+				<p class="fs-4 text-white-50 mb-5">
 
-						<a th:href="@{/reservas/nuevo}" class="btn btn-primary btn-lg rounded-pill px-5">
+					Reserva oficinas privadas, salas de reuniones
+					y espacios colaborativos desde una plataforma
+					rápida y elegante.
 
-							Reservar ahora
+				</p>
 
-						</a>
+				<div class="d-flex flex-wrap gap-3">
 
-						<a th:href="@{/admin}" sec:authorize="hasRole('ADMIN')"
-							class="btn btn-dark btn-lg rounded-pill px-5">
+					<a th:href="@{/reservas/nuevo}" class="btn btn-primary btn-lg rounded-pill px-5">
 
-							Panel admin
+						Reservar ahora
 
-						</a>
+					</a>
 
-					</div>
+					<a th:href="@{/espacios}" class="btn btn-outline-light btn-lg rounded-pill px-5">
 
-				</div>
+						Ver espacios
 
-				<div class="col-lg-7">
-
-					<div class="row g-4 text-center">
-
-						<div class="col-md-4">
-
-							<img th:src="@{/img/oficinaIndividual.png}" class="img-fluid rounded-5 mb-4"
-								style="height: 300px; width: 100%; object-fit: cover;" alt="Oficina individual">
-
-							<i class="bi bi-person-workspace text-primary fs-1 mb-3 d-block"></i>
-
-							<h4 class="fw-bold mb-3">
-
-								Oficina individual
-
-							</h4>
-
-							<p class="text-secondary mb-4">
-
-								Privacidad y concentración para trabajar mejor.
-
-							</p>
-
-							<a th:href="@{/espacios}" class="btn btn-outline-primary rounded-pill px-4">
-
-								Ver detalles
-
-							</a>
-
-						</div>
-
-						<div class="col-md-4">
-
-							<img th:src="@{/img/oficinaCooperativa.png}" class="img-fluid rounded-5 mb-4"
-								style="height: 300px; width: 100%; object-fit: cover;" alt="Zona de equipos">
-
-							<i class="bi bi-people-fill text-primary fs-1 mb-3 d-block"></i>
-
-							<h4 class="fw-bold mb-3">
-
-								Zona de equipos
-
-							</h4>
-
-							<p class="text-secondary mb-4">
-
-								Espacios colaborativos para equipos productivos.
-
-							</p>
-
-							<a th:href="@{/espacios}" class="btn btn-outline-primary rounded-pill px-4">
-
-								Ver detalles
-
-							</a>
-
-						</div>
-
-						<div class="col-md-4">
-
-							<img th:src="@{/img/salaDeReuniones.png}" class="img-fluid rounded-5 mb-4"
-								style="height: 300px; width: 100%; object-fit: cover;" alt="Sala de reuniones">
-
-							<i class="bi bi-easel-fill text-primary fs-1 mb-3 d-block"></i>
-
-							<h4 class="fw-bold mb-3">
-
-								Sala de reuniones
-
-							</h4>
-
-							<p class="text-secondary mb-4">
-
-								Espacios modernos para reuniones profesionales.
-
-							</p>
-
-							<a th:href="@{/espacios}" class="btn btn-outline-primary rounded-pill px-4">
-
-								Ver detalles
-
-							</a>
-
-						</div>
-
-					</div>
+					</a>
 
 				</div>
 

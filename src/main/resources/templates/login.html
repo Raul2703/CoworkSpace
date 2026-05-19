@@ -7,7 +7,7 @@
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<title>Iniciar sesión | CoworkSpace</title>
+	<title>Iniciar sesión</title>
 
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -20,124 +20,177 @@
 	<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap"
 		rel="stylesheet">
 
+	<style>
+		::placeholder {
+			color: rgba(255, 255, 255, 0.75) !important;
+		}
+	</style>
+
 </head>
 
 <body style="font-family: 'Manrope', sans-serif; overflow: hidden;">
 
-	<nav class="navbar navbar-expand-lg position-absolute top-0 start-0 w-100 py-4 z-3">
+	<div class="position-relative vh-100" style="background-image: url('/img/fondoLogin.png');
+            background-size: cover;
+            background-position: center;">
 
-		<div class="container">
+		<div class="position-absolute top-0 start-0 w-100 h-100" style="background: rgba(0,0,0,0.45);"></div>
 
-			<a class="navbar-brand fw-bold fs-2 text-white" th:href="@{/}">
+		<nav class="navbar navbar-expand-lg navbar-dark position-absolute top-0 start-0 w-100 py-3 z-3"
+			style="background: rgba(0, 0, 0, 0.35); backdrop-filter: blur(10px);">
 
-				Cowork<span class="text-primary">Space</span>
+			<div class="container">
 
-			</a>
+				<a class="navbar-brand fw-bold fs-2 text-white" th:href="@{/}">
 
-			<a th:href="@{/}" class="btn btn-outline-light rounded-pill px-4">
+					Cowork<span class="text-primary">Space</span>
 
-				Volver
+				</a>
 
-			</a>
+				<div class="collapse navbar-collapse">
 
-		</div>
+					<ul class="navbar-nav mx-auto gap-4">
 
-	</nav>
+						<li class="nav-item">
 
-	<section class="vh-100 position-relative overflow-hidden">
+							<a class="nav-link fw-semibold text-white" th:href="@{/}">
 
-		<img th:src="@{/img/fondoLogin.png}" class="position-absolute top-0 start-0 w-100 h-100"
-			style="object-fit: cover;" alt="Cowork background">
+								Inicio
 
-		<div class="position-absolute top-0 start-0 w-100 h-100 bg-dark" style="opacity: 0.45;"></div>
+							</a>
 
-		<div class="container position-relative z-2 h-100">
+						</li>
 
-			<div class="row h-100 align-items-center justify-content-end">
+						<li class="nav-item">
 
-				<div class="col-lg-5 col-xl-4">
+							<a class="nav-link fw-semibold text-white" th:href="@{/espacios}">
 
-					<div class="rounded-5 border border-light p-5" style="
-                        background: rgba(0,0,0,0.15);
-                        backdrop-filter: blur(2px);
-                        -webkit-backdrop-filter: blur(2px);
-                     ">
+								Espacios
 
-						<div class="mb-5">
+							</a>
 
-							<h1 class="fw-bold display-5 text-white mb-3">
+						</li>
 
-								Accede a CoworkSpace
+						<li class="nav-item">
 
-							</h1>
+							<a class="nav-link fw-semibold text-white" th:href="@{/reservas/nuevo}">
 
-							<p class="text-white-50 fs-5 mb-0">
+								Reservar
 
-								Inicia sesión para continuar
+							</a>
 
-							</p>
+						</li>
 
-						</div>
+					</ul>
 
-						<div th:if="${param.error}" class="alert alert-danger rounded-4">
+					<a th:href="@{/login}" class="btn btn-light rounded-pill px-4 fw-semibold">
 
-							Usuario o contraseña incorrectos.
+						Iniciar sesión
 
-						</div>
+					</a>
 
-						<div th:if="${param.logout}" class="alert alert-success rounded-4">
+				</div>
 
-							Sesión cerrada correctamente.
+			</div>
 
-						</div>
+		</nav>
+
+		<div class="container-fluid position-relative z-2 h-100">
+
+			<div class="row h-100">
+
+				<div class="col-lg-6"></div>
+
+				<div class="col-lg-6 d-flex align-items-center justify-content-lg-start ps-lg-5">
+
+					<div class="text-white p-5" style="width: 100%;
+                            max-width: 520px;
+                            border: 1px solid rgba(255,255,255,0.2);
+                            background: rgba(0,0,0,0.25);
+                            backdrop-filter: blur(12px);
+                            border-radius: 32px;">
+
+						<h1 class="display-5 fw-bold mb-3">
+
+							Accede a CoworkSpace
+
+						</h1>
+
+						<p class="text-white-50 fs-5 mb-5">
+
+							Inicia sesión para gestionar reservas y espacios.
+
+						</p>
 
 						<form th:action="@{/login}" method="post">
 
 							<div class="mb-4">
 
-								<label for="username" class="form-label text-white fw-semibold">
+								<label class="form-label fw-semibold">
 
 									Usuario
 
 								</label>
 
-								<input type="text" id="username" name="username"
-									class="form-control form-control-lg rounded-4 bg-transparent text-white border-light"
-									style="color: white;" placeholder="Usuario" required autofocus>
+								<input type="text" name="username" class="form-control"
+									placeholder="Introduce tu usuario" style="height: 58px;
+                                          border-radius: 16px;
+                                          background: rgba(255,255,255,0.08);
+                                          border: 1px solid rgba(255,255,255,0.2);
+                                          color: white;">
 
 							</div>
 
 							<div class="mb-4">
 
-								<label for="password" class="form-label text-white fw-semibold">
+								<label class="form-label fw-semibold">
 
 									Contraseña
 
 								</label>
 
-								<input type="password" id="password" name="password"
-									class="form-control form-control-lg rounded-4 bg-transparent text-white border-light"
-									style="color: white;" placeholder="Contraseña" required>
+								<input type="password" name="password" class="form-control"
+									placeholder="Introduce tu contraseña" style="height: 58px;
+                                          border-radius: 16px;
+                                          background: rgba(255,255,255,0.08);
+                                          border: 1px solid rgba(255,255,255,0.2);
+                                          color: white;">
 
 							</div>
 
-							<button type="submit" class="btn btn-dark btn-lg rounded-pill w-100 py-3 mb-4">
+							<div th:if="${param.error}" class="alert alert-danger rounded-4 border-0">
 
-								<i class="bi bi-box-arrow-in-right me-2"></i>
+								Usuario o contraseña incorrectos.
 
-								Iniciar sesión
+							</div>
 
-							</button>
+							<div th:if="${param.logout}" class="alert alert-success rounded-4 border-0">
+
+								Sesión cerrada correctamente.
+
+							</div>
+
+							<div class="d-grid mt-4">
+
+								<button type="submit" class="btn btn-light rounded-pill py-3 fw-semibold fs-5">
+
+									<i class="bi bi-box-arrow-in-right me-2"></i>
+
+									Iniciar sesión
+
+								</button>
+
+							</div>
 
 						</form>
 
-						<div class="text-center">
+						<div class="text-center mt-4">
 
 							<p class="text-white-50 mb-0">
 
 								¿No tienes cuenta?
 
-								<a th:href="@{/registro}" class="text-decoration-none fw-semibold text-white">
+								<a th:href="@{/registro}" class="text-white fw-semibold text-decoration-none">
 
 									Regístrate
 
@@ -155,7 +208,7 @@
 
 		</div>
 
-	</section>
+	</div>
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
