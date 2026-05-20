@@ -40,53 +40,33 @@
 				<ul class="navbar-nav mx-auto gap-4">
 
 					<li class="nav-item">
-
 						<a class="nav-link fw-medium text-white" th:href="@{/}">
-
 							Inicio
-
 						</a>
-
 					</li>
 
 					<li class="nav-item">
-
 						<a class="nav-link fw-medium text-white" th:href="@{/espacios}">
-
 							Espacios
-
 						</a>
-
 					</li>
 
 					<li class="nav-item">
-
 						<a class="nav-link fw-medium text-white" th:href="@{/reservas/nuevo}">
-
 							Reservar
-
 						</a>
-
 					</li>
 
 					<li class="nav-item" sec:authorize="hasRole('ADMIN')">
-
 						<a class="nav-link fw-medium text-white" th:href="@{/reservas}">
-
 							Reservas
-
 						</a>
-
 					</li>
 
 					<li class="nav-item" sec:authorize="hasRole('ADMIN')">
-
 						<a class="nav-link fw-medium text-white" th:href="@{/admin}">
-
 							Admin
-
 						</a>
-
 					</li>
 
 				</ul>
@@ -231,9 +211,9 @@
 
 						<select class="form-select rounded-4 py-3">
 
-							<option>Oficina privada</option>
+							<option>Oficina individual</option>
+							<option>Zona de equipos</option>
 							<option>Sala de reuniones</option>
-							<option>Espacio colaborativo</option>
 
 						</select>
 
@@ -291,12 +271,6 @@
 
 				<div>
 
-					<span class="text-primary fw-semibold text-uppercase small">
-
-						Espacios destacados
-
-					</span>
-
 					<h2 class="fw-bold display-5 mt-2">
 
 						Encuentra el espacio perfecto
@@ -319,18 +293,14 @@
 
 					<div class="card border-0 shadow-sm rounded-5 overflow-hidden h-100">
 
-						<img src="/img/oficinaIndividual.png" class="card-img-top"
-							style="height: 280px; object-fit: cover;" alt="Espacio coworking">
+						<img th:src="${espacio.nombre.equalsIgnoreCase('Oficina individual') ? '/img/oficinaIndividual.png' : 
+									  espacio.nombre.equalsIgnoreCase('Zona de equipos') ? '/img/oficinaCooperativa.png' : 
+									  '/img/salaDeReuniones.png'}" class="card-img-top" style="height: 280px; object-fit: cover;"
+							alt="Espacio coworking">
 
 						<div class="card-body p-4">
 
 							<div class="d-flex justify-content-between align-items-center mb-3">
-
-								<span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2">
-
-									Espacio
-
-								</span>
 
 								<span class="fw-semibold text-dark">
 
@@ -341,8 +311,6 @@
 							</div>
 
 							<h4 class="fw-bold mb-3" th:text="${espacio.nombre}">
-
-								Nombre del espacio
 
 							</h4>
 
@@ -363,6 +331,162 @@
 						</div>
 
 					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</section>
+
+	<section class="py-5 bg-white">
+
+		<div class="container py-4">
+
+			<div class="row g-4 text-center">
+
+				<div class="col-md-6 col-lg-3">
+
+					<div class="p-4 h-100">
+
+						<i class="bi bi-wifi text-primary fs-1 mb-3 d-block"></i>
+
+						<h5 class="fw-bold">
+
+							WiFi de alta velocidad
+
+						</h5>
+
+						<p class="text-secondary mb-0">
+
+							Conexión estable para trabajar sin interrupciones.
+
+						</p>
+
+					</div>
+
+				</div>
+
+				<div class="col-md-6 col-lg-3">
+
+					<div class="p-4 h-100">
+
+						<i class="bi bi-clock-history text-primary fs-1 mb-3 d-block"></i>
+
+						<h5 class="fw-bold">
+
+							Acceso 24/7
+
+						</h5>
+
+						<p class="text-secondary mb-0">
+
+							Reserva y accede a tus espacios cuando lo necesites.
+
+						</p>
+
+					</div>
+
+				</div>
+
+				<div class="col-md-6 col-lg-3">
+
+					<div class="p-4 h-100">
+
+						<i class="bi bi-cup-hot text-primary fs-1 mb-3 d-block"></i>
+
+						<h5 class="fw-bold">
+
+							Café incluido
+
+						</h5>
+
+						<p class="text-secondary mb-0">
+
+							Disfruta de café y zonas comunes durante tu jornada.
+
+						</p>
+
+					</div>
+
+				</div>
+
+				<div class="col-md-6 col-lg-3">
+
+					<div class="p-4 h-100">
+
+						<i class="bi bi-shield-check text-primary fs-1 mb-3 d-block"></i>
+
+						<h5 class="fw-bold">
+
+							Reserva segura
+
+						</h5>
+
+						<p class="text-secondary mb-0">
+
+							Gestión clara, rápida y fiable de tus reservas.
+
+						</p>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</section>
+
+	<section class="py-5 bg-white">
+
+		<div class="container py-5">
+
+			<div class="row text-center g-4">
+
+				<div class="col-md-4">
+
+					<h2 class="display-3 fw-bold text-primary" th:text="${totalEspacios}">
+
+					</h2>
+
+					<p class="fs-5 text-secondary mb-0">
+
+						Espacios disponibles
+
+					</p>
+
+				</div>
+
+				<div class="col-md-4">
+
+					<h2 class="display-3 fw-bold text-primary">
+
+						24/7
+
+					</h2>
+
+					<p class="fs-5 text-secondary mb-0">
+
+						Reserva online
+
+					</p>
+
+				</div>
+
+				<div class="col-md-4">
+
+					<h2 class="display-3 fw-bold text-primary" th:text="${totalReservas}">
+
+					</h2>
+
+					<p class="fs-5 text-secondary mb-0">
+
+						Reservas realizadas
+
+					</p>
 
 				</div>
 

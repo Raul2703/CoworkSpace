@@ -39,6 +39,9 @@ public class HomeController {
 
 		model.addAttribute("espacios", destacados);
 
+		model.addAttribute("totalEspacios", espacioService.findAll().size());
+		model.addAttribute("totalReservas", reservaService.findAll().size());
+
 		return "index";
 	}
 
