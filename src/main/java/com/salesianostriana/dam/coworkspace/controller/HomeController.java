@@ -19,11 +19,13 @@ public class HomeController {
 	private final ReservaService reservaService;
 
 	@GetMapping({ "/", "/index" })
-	public String index() {
+	public String index(Model model) {
+
+		model.addAttribute("espacios", espacioService.findAll().stream().limit(3).toList());
+
 		return "index";
 	}
 
-// 
 	@GetMapping("/admin")
 	public String admin(Model model) {
 
