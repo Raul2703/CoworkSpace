@@ -1,7 +1,5 @@
 package com.salesianostriana.dam.coworkspace.config;
 
-import java.util.ArrayList;
-
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,17 +17,15 @@ public class DataSeed {
 
 			if (espSer.findAll().isEmpty()) {
 
-				espSer.save(new Espacio(null, "Oficina individual", 1, 24.0, new ArrayList<>()));
-				espSer.save(new Espacio(null, "Oficina individual", 1, 24.0, new ArrayList<>()));
-				espSer.save(new Espacio(null, "Oficina individual", 1, 24.0, new ArrayList<>()));
-
-				espSer.save(new Espacio(null, "Zona de equipos", 6, 16.0, new ArrayList<>()));
-				espSer.save(new Espacio(null, "Zona de equipos", 8, 18.0, new ArrayList<>()));
-				espSer.save(new Espacio(null, "Zona de equipos", 10, 20.0, new ArrayList<>()));
-
-				espSer.save(new Espacio(null, "Sala de reuniones", 10, 35.0, new ArrayList<>()));
-				espSer.save(new Espacio(null, "Sala de reuniones", 20, 40.0, new ArrayList<>()));
-				espSer.save(new Espacio(null, "Sala de reuniones", 30, 45.0, new ArrayList<>()));
+				espSer.save(Espacio.builder().nombre("Oficina individual").capacidad(1).precio(24.0).build());
+				espSer.save(Espacio.builder().nombre("Oficina individual").capacidad(1).precio(24.0).build());
+				espSer.save(Espacio.builder().nombre("Oficina individual").capacidad(1).precio(24.0).build());
+				espSer.save(Espacio.builder().nombre("Zona de equipos").capacidad(6).precio(16.0).build());
+				espSer.save(Espacio.builder().nombre("Zona de equipos").capacidad(8).precio(18.0).build());
+				espSer.save(Espacio.builder().nombre("Zona de equipos").capacidad(10).precio(20.0).build());
+				espSer.save(Espacio.builder().nombre("Sala de reuniones").capacidad(8).precio(35.0).build());
+				espSer.save(Espacio.builder().nombre("Sala de reuniones").capacidad(10).precio(40.0).build());
+				espSer.save(Espacio.builder().nombre("Sala de reuniones").capacidad(12).precio(45.0).build());
 
 			}
 
