@@ -47,7 +47,7 @@
 
 					<ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-4">
 
-						<li>
+						<li sec:authorize="hasRole('ADMIN')">
 
 							<a th:href="@{/admin}" class="dropdown-item py-2">
 
@@ -216,7 +216,8 @@
 									<td class="text-end pe-4">
 
 										<a th:href="@{/reservas/editar/{id}(id=${reserva.id})}"
-											class="btn btn-sm btn-outline-dark rounded-pill">
+											class="btn btn-sm btn-outline-dark rounded-pill"
+											sec:authorize="hasRole('ADMIN')">
 
 											<i class="bi bi-pencil"></i>
 											Editar
@@ -224,7 +225,8 @@
 										</a>
 
 										<a th:href="@{/reservas/borrar/{id}(id=${reserva.id})}"
-											class="btn btn-sm btn-dark rounded-pill ms-2">
+											class="btn btn-sm btn-dark rounded-pill ms-2"
+											sec:authorize="hasRole('ADMIN')">
 
 											<i class="bi bi-trash"></i>
 											Borrar
@@ -247,7 +249,8 @@
 
 			<div class="mt-4">
 
-				<a th:href="@{/admin}" class="btn btn-outline-secondary rounded-pill px-4">
+				<a th:href="@{/admin}" class="btn btn-outline-secondary rounded-pill px-4"
+					sec:authorize="hasRole('ADMIN')">
 
 					Volver al panel
 

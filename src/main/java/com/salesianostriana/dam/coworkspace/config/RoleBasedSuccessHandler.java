@@ -24,23 +24,17 @@ public class RoleBasedSuccessHandler implements AuthenticationSuccessHandler {
 
 	private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
-	private final String ROLE_USER_URL = "/reservas";
-	private final String ROLE_ADMIN_URL = "/admin";
+	private final String ROLE_USER_URL = "/index";
+	private final String ROLE_ADMIN_URL = "/index";
 	private final String ROLE_DEFAULT_URL = "/login?error=Error en el rol asignado";
 
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
 
-		log.info("Authentication: " + authentication.toString());
-
 		String role = getMaxRole(authentication.getAuthorities());
 
-		log.info("Max role: " + role);
-
 		String redirectUrl = determineTargetUrl(role);
-
-		log.info("Redirect url: " + redirectUrl);
 
 		if (response.isCommitted()) {
 			log.info("Can't redirect");
@@ -58,14 +52,10 @@ public class RoleBasedSuccessHandler implements AuthenticationSuccessHandler {
 			return "ROLE_DEFAULT";
 		}
 
-		return authoritiesList.stream()
-				.map(GrantedAuthority::getAuthority)
-				.filter(a -> a.startsWith("ROLE_"))
-				.sorted((role1, role2) ->
-						roleWeight.getOrDefault(role2, Integer.MIN_VALUE)
-								- roleWeight.getOrDefault(role1, Integer.MIN_VALUE))
-				.findFirst()
-				.get();
+		return authoritiesList.stream().map(GrantedAuthority::getAuthority).filter(a -> a.startsWith("ROLE_"))
+				.sorted((role1, role2) -> roleWeight.getOrDefault(role2, Integer.MIN_VALUE)
+						- roleWeight.getOrDefault(role1, Integer.MIN_VALUE))
+				.findFirst().get();
 	}
 
 	private String determineTargetUrl(String role) {
@@ -77,8 +67,6 @@ public class RoleBasedSuccessHandler implements AuthenticationSuccessHandler {
 		};
 	}
 
-	private static Map<String, Integer> roleWeight = Map.of(
-			"ROLE_ADMIN", 10,
-			"ROLE_USER", 1);
+	private static Map<String, Integer> roleWeight = Map.of("ROLE_ADMIN", 10, "ROLE_USER", 1);
 
 }

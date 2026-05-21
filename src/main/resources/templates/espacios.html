@@ -2,6 +2,7 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
+
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -16,6 +17,7 @@
 
 	<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap"
 		rel="stylesheet">
+
 </head>
 
 <body class="bg-light" style="font-family: 'Manrope', sans-serif;">
@@ -45,7 +47,7 @@
 
 					<ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-4">
 
-						<li>
+						<li sec:authorize="hasRole('ADMIN')">
 
 							<a th:href="@{/admin}" class="dropdown-item py-2">
 
@@ -57,7 +59,7 @@
 
 						</li>
 
-						<li>
+						<li sec:authorize="hasRole('ADMIN')">
 							<hr class="dropdown-divider">
 						</li>
 
@@ -105,7 +107,7 @@
 
 				</div>
 
-				<a th:href="@{/espacios/nuevo}" class="btn btn-dark rounded-pill px-4">
+				<a th:href="@{/espacios/nuevo}" class="btn btn-dark rounded-pill px-4" sec:authorize="hasRole('ADMIN')">
 
 					<i class="bi bi-plus-lg me-2"></i>
 
@@ -143,8 +145,10 @@
 										Precio/hora
 									</th>
 
-									<th class="text-end pe-4">
+									<th class="text-end pe-4" sec:authorize="hasRole('ADMIN')">
+
 										Acciones
+
 									</th>
 
 								</tr>
@@ -170,7 +174,7 @@
 
 									</td>
 
-									<td class="text-end pe-4">
+									<td class="text-end pe-4" sec:authorize="hasRole('ADMIN')">
 
 										<a th:href="@{/espacios/editar/{id}(id=${espacio.id})}"
 											class="btn btn-sm btn-outline-dark rounded-pill">
@@ -202,7 +206,7 @@
 
 			</div>
 
-			<div class="mt-4">
+			<div class="mt-4" sec:authorize="hasRole('ADMIN')">
 
 				<a th:href="@{/admin}" class="btn btn-outline-secondary rounded-pill px-4">
 
