@@ -2,6 +2,7 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
+
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -16,6 +17,7 @@
 
 	<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap"
 		rel="stylesheet">
+
 </head>
 
 <body class="bg-light" style="font-family: 'Manrope', sans-serif;">
@@ -43,7 +45,7 @@
 
 					</button>
 
-				 	<ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-4">
+					<ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-4">
 
 						<li>
 
@@ -148,7 +150,7 @@
 									</th>
 
 									<th>
-										Espacio
+										Espacios
 									</th>
 
 									<th>
@@ -187,7 +189,22 @@
 									<td th:text="${reserva.usuario != null ? reserva.usuario.nombre : 'Sin usuario'}">
 									</td>
 
-									<td th:text="${reserva.espacio != null ? reserva.espacio.nombre : 'Sin espacio'}">
+									<td>
+
+										<span th:if="${#lists.isEmpty(reserva.reservasEspacios)}">
+											Sin espacio
+										</span>
+
+										<span th:each="re, iter : ${reserva.reservasEspacios}">
+
+											<span th:text="${re.espacio.nombre}"></span>
+
+											<span th:if="${!iter.last}">
+												,
+											</span>
+
+										</span>
+
 									</td>
 
 									<td>

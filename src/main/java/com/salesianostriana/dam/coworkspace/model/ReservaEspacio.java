@@ -16,11 +16,9 @@ public class ReservaEspacio {
 	private Long id;
 
 	@ManyToOne
-	@JoinColumn(name = "reserva_id")
 	private Reserva reserva;
 
 	@ManyToOne
-	@JoinColumn(name = "espacio_id")
 	private Espacio espacio;
 
 	@Enumerated(EnumType.STRING)

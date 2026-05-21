@@ -20,22 +20,23 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Espacio {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @NotBlank
-    private String nombre;
+	@NotBlank
+	private String nombre;
 
-    @NotNull
-    @Min(1)
-    private Integer capacidad;
+	@NotNull
+	@Min(1)
+	private Integer capacidad;
 
-    @NotNull
-    @Min(0)
-    private Double precio;
+	@NotNull
+	@Min(0)
+	private Double precio;
 
-    @OneToMany(mappedBy = "espacio", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ReservaEspacio> reservasEspacios = new ArrayList<>();
+	@Builder.Default
+	@OneToMany(mappedBy = "espacio", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<ReservaEspacio> reservasEspacios = new ArrayList<>();
 
 }

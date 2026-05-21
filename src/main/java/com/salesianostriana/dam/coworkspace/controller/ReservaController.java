@@ -22,90 +22,87 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ReservaController {
 
-    private final ReservaService reservaService;
-    private final UsuarioService usuarioService;
-    private final EspacioService espacioService;
+	private final ReservaService reservaService;
+	private final UsuarioService usuarioService;
+	private final EspacioService espacioService;
 
-    @GetMapping("/reservas")
-    public String getReservas(Model model) {
-        model.addAttribute("reservas", reservaService.findAll());
-        return "reservas";
-    }
+	@GetMapping("/reservas")
+	public String getReservas(Model model) {
+		model.addAttribute("reservas", reservaService.findAll());
+		return "reservas";
+	}
 
-    @GetMapping("/reservas/nuevo")
-    public String nuevaReserva(Model model) {
-        model.addAttribute("reserva", new Reserva());
-        cargarUsuariosYEspacios(model);
-        return "form-reserva";
-    }
+	@GetMapping("/reservas/nuevo")
+	public String nuevaReserva(Model model) {
+		model.addAttribute("reserva", new Reserva());
+		cargarUsuariosYEspacios(model);
+		return "form-reserva";
+	}
 
-    @PostMapping("/reservas/guardar")
-    public String guardarReserva(
-            @Valid @ModelAttribute Reserva reserva,
-            BindingResult result,
-            @RequestParam(name = "espacioIds", required = false) List<Long> espacioIds,
-            Model model) {
+	@PostMapping("/reservas/guardar")
+	public String guardarReserva(@Valid @ModelAttribute Reserva reserva, BindingResult result,
+			@RequestParam(name = "espacioIds", required = false) List<Long> espacioIds, Model model) {
 
-        if (espacioIds == null || espacioIds.isEmpty()) {
-            model.addAttribute("errorEspacios", "Debes seleccionar al menos un espacio");
-            cargarUsuariosYEspacios(model);
-            return "form-reserva";
-        }
+		if (espacioIds == null || espacioIds.isEmpty()) {
+			model.addAttribute("errorEspacios", "Debes seleccionar al menos un espacio");
+			cargarUsuariosYEspacios(model);
+			return "form-reserva";
+		}
 
-        if (result.hasErrors()) {
-            cargarUsuariosYEspacios(model);
-            return "form-reserva";
-        }
+		if (result.hasErrors()) {
+			cargarUsuariosYEspacios(model);
+			return "form-reserva";
+		}
 
-        int horaInicio = reservaService.obtenerHora(reserva.getHoraInicio());
-        int horaFin = reservaService.obtenerHora(reserva.getHoraFin());
+		int horaInicio = reservaService.obtenerHora(reserva.getHoraInicio());
+		int horaFin = reservaService.obtenerHora(reserva.getHoraFin());
 
-        if (horaFin <= horaInicio) {
-            model.addAttribute("errorHora", "La hora de fin debe ser posterior a la hora de inicio");
-            cargarUsuariosYEspacios(model);
-            return "form-reserva";
-        }
+		if (horaFin <= horaInicio) {
+			model.addAttribute("errorHora", "La hora de fin debe ser posterior a la hora de inicio");
+			cargarUsuariosYEspacios(model);
+			return "form-reserva";
+		}
 
-        for (Long espacioId : espacioIds) {
-            Espacio espacio = espacioService.findById(espacioId).orElse(null);
+		for (Long espacioId : espacioIds) {
+			Espacio espacio = espacioService.findById(espacioId).orElse(null);
 
-            if (espacio != null) {
-                ReservaEspacio reservaEspacio = new ReservaEspacio();
-                reservaEspacio.setReserva(reserva);
-                reservaEspacio.setEspacio(espacio);
-                reservaEspacio.setEstado(EstadoReserva.PENDIENTE);
-                reservaEspacio.setObservaciones("");
+			if (espacio != null) {
+				ReservaEspacio reservaEspacio = new ReservaEspacio();
+				reservaEspacio.setReserva(reserva);
+				reservaEspacio.setEspacio(espacio);
+				reservaEspacio.setEstado(EstadoReserva.PENDIENTE);
+				reservaEspacio.setObservaciones("");
 
-                reserva.getReservasEspacios().add(reservaEspacio);
-            }
-        }
+				reserva.getReservasEspacios().add(reservaEspacio);
+			}
+		}
 
-        if (reservaService.existeSolapamiento(reserva)) {
-            model.addAttribute("errorSolapamiento", "Uno de los espacios ya está reservado en ese horario");
-            cargarUsuariosYEspacios(model);
-            return "form-reserva";
-        }
+		if (reservaService.existeSolapamiento(reserva)) {
+			model.addAttribute("errorSolapamiento", "Uno de los espacios ya está reservado en ese horario");
+			cargarUsuariosYEspacios(model);
+			return "form-reserva";
+		}
 
-        reservaService.save(reserva);
-        return "redirect:/reservas";
-    }
+		reservaService.save(reserva);
+		return "redirect:/reservas";
+	}
 
-    @GetMapping("/reservas/editar/{id}")
-    public String editarReserva(@PathVariable Long id, Model model) {
-        model.addAttribute("reserva", reservaService.findById(id).orElse(null));
-        cargarUsuariosYEspacios(model);
-        return "form-reserva";
-    }
+	@GetMapping("/reservas/editar/{id}")
+	public String editarReserva(@PathVariable Long id, Model model) {
+		model.addAttribute("reserva", reservaService.findById(id).orElse(null));
+		cargarUsuariosYEspacios(model);
+		return "form-reserva";
+	}
 
-    @GetMapping("/reservas/borrar/{id}")
-    public String borrarReserva(@PathVariable Long id) {
-        reservaService.deleteById(id);
-        return "redirect:/reservas";
-    }
+	@GetMapping("/reservas/borrar/{id}")
+	public String borrarReserva(@PathVariable Long id) {
+		reservaService.deleteById(id);
+		return "redirect:/reservas";
+	}
 
-    private void cargarUsuariosYEspacios(Model model) {
-        model.addAttribute("usuarios", usuarioService.findAll());
-        model.addAttribute("espacios", espacioService.findAll());
-    }
+	private void cargarUsuariosYEspacios(Model model) {
+		model.addAttribute("usuarios", usuarioService.findAll());
+		model.addAttribute("espacios", espacioService.findAll());
+	}
 
 }
