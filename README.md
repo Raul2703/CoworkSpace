@@ -160,7 +160,7 @@ src
 ## Clonar repositorio
 
 ```bash
-git clone https://[[github.com/TU_USUARIO/coworkspace.git](https://github.com/Raul2703/CoworkSpace.git)](https://github.com/Raul2703/CoworkSpace.git)](https://github.com/Raul2703/CoworkSpace.git)
+git clone https://github.com/Raul2703/CoworkSpace.git
 ```
 
 ## Entrar al proyecto
