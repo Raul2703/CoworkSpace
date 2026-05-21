@@ -1,9 +1,12 @@
 package com.salesianostriana.dam.coworkspace.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.salesianostriana.dam.coworkspace.exception.DuracionInvalidaException;
+import com.salesianostriana.dam.coworkspace.exception.ReservaSolapadaException;
 import com.salesianostriana.dam.coworkspace.model.Reserva;
 import com.salesianostriana.dam.coworkspace.model.ReservaEspacio;
 import com.salesianostriana.dam.coworkspace.repository.ReservaRepository;
@@ -15,6 +18,16 @@ public class ReservaService extends BaseServiceImpl<Reserva, Long, ReservaReposi
 	@Override
 	public Reserva save(Reserva reserva) {
 
+		if (reserva.getReservasEspacios() == null) {
+			reserva.setReservasEspacios(new ArrayList<>());
+		}
+
+		validarHoras(reserva);
+
+		if (existeSolapamiento(reserva)) {
+			throw new ReservaSolapadaException("Uno de los espacios ya está reservado en ese horario");
+		}
+
 		calcularPrecioTotal(reserva);
 
 		for (ReservaEspacio reservaEspacio : reserva.getReservasEspacios()) {
@@ -22,6 +35,16 @@ public class ReservaService extends BaseServiceImpl<Reserva, Long, ReservaReposi
 		}
 
 		return super.save(reserva);
+	}
+
+	private void validarHoras(Reserva reserva) {
+
+		int horaInicio = obtenerHora(reserva.getHoraInicio());
+		int horaFin = obtenerHora(reserva.getHoraFin());
+
+		if (horaFin <= horaInicio) {
+			throw new DuracionInvalidaException("La hora de fin debe ser posterior a la hora de inicio");
+		}
 	}
 
 	public boolean existeSolapamiento(Reserva nuevaReserva) {
@@ -53,13 +76,15 @@ public class ReservaService extends BaseServiceImpl<Reserva, Long, ReservaReposi
 			}
 
 			for (ReservaEspacio nuevaRE : nuevaReserva.getReservasEspacios()) {
+
 				for (ReservaEspacio existenteRE : reserva.getReservasEspacios()) {
 
 					boolean mismoEspacio = nuevaRE.getEspacio() != null && existenteRE.getEspacio() != null
 							&& nuevaRE.getEspacio().getId().equals(existenteRE.getEspacio().getId());
 
 					if (mismoEspacio) {
-						return true;
+
+						throw new ReservaSolapadaException("Uno de los espacios ya está reservado en ese horario");
 					}
 				}
 			}
@@ -78,7 +103,9 @@ public class ReservaService extends BaseServiceImpl<Reserva, Long, ReservaReposi
 		double precioTotal = 0.0;
 
 		for (ReservaEspacio reservaEspacio : reserva.getReservasEspacios()) {
+
 			if (reservaEspacio.getEspacio() != null) {
+
 				precioTotal += horasReservadas * reservaEspacio.getEspacio().getPrecio();
 			}
 		}
