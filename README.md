@@ -1,119 +1,246 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=rect&height=220&color=0:0f172a,100:2563eb&text=Coworking%20Space&fontSize=52&fontColor=ffffff&animation=fadeIn"/>
+<img src="https://capsule-render.vercel.app/api?type=rect&height=220&color=0:0f172a,100:2563eb&text=CoworkSpace&fontSize=55&fontColor=ffffff&animation=fadeIn"/>
 
 <br>
 
-<p align="center">
-  Un espacio diseñado para trabajar, crear y conectar.
-</p>
+### Gestión de espacios de coworking desarrollada con Spring Boot
 
 <br>
 
-<img src="https://img.shields.io/badge/WiFi-High%20Speed-2563eb?style=flat-square"/>
-<img src="https://img.shields.io/badge/Open-Mon%20%2F%20Sat-111827?style=flat-square"/>
-<img src="https://img.shields.io/badge/Coffee-Unlimited-2563eb?style=flat-square"/>
-<img src="https://img.shields.io/badge/Environment-Modern-111827?style=flat-square"/>
+<img src="https://img.shields.io/badge/Java-17-111827?style=flat-square&logo=openjdk&logoColor=white"/>
+<img src="https://img.shields.io/badge/Spring_Boot-3.x-111827?style=flat-square&logo=springboot&logoColor=white"/>
+<img src="https://img.shields.io/badge/Bootstrap-5-111827?style=flat-square&logo=bootstrap&logoColor=white"/>
+<img src="https://img.shields.io/badge/Hibernate-JPA-111827?style=flat-square&logo=hibernate&logoColor=white"/>
+<img src="https://img.shields.io/badge/Database-H2-111827?style=flat-square&logo=h2&logoColor=white"/>
 
 </div>
 
 ---
 
-# about
+# 📌 Descripción
 
-Nuestro espacio de coworking está pensado para personas que quieren trabajar cómodas, rodeadas de un entorno moderno, tranquilo y productivo.
+CoworkSpace es una aplicación web desarrollada para la gestión de espacios de coworking.  
+Permite administrar espacios, usuarios y reservas, controlando disponibilidad, estados y costes de cada operación.
 
-Ideal para:
-- freelancers
-- developers
-- diseñadores
-- startups
-- equipos remotos
-- creadores digitales
+El proyecto ha sido desarrollado siguiendo arquitectura MVC utilizando Spring Boot, Thymeleaf y Spring Data JPA. :contentReference[oaicite:0]{index=0}
 
 ---
 
-# what we offer
+# ⚒️ Tecnologías utilizadas
 
 <div align="center">
 
-| 🚀 Productividad | ☕ Comodidad | 🌐 Conectividad |
-|---|---|---|
-| Espacios modernos | Café y zonas relax | Internet de alta velocidad |
-| Salas privadas | Ambiente tranquilo | Acceso 24/7 |
-| Escritorios flexibles | Diseño minimalista | Networking |
-
-</div>
-
----
-
-# spaces
-
-<div align="center">
-
-<img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1200&auto=format&fit=crop" width="800"/>
+| Backend | Frontend | Base de datos | Seguridad |
+|---|---|---|---|
+| Spring Boot | HTML5 | H2 Database | Spring Security |
+| Spring MVC | CSS3 | Hibernate | Login & Roles |
+| Spring Data JPA | Bootstrap 5 | JPA | Control de acceso |
 
 </div>
 
 <br>
 
+<div align="center">
+
+<img src="https://skillicons.dev/icons?i=java,html,css,js,bootstrap,git,github,vscode" />
+
+</div>
+
+---
+
+# 🧠 Funcionalidades
+
+## Gestión de entidades
+- CRUD completo de usuarios
+- CRUD completo de espacios
+- CRUD completo de reservas
+
+## Gestión de reservas
+- Control de disponibilidad
+- Prevención de solapamientos
+- Cálculo automático del coste
+- Gestión de estados de reserva
+
+## Seguridad
+- Login funcional
+- Roles ADMIN y USUARIO
+- Protección de rutas
+- Menús dinámicos según permisos
+
+## Frontend
+- Formularios validados
+- Alertas dinámicas
+- Confirmación antes de eliminar
+- Diseño responsive con Bootstrap
+
+---
+
+# 🗂️ Modelo de datos
+
+## Usuario
 ```txt
-✔ Open space
-✔ Private offices
-✔ Meeting rooms
-✔ Chill areas
-✔ Creative zones
+nombre
+email
+telefono
+```
+
+## Espacio
+```txt
+nombre
+capacidad
+precio
+```
+
+## Reserva
+```txt
+codigo
+fecha
+duracion
+precioTotal
+```
+
+## Relación Reserva - Espacio
+```txt
+estado
+observaciones
 ```
 
 ---
 
-# why choose us
+# 🔍 Consultas implementadas
 
-- ambiente profesional y moderno
-- espacios cómodos y luminosos
-- buena ubicación
-- comunidad creativa
-- flexibilidad para trabajar como quieras
+- Espacios más utilizados
+- Reservas por fecha
+- Usuarios frecuentes
 
 ---
 
-# pricing
+# ⚠️ Validaciones y excepciones
 
-<div align="center">
+## Validaciones
+- Uso de @Valid
+- Validaciones backend
+- Validaciones frontend con Javascript
 
-| Plan | Features | Price |
-|---|---|---|
-| Day Pass | acceso diario | €15 |
-| Flexible | acceso semanal | €60 |
-| Full Access | acceso mensual | €180 |
-
-</div>
-
----
-
-# contact
-
-<div align="center">
-
-<a href="#">
-<img src="https://img.shields.io/badge/website-0f172a?style=for-the-badge&logo=googlechrome&logoColor=white"/>
-</a>
-
-<a href="#">
-<img src="https://img.shields.io/badge/instagram-0f172a?style=for-the-badge&logo=instagram&logoColor=white"/>
-</a>
-
-<a href="#">
-<img src="https://img.shields.io/badge/email-0f172a?style=for-the-badge&logo=gmail&logoColor=white"/>
-</a>
-
-</div>
+## Excepciones personalizadas
+```txt
+ReservaSolapadaException
+DuracionInvalidaException
+CustomException
+```
 
 ---
 
+# 📁 Estructura del proyecto
+
+```txt
+src
+ ├── main
+ │    ├── java
+ │    │     ├── controller
+ │    │     ├── service
+ │    │     ├── repository
+ │    │     ├── entity
+ │    │     ├── dto
+ │    │     └── security
+ │    │
+ │    └── resources
+ │          ├── templates
+ │          ├── static
+ │          └── application.properties
+ │
+ └── test
+```
+
+---
+
+# 🚀 Cómo ejecutar el proyecto
+
+## Clonar repositorio
+
+```bash
+git clone https://github.com/TU_USUARIO/coworkspace.git
+```
+
+## Entrar al proyecto
+
+```bash
+cd coworkspace
+```
+
+## Ejecutar aplicación
+
+```bash
+./mvnw spring-boot:run
+```
+
+La aplicación estará disponible en:
+
+```txt
+http://localhost:8080
+```
+
+---
+
+# 📸 Capturas
+
+```txt
+Aquí puedes añadir:
+- dashboard
+- listado de reservas
+- login
+- gestión de espacios
+- formularios
+```
+
+---
+
+# 🧩 Características técnicas
+
+- Arquitectura MVC
+- Persistencia con JPA/Hibernate
+- Relaciones complejas entre entidades
+- Seguridad basada en roles
+- Validaciones completas
+- Separación por capas
+- Buenas prácticas de Git
+
+---
+
+# 📚 Gestión del proyecto
+
+## Git Flow
+```txt
+main
+develop
+feature/*
+```
+
+## Conventional commits
+```txt
+feat:
+fix:
+refactor:
+style:
+docs:
+```
+
+---
+
+# 🎯 Objetivos del proyecto
+
+- Aplicar Spring Boot en un proyecto real
+- Trabajar arquitectura MVC
+- Gestionar relaciones complejas con JPA
+- Implementar seguridad básica
+- Crear una aplicación web completa y funcional
+
+---
+
 <div align="center">
 
-### work better. create more. connect with people.
+### CoworkSpace • Spring Boot Project
 
 </div>
 
