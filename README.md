@@ -160,13 +160,13 @@ src
 ## Clonar repositorio
 
 ```bash
-git clone https://github.com/TU_USUARIO/coworkspace.git
+git clone https://[[github.com/TU_USUARIO/coworkspace.git](https://github.com/Raul2703/CoworkSpace.git)](https://github.com/Raul2703/CoworkSpace.git)](https://github.com/Raul2703/CoworkSpace.git)
 ```
 
 ## Entrar al proyecto
 
 ```bash
-cd coworkspace
+cd CoworkSpace
 ```
 
 ## Ejecutar aplicación
