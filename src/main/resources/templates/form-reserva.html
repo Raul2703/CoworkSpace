@@ -206,7 +206,8 @@
 
 									<select name="espacioIds" class="form-select rounded-3" multiple>
 
-										<option th:each="e : ${espacios}" th:value="${e.id}" th:text="${e.nombre}">
+										<option th:each="e : ${espacios}" th:value="${e.id}" th:text="${e.nombre}"
+											th:selected="${reserva.reservasEspacios != null and #lists.contains(reserva.reservasEspacios.![espacio.id], e.id)}">
 										</option>
 
 									</select>
@@ -232,10 +233,8 @@
 								<div class="d-flex gap-3">
 
 									<button type="submit" class="btn btn-dark rounded-pill px-4">
-
 										<i class="bi bi-floppy me-2"></i>
 										Guardar
-
 									</button>
 
 									<a th:href="@{/reservas}" class="btn btn-outline-secondary rounded-pill px-4">
