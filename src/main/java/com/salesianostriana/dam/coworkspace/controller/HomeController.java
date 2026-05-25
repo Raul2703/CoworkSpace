@@ -21,7 +21,7 @@ public class HomeController {
 	@GetMapping({ "/", "/index" })
 	public String index(Model model) {
 
-		model.addAttribute("espacios", espacioService.findAll().stream().limit(3).toList());
+		model.addAttribute("espacios", espacioService.findAll());
 
 		model.addAttribute("totalEspacios", espacioService.findAll().size());
 

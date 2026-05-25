@@ -43,14 +43,14 @@
 
 					<ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-4">
 
-						<li>
+						<li sec:authorize="hasRole('ADMIN')">
 							<a th:href="@{/admin}" class="dropdown-item py-2">
 								<i class="bi bi-speedometer2 me-2"></i>
 								Panel admin
 							</a>
 						</li>
 
-						<li>
+						<li sec:authorize="hasRole('ADMIN')">
 							<hr class="dropdown-divider">
 						</li>
 
@@ -207,6 +207,7 @@
 									<select name="espacioIds" class="form-select rounded-3" multiple>
 
 										<option th:each="e : ${espacios}" th:value="${e.id}" th:text="${e.nombre}"
+											th:attr="data-precio=${e.precio}"
 											th:selected="${reserva.reservasEspacios != null and #lists.contains(reserva.reservasEspacios.![espacio.id], e.id)}">
 										</option>
 
@@ -214,6 +215,24 @@
 
 									<div class="form-text">
 										Puedes seleccionar varios espacios manteniendo pulsado Ctrl o Cmd.
+									</div>
+
+								</div>
+
+								<div class="mb-4">
+
+									<div class="bg-light border rounded-4 p-4">
+
+										<h5 class="fw-bold mb-2">
+											Precio estimado
+										</h5>
+
+										<h2 class="fw-bold text-primary mb-0">
+
+											<span id="precioEstimado">0</span>€
+
+										</h2>
+
 									</div>
 
 								</div>
@@ -258,6 +277,48 @@
 	</section>
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+	<script>
+
+		const horaInicio = document.querySelector('[name="horaInicio"]');
+		const horaFin = document.querySelector('[name="horaFin"]');
+		const espacios = document.querySelector('[name="espacioIds"]');
+		const precioEstimado = document.getElementById('precioEstimado');
+
+		function calcularPrecio() {
+
+			const inicio = parseInt(horaInicio.value);
+			const fin = parseInt(horaFin.value);
+
+			if (isNaN(inicio) || isNaN(fin) || fin <= inicio) {
+
+				precioEstimado.textContent = "0.00";
+				return;
+			}
+
+			const horas = fin - inicio;
+
+			let totalPorHora = 0;
+
+			Array.from(espacios.selectedOptions).forEach(option => {
+
+				totalPorHora += parseFloat(option.dataset.precio) || 0;
+
+			});
+
+			const total = horas * totalPorHora;
+
+			precioEstimado.textContent = total.toFixed(2);
+
+		}
+
+		horaInicio.addEventListener('change', calcularPrecio);
+		horaFin.addEventListener('change', calcularPrecio);
+		espacios.addEventListener('change', calcularPrecio);
+
+		calcularPrecio();
+
+	</script>
 
 </body>
 

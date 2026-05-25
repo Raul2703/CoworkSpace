@@ -28,7 +28,7 @@ public class GlobalExceptionHandler {
 
 		model.addAttribute("error", ex.getMessage());
 
-		return "error/error-personalizado";
+		return "error/error-personalizado"; 
 	}
 
 }
