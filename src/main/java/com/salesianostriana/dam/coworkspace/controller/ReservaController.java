@@ -5,11 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import com.salesianostriana.dam.coworkspace.exception.EspacioNoSeleccionadoException;
 import com.salesianostriana.dam.coworkspace.model.Espacio;
@@ -33,39 +29,47 @@ public class ReservaController {
 
 	@GetMapping("/reservas")
 	public String getReservas(Model model) {
-
 		model.addAttribute("reservas", reservaService.findAll());
-
 		return "reservas";
 	}
 
 	@GetMapping("/reservas/nuevo")
 	public String nuevaReserva(Model model) {
-
 		model.addAttribute("reserva", new Reserva());
-
 		cargarUsuariosYEspacios(model);
-
 		return "form-reserva";
 	}
 
 	@PostMapping("/reservas/guardar")
-	public String guardarReserva(@Valid @ModelAttribute Reserva reserva, BindingResult result,
+	public String guardarReserva(@Valid @ModelAttribute Reserva reservaForm, BindingResult result,
 			@RequestParam(name = "espacioIds", required = false) List<Long> espacioIds, Model model) {
 
 		if (result.hasErrors()) {
-
 			cargarUsuariosYEspacios(model);
-
 			return "form-reserva";
 		}
 
 		if (espacioIds == null || espacioIds.isEmpty()) {
-
 			throw new EspacioNoSeleccionadoException("Debes seleccionar al menos un espacio");
 		}
 
-		reserva.getReservasEspacios().clear();
+		Reserva reserva;
+
+		if (reservaForm.getId() != null) {
+
+			reserva = reservaService.findById(reservaForm.getId()).orElseThrow();
+
+			reserva.setNombreReserva(reservaForm.getNombreReserva());
+			reserva.setFecha(reservaForm.getFecha());
+			reserva.setHoraInicio(reservaForm.getHoraInicio());
+			reserva.setHoraFin(reservaForm.getHoraFin());
+			reserva.setUsuario(reservaForm.getUsuario());
+
+			reserva.getReservasEspacios().clear();
+
+		} else {
+			reserva = reservaForm;
+		}
 
 		for (Long espacioId : espacioIds) {
 
@@ -73,12 +77,8 @@ public class ReservaController {
 
 			if (espacio != null) {
 
-				ReservaEspacio reservaEspacio = new ReservaEspacio();
-
-				reservaEspacio.setReserva(reserva);
-				reservaEspacio.setEspacio(espacio);
-				reservaEspacio.setEstado(EstadoReserva.PENDIENTE);
-				reservaEspacio.setObservaciones("");
+				ReservaEspacio reservaEspacio = ReservaEspacio.builder().reserva(reserva).espacio(espacio)
+						.estado(EstadoReserva.PENDIENTE).observaciones("").build();
 
 				reserva.getReservasEspacios().add(reservaEspacio);
 			}
@@ -91,26 +91,19 @@ public class ReservaController {
 
 	@GetMapping("/reservas/editar/{id}")
 	public String editarReserva(@PathVariable Long id, Model model) {
-
 		model.addAttribute("reserva", reservaService.findById(id).orElse(null));
-
 		cargarUsuariosYEspacios(model);
-
 		return "form-reserva";
 	}
 
 	@GetMapping("/reservas/borrar/{id}")
 	public String borrarReserva(@PathVariable Long id) {
-
 		reservaService.deleteById(id);
-
 		return "redirect:/reservas";
 	}
 
 	private void cargarUsuariosYEspacios(Model model) {
-
 		model.addAttribute("usuarios", usuarioService.findAll());
-
 		model.addAttribute("espacios", espacioService.findAll());
 	}
 

@@ -47,8 +47,6 @@ public class HomeController {
 		model.addAttribute("ultimasReservas",
 				reservaService.findAll().stream().sorted((a, b) -> b.getId().compareTo(a.getId())).limit(5).toList());
 
-		model.addAttribute("espaciosMasReservados", reservaService.obtenerEspaciosMasReservados());
-
 		return "admin";
 	}
 

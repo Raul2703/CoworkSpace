@@ -23,13 +23,16 @@ public class ReservaService extends BaseServiceImpl<Reserva, Long, ReservaReposi
 
 		calcularPrecioTotal(reserva);
 
+		for (ReservaEspacio reservaEspacio : reserva.getReservasEspacios()) {
+			reservaEspacio.setReserva(reserva);
+		}
+
 		return super.save(reserva);
 	}
 
 	private void validarDuracion(Reserva reserva) {
 
 		int horaInicio = obtenerHora(reserva.getHoraInicio());
-
 		int horaFin = obtenerHora(reserva.getHoraFin());
 
 		if (horaFin <= horaInicio) {
@@ -43,7 +46,6 @@ public class ReservaService extends BaseServiceImpl<Reserva, Long, ReservaReposi
 		List<Reserva> reservas = findAll();
 
 		int nuevaInicio = obtenerHora(nuevaReserva.getHoraInicio());
-
 		int nuevaFin = obtenerHora(nuevaReserva.getHoraFin());
 
 		for (Reserva reserva : reservas) {
@@ -73,7 +75,8 @@ public class ReservaService extends BaseServiceImpl<Reserva, Long, ReservaReposi
 
 				for (ReservaEspacio existenteRe : reserva.getReservasEspacios()) {
 
-					boolean mismoEspacio = nuevoRe.getEspacio().getId().equals(existenteRe.getEspacio().getId());
+					boolean mismoEspacio = nuevoRe.getEspacio() != null && existenteRe.getEspacio() != null
+							&& nuevoRe.getEspacio().getId().equals(existenteRe.getEspacio().getId());
 
 					if (mismoEspacio) {
 
@@ -93,8 +96,8 @@ public class ReservaService extends BaseServiceImpl<Reserva, Long, ReservaReposi
 
 		int horasReservadas = horaFin - horaInicio;
 
-		double totalPorHora = reserva.getReservasEspacios().stream().mapToDouble(re -> re.getEspacio().getPrecio())
-				.sum();
+		double totalPorHora = reserva.getReservasEspacios().stream().filter(re -> re.getEspacio() != null)
+				.mapToDouble(re -> re.getEspacio().getPrecio()).sum();
 
 		reserva.setPrecioTotal(horasReservadas * totalPorHora);
 	}
@@ -102,11 +105,6 @@ public class ReservaService extends BaseServiceImpl<Reserva, Long, ReservaReposi
 	public int obtenerHora(String hora) {
 
 		return Integer.parseInt(hora.substring(0, 2));
-	}
-
-	public List<Object[]> obtenerEspaciosMasReservados() {
-
-		return repository.obtenerEspaciosMasReservados();
 	}
 
 }
