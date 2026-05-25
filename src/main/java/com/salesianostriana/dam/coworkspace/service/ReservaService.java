@@ -1,6 +1,5 @@
 package com.salesianostriana.dam.coworkspace.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -18,45 +17,39 @@ public class ReservaService extends BaseServiceImpl<Reserva, Long, ReservaReposi
 	@Override
 	public Reserva save(Reserva reserva) {
 
-		if (reserva.getReservasEspacios() == null) {
-			reserva.setReservasEspacios(new ArrayList<>());
-		}
+		validarDuracion(reserva);
 
-		validarHoras(reserva);
-
-		if (existeSolapamiento(reserva)) {
-			throw new ReservaSolapadaException("Uno de los espacios ya está reservado en ese horario");
-		}
+		validarSolapamientos(reserva);
 
 		calcularPrecioTotal(reserva);
-
-		for (ReservaEspacio reservaEspacio : reserva.getReservasEspacios()) {
-			reservaEspacio.setReserva(reserva);
-		}
 
 		return super.save(reserva);
 	}
 
-	private void validarHoras(Reserva reserva) {
+	private void validarDuracion(Reserva reserva) {
 
 		int horaInicio = obtenerHora(reserva.getHoraInicio());
+
 		int horaFin = obtenerHora(reserva.getHoraFin());
 
 		if (horaFin <= horaInicio) {
+
 			throw new DuracionInvalidaException("La hora de fin debe ser posterior a la hora de inicio");
 		}
 	}
 
-	public boolean existeSolapamiento(Reserva nuevaReserva) {
+	private void validarSolapamientos(Reserva nuevaReserva) {
 
 		List<Reserva> reservas = findAll();
 
 		int nuevaInicio = obtenerHora(nuevaReserva.getHoraInicio());
+
 		int nuevaFin = obtenerHora(nuevaReserva.getHoraFin());
 
 		for (Reserva reserva : reservas) {
 
 			if (nuevaReserva.getId() != null && nuevaReserva.getId().equals(reserva.getId())) {
+
 				continue;
 			}
 
@@ -67,6 +60,7 @@ public class ReservaService extends BaseServiceImpl<Reserva, Long, ReservaReposi
 			}
 
 			int inicioExistente = obtenerHora(reserva.getHoraInicio());
+
 			int finExistente = obtenerHora(reserva.getHoraFin());
 
 			boolean seSolapa = nuevaInicio < finExistente && nuevaFin > inicioExistente;
@@ -75,46 +69,44 @@ public class ReservaService extends BaseServiceImpl<Reserva, Long, ReservaReposi
 				continue;
 			}
 
-			for (ReservaEspacio nuevaRE : nuevaReserva.getReservasEspacios()) {
+			for (ReservaEspacio nuevoRe : nuevaReserva.getReservasEspacios()) {
 
-				for (ReservaEspacio existenteRE : reserva.getReservasEspacios()) {
+				for (ReservaEspacio existenteRe : reserva.getReservasEspacios()) {
 
-					boolean mismoEspacio = nuevaRE.getEspacio() != null && existenteRE.getEspacio() != null
-							&& nuevaRE.getEspacio().getId().equals(existenteRE.getEspacio().getId());
+					boolean mismoEspacio = nuevoRe.getEspacio().getId().equals(existenteRe.getEspacio().getId());
 
 					if (mismoEspacio) {
 
-						throw new ReservaSolapadaException("Uno de los espacios ya está reservado en ese horario");
+						throw new ReservaSolapadaException(
+								"El espacio " + nuevoRe.getEspacio().getNombre() + " ya está reservado en ese horario");
 					}
 				}
 			}
 		}
-
-		return false;
 	}
 
 	private void calcularPrecioTotal(Reserva reserva) {
 
 		int horaInicio = obtenerHora(reserva.getHoraInicio());
+
 		int horaFin = obtenerHora(reserva.getHoraFin());
 
 		int horasReservadas = horaFin - horaInicio;
 
-		double precioTotal = 0.0;
+		double totalPorHora = reserva.getReservasEspacios().stream().mapToDouble(re -> re.getEspacio().getPrecio())
+				.sum();
 
-		for (ReservaEspacio reservaEspacio : reserva.getReservasEspacios()) {
-
-			if (reservaEspacio.getEspacio() != null) {
-
-				precioTotal += horasReservadas * reservaEspacio.getEspacio().getPrecio();
-			}
-		}
-
-		reserva.setPrecioTotal(precioTotal);
+		reserva.setPrecioTotal(horasReservadas * totalPorHora);
 	}
 
 	public int obtenerHora(String hora) {
+
 		return Integer.parseInt(hora.substring(0, 2));
+	}
+
+	public List<Object[]> obtenerEspaciosMasReservados() {
+
+		return repository.obtenerEspaciosMasReservados();
 	}
 
 }
