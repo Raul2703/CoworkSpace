@@ -30,13 +30,16 @@ public class ReservaService extends BaseServiceImpl<Reserva, Long, ReservaReposi
 		return super.save(reserva);
 	}
 
+	public List<Reserva> findByUsuarioNombre(String nombre) {
+		return repository.findByUsuario_NombreIgnoreCase(nombre);
+	}
+
 	private void validarDuracion(Reserva reserva) {
 
 		int horaInicio = obtenerHora(reserva.getHoraInicio());
 		int horaFin = obtenerHora(reserva.getHoraFin());
 
 		if (horaFin <= horaInicio) {
-
 			throw new DuracionInvalidaException("La hora de fin debe ser posterior a la hora de inicio");
 		}
 	}
@@ -51,7 +54,6 @@ public class ReservaService extends BaseServiceImpl<Reserva, Long, ReservaReposi
 		for (Reserva reserva : reservas) {
 
 			if (nuevaReserva.getId() != null && nuevaReserva.getId().equals(reserva.getId())) {
-
 				continue;
 			}
 
@@ -62,7 +64,6 @@ public class ReservaService extends BaseServiceImpl<Reserva, Long, ReservaReposi
 			}
 
 			int inicioExistente = obtenerHora(reserva.getHoraInicio());
-
 			int finExistente = obtenerHora(reserva.getHoraFin());
 
 			boolean seSolapa = nuevaInicio < finExistente && nuevaFin > inicioExistente;
@@ -79,7 +80,6 @@ public class ReservaService extends BaseServiceImpl<Reserva, Long, ReservaReposi
 							&& nuevoRe.getEspacio().getId().equals(existenteRe.getEspacio().getId());
 
 					if (mismoEspacio) {
-
 						throw new ReservaSolapadaException(
 								"El espacio " + nuevoRe.getEspacio().getNombre() + " ya está reservado en ese horario");
 					}
@@ -91,9 +91,7 @@ public class ReservaService extends BaseServiceImpl<Reserva, Long, ReservaReposi
 	private void calcularPrecioTotal(Reserva reserva) {
 
 		int horaInicio = obtenerHora(reserva.getHoraInicio());
-
 		int horaFin = obtenerHora(reserva.getHoraFin());
-
 		int horasReservadas = horaFin - horaInicio;
 
 		double totalPorHora = reserva.getReservasEspacios().stream().filter(re -> re.getEspacio() != null)
@@ -103,7 +101,6 @@ public class ReservaService extends BaseServiceImpl<Reserva, Long, ReservaReposi
 	}
 
 	public int obtenerHora(String hora) {
-
 		return Integer.parseInt(hora.substring(0, 2));
 	}
 

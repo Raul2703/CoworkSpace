@@ -2,6 +2,7 @@ package com.salesianostriana.dam.coworkspace.controller;
 
 import java.util.List;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -42,7 +43,8 @@ public class ReservaController {
 
 	@PostMapping("/reservas/guardar")
 	public String guardarReserva(@Valid @ModelAttribute Reserva reservaForm, BindingResult result,
-			@RequestParam(name = "espacioIds", required = false) List<Long> espacioIds, Model model) {
+			@RequestParam(name = "espacioIds", required = false) List<Long> espacioIds, Model model,
+			Authentication authentication) {
 
 		if (result.hasErrors()) {
 			cargarUsuariosYEspacios(model);
@@ -86,7 +88,18 @@ public class ReservaController {
 
 		reservaService.save(reserva);
 
-		return "redirect:/reservas";
+		boolean esAdmin = authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+
+		if (esAdmin) {
+			return "redirect:/reservas";
+		}
+
+		return "redirect:/reservas/confirmada";
+	}
+
+	@GetMapping("/reservas/confirmada")
+	public String reservaConfirmada() {
+		return "reserva-confirmada";
 	}
 
 	@GetMapping("/reservas/editar/{id}")

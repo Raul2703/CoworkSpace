@@ -34,13 +34,17 @@ public class SecurityConfig {
 
 		http.authorizeHttpRequests(auth -> auth
 
-				.requestMatchers("/", "/index", "/login", "/css/**", "/js/**", "/img/**", "/error").permitAll()
+				.requestMatchers("/", "/index", "/login", "/espacios", "/css/**", "/js/**", "/img/**", "/error",
+						"/h2-console/**")
+				.permitAll()
 
-				.requestMatchers("/admin/**", "/usuarios/borrar/**", "/usuarios/editar/**", "/espacios/borrar/**",
-						"/espacios/editar/**", "/reservas/borrar/**", "/reservas/editar/**")
+				.requestMatchers("/admin/**", "/usuarios/borrar/**", "/usuarios/editar/**", "/usuarios/nuevo/**",
+						"/usuarios/guardar/**", "/espacios/nuevo/**", "/espacios/guardar/**", "/espacios/borrar/**",
+						"/espacios/editar/**", "/reservas", "/reservas/", "/reservas/borrar/**", "/reservas/editar/**")
 				.hasRole("ADMIN")
 
-				.requestMatchers("/usuarios/**", "/espacios/**", "/reservas/**").hasAnyRole("ADMIN", "USER")
+				.requestMatchers("/reservas/nuevo", "/reservas/guardar", "/reservas/confirmada")
+				.hasAnyRole("ADMIN", "USER")
 
 				.anyRequest().authenticated())
 
@@ -52,6 +56,7 @@ public class SecurityConfig {
 						.deleteCookies("JSESSIONID").permitAll());
 
 		http.csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"));
+
 		http.headers(headers -> headers.frameOptions(frame -> frame.disable()));
 
 		return http.build();
@@ -60,8 +65,7 @@ public class SecurityConfig {
 	@Bean
 	UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
 
-		var admin = User.builder().username("admin").password(passwordEncoder.encode("admin")).roles("ADMIN", "USER")
-				.build();
+		var admin = User.builder().username("admin").password(passwordEncoder.encode("admin")).roles("ADMIN").build();
 
 		var user = User.builder().username("user").password(passwordEncoder.encode("user")).roles("USER").build();
 
