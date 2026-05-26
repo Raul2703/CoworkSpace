@@ -24,8 +24,7 @@
 
 <body style="font-family: 'Manrope', sans-serif; background-color: #f8fafc;">
 
-	<nav class="navbar navbar-expand-lg navbar-dark py-3 position-absolute top-0 start-0 w-100 z-3"
-		style="background: rgba(0, 0, 0, 0.25); backdrop-filter: blur(10px);">
+	<nav class="navbar navbar-expand-lg navbar-dark py-3 position-absolute top-0 start-0 w-100 z-3">
 
 		<div class="container">
 
@@ -49,6 +48,10 @@
 						<a class="nav-link fw-medium text-white" th:href="@{/reservas/nuevo}">Reservar</a>
 					</li>
 
+					<li class="nav-item" sec:authorize="hasRole('USER')">
+						<a class="nav-link fw-medium text-white" th:href="@{/mis-reservas}">Mis reservas</a>
+					</li>
+
 					<li class="nav-item" sec:authorize="hasRole('ADMIN')">
 						<a class="nav-link fw-medium text-white" th:href="@{/reservas}">Reservas</a>
 					</li>
@@ -62,7 +65,8 @@
 				<div class="d-flex align-items-center">
 
 					<div sec:authorize="isAnonymous()">
-						<a th:href="@{/login}" class="btn btn-light rounded-pill px-4 fw-semibold">
+						<a th:href="@{/login}"
+							class="btn btn-light rounded-pill px-4 fw-semibold shadow-sm border border-white border-opacity-75">
 							Iniciar sesión
 						</a>
 					</div>
@@ -85,6 +89,16 @@
 								</li>
 
 								<li sec:authorize="hasRole('ADMIN')">
+									<hr class="dropdown-divider">
+								</li>
+
+								<li sec:authorize="hasRole('USER')">
+									<a th:href="@{/mis-reservas}" class="dropdown-item py-2">
+										<i class="bi bi-calendar-check me-2"></i>Mis reservas
+									</a>
+								</li>
+
+								<li sec:authorize="hasRole('USER')">
 									<hr class="dropdown-divider">
 								</li>
 
@@ -114,7 +128,11 @@
 		<img src="/img/ofis.png" class="w-100 h-100 object-fit-cover position-absolute top-0 start-0"
 			alt="Edificio de oficinas">
 
-		<div class="position-absolute top-0 start-0 w-100 h-100" style="background: rgba(0, 0, 0, 0.48);"></div>
+		<div class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50"></div>
+
+		<div class="position-absolute top-0 start-0 w-100"
+			style="height: 180px; background: linear-gradient(180deg, rgba(3, 7, 18, 0.35) 0%, rgba(3, 7, 18, 0) 100%);">
+		</div>
 
 		<div class="container position-relative h-100 d-flex align-items-center">
 
@@ -159,15 +177,14 @@
 					<div class="col-lg-3">
 						<label class="form-label fw-semibold">Tipo de espacio</label>
 						<select class="form-select rounded-4 py-3">
-							<option>Oficina individual</option>
-							<option>Zona de equipos</option>
-							<option>Sala de reuniones</option>
+							<option value="" selected>Cualquiera</option>
+							<option th:each="espacio : ${tiposEspacio}" th:value="${espacio.nombre}" th:text="${espacio.nombre}"></option>
 						</select>
 					</div>
 
 					<div class="col-lg-3">
-						<label class="form-label fw-semibold">Ubicación</label>
-						<input type="text" class="form-control rounded-4 py-3" placeholder="Ciudad o zona">
+						<label class="form-label fw-semibold">Personas</label>
+						<input type="number" class="form-control rounded-4 py-3" min="1" placeholder="Numero de personas">
 					</div>
 
 					<div class="col-lg-3">

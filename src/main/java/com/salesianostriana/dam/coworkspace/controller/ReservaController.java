@@ -6,13 +6,18 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.salesianostriana.dam.coworkspace.exception.EspacioNoSeleccionadoException;
 import com.salesianostriana.dam.coworkspace.model.Espacio;
 import com.salesianostriana.dam.coworkspace.model.EstadoReserva;
 import com.salesianostriana.dam.coworkspace.model.Reserva;
 import com.salesianostriana.dam.coworkspace.model.ReservaEspacio;
+import com.salesianostriana.dam.coworkspace.model.Usuario;
 import com.salesianostriana.dam.coworkspace.service.EspacioService;
 import com.salesianostriana.dam.coworkspace.service.ReservaService;
 import com.salesianostriana.dam.coworkspace.service.UsuarioService;
@@ -34,10 +39,18 @@ public class ReservaController {
 		return "reservas";
 	}
 
+	@GetMapping("/mis-reservas")
+	public String misReservas(Authentication authentication, Model model) {
+
+		model.addAttribute("reservas", reservaService.findByUsuarioNombre(authentication.getName()));
+
+		return "mis-reservas";
+	}
+
 	@GetMapping("/reservas/nuevo")
 	public String nuevaReserva(Model model) {
 		model.addAttribute("reserva", new Reserva());
-		cargarUsuariosYEspacios(model);
+		cargarEspacios(model);
 		return "form-reserva";
 	}
 
@@ -47,7 +60,7 @@ public class ReservaController {
 			Authentication authentication) {
 
 		if (result.hasErrors()) {
-			cargarUsuariosYEspacios(model);
+			cargarEspacios(model);
 			return "form-reserva";
 		}
 
@@ -56,6 +69,7 @@ public class ReservaController {
 		}
 
 		Reserva reserva;
+		Usuario usuarioAutenticado = obtenerUsuarioAutenticado(authentication);
 
 		if (reservaForm.getId() != null) {
 
@@ -65,12 +79,16 @@ public class ReservaController {
 			reserva.setFecha(reservaForm.getFecha());
 			reserva.setHoraInicio(reservaForm.getHoraInicio());
 			reserva.setHoraFin(reservaForm.getHoraFin());
-			reserva.setUsuario(reservaForm.getUsuario());
+
+			if (reserva.getUsuario() == null) {
+				reserva.setUsuario(usuarioAutenticado);
+			}
 
 			reserva.getReservasEspacios().clear();
 
 		} else {
 			reserva = reservaForm;
+			reserva.setUsuario(usuarioAutenticado);
 		}
 
 		for (Long espacioId : espacioIds) {
@@ -105,7 +123,7 @@ public class ReservaController {
 	@GetMapping("/reservas/editar/{id}")
 	public String editarReserva(@PathVariable Long id, Model model) {
 		model.addAttribute("reserva", reservaService.findById(id).orElse(null));
-		cargarUsuariosYEspacios(model);
+		cargarEspacios(model);
 		return "form-reserva";
 	}
 
@@ -115,9 +133,23 @@ public class ReservaController {
 		return "redirect:/reservas";
 	}
 
-	private void cargarUsuariosYEspacios(Model model) {
-		model.addAttribute("usuarios", usuarioService.findAll());
+	private void cargarEspacios(Model model) {
 		model.addAttribute("espacios", espacioService.findAll());
+	}
+	@GetMapping ("/reservas/guardar/{id}")
+	private Usuario obtenerUsuarioAutenticado(Authentication authentication) {
+
+		String nombre = authentication.getName();
+
+		return usuarioService.findByNombreIgnoreCase(nombre).orElseGet(() -> {
+
+			Usuario usuario = new Usuario();
+			usuario.setNombre(nombre);
+			usuario.setEmail(nombre.toLowerCase().replaceAll("[^a-z0-9._-]", ".") + "@coworkspace.local");
+			usuario.setTelefono("000000000");
+
+			return usuarioService.save(usuario);
+		});
 	}
 
 }

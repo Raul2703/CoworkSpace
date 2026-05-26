@@ -43,7 +43,7 @@ public class SecurityConfig {
 						"/espacios/editar/**", "/reservas", "/reservas/", "/reservas/borrar/**", "/reservas/editar/**")
 				.hasRole("ADMIN")
 
-				.requestMatchers("/reservas/nuevo", "/reservas/guardar", "/reservas/confirmada")
+				.requestMatchers("/reservas/nuevo", "/reservas/guardar", "/reservas/confirmada", "/mis-reservas")
 				.hasAnyRole("ADMIN", "USER")
 
 				.anyRequest().authenticated())
@@ -72,4 +72,4 @@ public class SecurityConfig {
 		return new InMemoryUserDetailsManager(admin, user);
 	}
 
-}
+}	

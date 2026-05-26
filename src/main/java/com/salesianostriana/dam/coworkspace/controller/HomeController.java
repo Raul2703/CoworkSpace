@@ -1,5 +1,6 @@
 package com.salesianostriana.dam.coworkspace.controller;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -26,12 +27,15 @@ public class HomeController {
 	public String index(Model model) {
 
 		List<Espacio> espacios = espacioService.findAll();
+		List<Espacio> espaciosDestacados = new ArrayList<>(espacios);
 
-		Collections.shuffle(espacios);
+		Collections.shuffle(espaciosDestacados);
 
-		model.addAttribute("espacios", espacios.stream().limit(3).toList());
+		model.addAttribute("tiposEspacio", espacios);
 
-		model.addAttribute("totalEspacios", espacioService.findAll().size());
+		model.addAttribute("espacios", espaciosDestacados.stream().limit(3).toList());
+
+		model.addAttribute("totalEspacios", espacios.size());
 
 		model.addAttribute("totalReservas", reservaService.findAll().size());
 

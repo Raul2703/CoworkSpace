@@ -38,7 +38,6 @@ public class Reserva {
 
 	private Double precioTotal;
 
-	@NotNull(message = "Debes seleccionar un usuario")
 	@ManyToOne
 	private Usuario usuario;
 
