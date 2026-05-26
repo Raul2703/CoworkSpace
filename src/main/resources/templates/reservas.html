@@ -130,7 +130,7 @@
 								<tr>
 
 									<th class="ps-4 py-3">
-										ID
+										Codigo
 									</th>
 
 									<th>
@@ -143,6 +143,10 @@
 
 									<th>
 										Horario
+									</th>
+
+									<th>
+										Duracion
 									</th>
 
 									<th>
@@ -169,7 +173,7 @@
 
 								<tr th:each="reserva : ${reservas}">
 
-									<td class="ps-4" th:text="${reserva.id}">
+									<td class="ps-4" th:text="${reserva.codigo != null ? reserva.codigo : reserva.id}">
 									</td>
 
 									<td class="fw-semibold" th:text="${reserva.nombreReserva}">
@@ -184,6 +188,10 @@
 										-
 										<span th:text="${reserva.horaFin}"></span>
 
+									</td>
+
+									<td>
+										<span th:text="${reserva.duracion}"></span> h
 									</td>
 
 									<td th:text="${reserva.usuario != null ? reserva.usuario.nombre : 'Sin usuario'}">

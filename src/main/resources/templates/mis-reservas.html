@@ -246,6 +246,9 @@
 										<h3 class="fw-bold mb-0" th:text="${reserva.nombreReserva}">
 											Nombre de reserva
 										</h3>
+										<p class="text-secondary small mb-0" th:if="${reserva.codigo != null}">
+											Codigo <span th:text="${reserva.codigo}">RES-000001</span>
+										</p>
 									</div>
 
 								</div>
@@ -279,6 +282,9 @@
 											<span th:text="${reserva.horaInicio}">09:00</span>
 											-
 											<span th:text="${reserva.horaFin}">12:00</span>
+											<span class="text-secondary ms-2">
+												(<span th:text="${reserva.duracion}">3</span> h)
+											</span>
 										</div>
 									</div>
 
