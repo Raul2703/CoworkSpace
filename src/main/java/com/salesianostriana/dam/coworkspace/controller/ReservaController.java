@@ -6,11 +6,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import com.salesianostriana.dam.coworkspace.exception.EspacioNoSeleccionadoException;
 import com.salesianostriana.dam.coworkspace.model.Espacio;
@@ -41,9 +37,7 @@ public class ReservaController {
 
 	@GetMapping("/mis-reservas")
 	public String misReservas(Authentication authentication, Model model) {
-
 		model.addAttribute("reservas", reservaService.findByUsuarioNombre(authentication.getName()));
-
 		return "mis-reservas";
 	}
 
@@ -79,11 +73,7 @@ public class ReservaController {
 			reserva.setFecha(reservaForm.getFecha());
 			reserva.setHoraInicio(reservaForm.getHoraInicio());
 			reserva.setHoraFin(reservaForm.getHoraFin());
-
-			if (reserva.getUsuario() == null) {
-				reserva.setUsuario(usuarioAutenticado);
-			}
-
+			reserva.setUsuario(usuarioAutenticado);
 			reserva.getReservasEspacios().clear();
 
 		} else {
@@ -136,7 +126,7 @@ public class ReservaController {
 	private void cargarEspacios(Model model) {
 		model.addAttribute("espacios", espacioService.findAll());
 	}
-	@GetMapping ("/reservas/guardar/{id}")
+
 	private Usuario obtenerUsuarioAutenticado(Authentication authentication) {
 
 		String nombre = authentication.getName();
