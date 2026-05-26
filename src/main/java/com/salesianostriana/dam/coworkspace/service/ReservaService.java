@@ -18,8 +18,10 @@ public class ReservaService extends BaseServiceImpl<Reserva, Long, ReservaReposi
 	@Override
 	public Reserva save(Reserva reserva) {
 
+		generarCodigo(reserva);
 		validarFecha(reserva);
 		validarDuracion(reserva);
+		calcularDuracion(reserva);
 		validarSolapamientos(reserva);
 		calcularPrecioTotal(reserva);
 
@@ -32,6 +34,13 @@ public class ReservaService extends BaseServiceImpl<Reserva, Long, ReservaReposi
 
 	public List<Reserva> findByUsuarioNombre(String nombre) {
 		return repository.findByUsuario_NombreIgnoreCase(nombre);
+	}
+
+	private void generarCodigo(Reserva reserva) {
+
+		if (reserva.getCodigo() == null || reserva.getCodigo().isBlank()) {
+			reserva.setCodigo("RES-" + System.currentTimeMillis());
+		}
 	}
 
 	private void validarFecha(Reserva reserva) {
@@ -49,6 +58,14 @@ public class ReservaService extends BaseServiceImpl<Reserva, Long, ReservaReposi
 		if (horaFin <= horaInicio) {
 			throw new DuracionInvalidaException("La hora de fin debe ser posterior a la hora de inicio");
 		}
+	}
+
+	private void calcularDuracion(Reserva reserva) {
+
+		int horaInicio = obtenerHora(reserva.getHoraInicio());
+		int horaFin = obtenerHora(reserva.getHoraFin());
+
+		reserva.setDuracion(horaFin - horaInicio);
 	}
 
 	private void validarSolapamientos(Reserva nuevaReserva) {

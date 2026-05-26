@@ -6,6 +6,7 @@ import java.util.List;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -26,6 +27,9 @@ public class Reserva {
 	@NotBlank(message = "El nombre de la reserva es obligatorio")
 	private String nombreReserva;
 
+	@Column(unique = true)
+	private String codigo;
+
 	@NotNull(message = "La fecha es obligatoria")
 	@FutureOrPresent(message = "No puedes reservar en una fecha pasada")
 	private LocalDate fecha;
@@ -35,6 +39,9 @@ public class Reserva {
 
 	@NotBlank(message = "La hora de fin es obligatoria")
 	private String horaFin;
+
+	@Min(value = 1, message = "La duracion debe ser de al menos una hora")
+	private Integer duracion;
 
 	private Double precioTotal;
 
