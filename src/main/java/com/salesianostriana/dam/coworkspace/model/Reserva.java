@@ -1,10 +1,11 @@
-	package com.salesianostriana.dam.coworkspace.model;
+package com.salesianostriana.dam.coworkspace.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -22,20 +23,22 @@ public class Reserva {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@NotBlank
+	@NotBlank(message = "El nombre de la reserva es obligatorio")
 	private String nombreReserva;
 
-	@NotNull
+	@NotNull(message = "La fecha es obligatoria")
+	@FutureOrPresent(message = "No puedes reservar en una fecha pasada")
 	private LocalDate fecha;
 
-	@NotBlank
+	@NotBlank(message = "La hora de inicio es obligatoria")
 	private String horaInicio;
 
-	@NotBlank
+	@NotBlank(message = "La hora de fin es obligatoria")
 	private String horaFin;
 
 	private Double precioTotal;
 
+	@NotNull(message = "Debes seleccionar un usuario")
 	@ManyToOne
 	private Usuario usuario;
 

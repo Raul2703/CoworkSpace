@@ -1,5 +1,6 @@
 package com.salesianostriana.dam.coworkspace.controller;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -24,11 +25,14 @@ public class HomeController {
 	@GetMapping({ "/", "/index" })
 	public String index(Model model) {
 
-		List<Espacio> destacados = espacioService.findAll().stream().limit(3).toList();
+		List<Espacio> espacios = espacioService.findAll();
 
-		model.addAttribute("espacios", destacados);
+		Collections.shuffle(espacios);
+
+		model.addAttribute("espacios", espacios.stream().limit(3).toList());
 
 		model.addAttribute("totalEspacios", espacioService.findAll().size());
+
 		model.addAttribute("totalReservas", reservaService.findAll().size());
 
 		return "index";
@@ -38,7 +42,9 @@ public class HomeController {
 	public String admin(Model model) {
 
 		model.addAttribute("totalUsuarios", usuarioService.findAll().size());
+
 		model.addAttribute("totalEspacios", espacioService.findAll().size());
+
 		model.addAttribute("totalReservas", reservaService.findAll().size());
 
 		double ingresosTotales = reservaService.findAll().stream().filter(r -> r.getPrecioTotal() != null)

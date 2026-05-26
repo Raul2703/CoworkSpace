@@ -1,5 +1,6 @@
 package com.salesianostriana.dam.coworkspace.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -17,10 +18,9 @@ public class ReservaService extends BaseServiceImpl<Reserva, Long, ReservaReposi
 	@Override
 	public Reserva save(Reserva reserva) {
 
+		validarFecha(reserva);
 		validarDuracion(reserva);
-
 		validarSolapamientos(reserva);
-
 		calcularPrecioTotal(reserva);
 
 		for (ReservaEspacio reservaEspacio : reserva.getReservasEspacios()) {
@@ -32,6 +32,13 @@ public class ReservaService extends BaseServiceImpl<Reserva, Long, ReservaReposi
 
 	public List<Reserva> findByUsuarioNombre(String nombre) {
 		return repository.findByUsuario_NombreIgnoreCase(nombre);
+	}
+
+	private void validarFecha(Reserva reserva) {
+
+		if (reserva.getFecha() != null && reserva.getFecha().isBefore(LocalDate.now())) {
+			throw new DuracionInvalidaException("No puedes hacer una reserva en una fecha pasada");
+		}
 	}
 
 	private void validarDuracion(Reserva reserva) {
