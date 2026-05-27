@@ -3,500 +3,332 @@
 
 <head>
 
-	<meta charset="UTF-8">
-
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-	<title>Mis reservas</title>
-
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+	<th:block th:replace="~{fragments/layout :: headContent('Mis reservas')}"></th:block>
 
 </head>
 
 <body class="bg-light">
 
-	<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom py-3">
-
-		<div class="container">
-
-			<a class="navbar-brand fw-bold fs-2 text-decoration-none" th:href="@{/}">
-				Cowork<span class="text-primary">Space</span>
-			</a>
-
-			<div class="d-flex align-items-center gap-2 ms-auto flex-wrap justify-content-end">
-
-				<a th:href="@{/espacios}" class="btn btn-outline-dark rounded-pill px-4">
-					Espacios
-				</a>
-
-				<a th:href="@{/reservas/nuevo}" class="btn btn-dark rounded-pill px-4">
-					<i class="bi bi-calendar-plus me-2"></i>
-					Reservar
-				</a>
-
-				<div class="dropdown">
-
-					<button class="btn border-0 bg-transparent shadow-none p-0 dropdown-toggle" type="button"
-						data-bs-toggle="dropdown">
-
-						<i class="bi bi-person me-1"></i>
-
-						<span sec:authentication="name"></span>
-
-					</button>
-
-					<ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-4">
-
-						<li>
-
-							<a th:href="@{/}" class="dropdown-item py-2">
-
-								<i class="bi bi-house me-2"></i>
-
-								Inicio
-
-							</a>
-
-						</li>
-
-						<li>
-							<hr class="dropdown-divider">
-						</li>
-
-						<li>
-
-							<form th:action="@{/logout}" method="post">
-
-								<button type="submit" class="dropdown-item py-2">
-
-									<i class="bi bi-box-arrow-right me-2"></i>
-
-									Cerrar sesión
-
-								</button>
-
-							</form>
-
-						</li>
-
-					</ul>
-
-				</div>
-
-			</div>
-
-		</div>
-
-	</nav>
-
-	<header class="position-relative overflow-hidden text-white">
-
-		<img src="/img/ofis.png" class="position-absolute top-0 start-0 w-100 h-100 object-fit-cover"
-			alt="Espacio coworking">
-
-		<div class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-75"></div>
-
-		<div class="container position-relative z-1 py-5">
-
-			<div class="row py-5">
-
-				<div class="col-lg-8 py-lg-5">
-
-					<span class="badge rounded-pill text-bg-light px-3 py-2 mb-4">
-
-						<i class="bi bi-stars me-2"></i>
-
-						Tu espacio de trabajo, siempre organizado
-
-					</span>
-
-					<h1 class="display-3 fw-bold mb-4">
-
-						Mis reservas
-
-					</h1>
-
-					<p class="fs-5 text-white-50 mb-5">
-
-						Consulta tus reservas, revisa horarios y vuelve a reservar el espacio que necesitas en segundos.
-
-					</p>
-
-					<div class="d-flex flex-wrap gap-3">
-
-						<a th:href="@{/reservas/nuevo}" class="btn btn-primary btn-lg rounded-pill px-5">
-
-							<i class="bi bi-calendar-check me-2"></i>
-
-							Nueva reserva
-
-						</a>
-
-						<a th:href="@{/}" class="btn btn-outline-light btn-lg rounded-pill px-5">
-
-							Volver al inicio
-
-						</a>
-
-					</div>
-
-				</div>
-
-			</div>
-
-		</div>
-
-	</header>
+	<nav th:replace="~{fragments/layout :: navbar}"></nav>
 
 	<main class="py-5">
 
 		<div class="container">
 
-			<div class="row g-4 mb-5">
+			<section class="mb-5">
 
-				<div class="col-md-4">
+				<div class="card border-0 shadow-sm rounded-3 overflow-hidden">
 
-					<div class="card border-0 shadow-sm rounded-4 h-100">
+					<div class="row g-0 align-items-stretch">
 
-						<div class="card-body p-4">
+						<div class="col-lg-8">
 
-							<div class="d-flex justify-content-between align-items-center gap-3">
+							<div class="p-4 p-lg-5">
 
-								<div>
+								<p class="text-uppercase text-primary small fw-bold mb-2">
+									&Aacute;rea personal
+								</p>
 
-									<p class="text-secondary mb-1">
-
-										Reservas realizadas
-
-									</p>
-
-									<h2 class="fw-bold mb-0" th:text="${#lists.size(reservas)}">
-
-										0
-
-									</h2>
-
-								</div>
-
-								<div class="bg-primary bg-opacity-10 rounded-circle p-3">
-
-									<i class="bi bi-calendar2-check fs-3 text-primary"></i>
-
-								</div>
-
-							</div>
-
-						</div>
-
-					</div>
-
-				</div>
-
-				<div class="col-md-4">
-
-					<div class="card border-0 shadow-sm rounded-4 h-100">
-
-						<div class="card-body p-4">
-
-							<div class="d-flex justify-content-between align-items-center gap-3">
-
-								<div>
-
-									<p class="text-secondary mb-1">
-
-										Reserva online
-
-									</p>
-
-									<h2 class="fw-bold mb-0">
-
-										24/7
-
-									</h2>
-
-								</div>
-
-								<div class="bg-success bg-opacity-10 rounded-circle p-3">
-
-									<i class="bi bi-clock-history fs-3 text-success"></i>
-
-								</div>
-
-							</div>
-
-						</div>
-
-					</div>
-
-				</div>
-
-				<div class="col-md-4">
-
-					<div class="card border-0 shadow-sm rounded-4 h-100">
-
-						<div class="card-body p-4">
-
-							<div class="d-flex justify-content-between align-items-center gap-3">
-
-								<div>
-
-									<p class="text-secondary mb-1">
-
-										Gestión segura
-
-									</p>
-
-									<h2 class="fw-bold mb-0">
-
-										Activa
-
-									</h2>
-
-								</div>
-
-								<div class="bg-warning bg-opacity-10 rounded-circle p-3">
-
-									<i class="bi bi-shield-check fs-3 text-warning"></i>
-
-								</div>
-
-							</div>
-
-						</div>
-
-					</div>
-
-				</div>
-
-			</div>
-
-			<div class="d-flex justify-content-between align-items-center gap-3 flex-wrap mb-4"
-				th:if="${!#lists.isEmpty(reservas)}">
-
-				<div>
-
-					<h2 class="display-6 fw-bold mb-1">
-
-						Tus próximas reservas
-
-					</h2>
-
-					<p class="text-secondary mb-0">
-
-						Todo lo que necesitas para llegar y empezar a trabajar.
-
-					</p>
-
-				</div>
-
-				<a th:href="@{/reservas/nuevo}" class="btn btn-outline-dark rounded-pill px-4">
-
-					<i class="bi bi-plus-lg me-2"></i>
-
-					Añadir reserva
-
-				</a>
-
-			</div>
-
-			<div class="row g-4" th:if="${!#lists.isEmpty(reservas)}">
-
-				<div class="col-lg-6" th:each="reserva : ${reservas}">
-
-					<article class="card border-0 shadow-sm rounded-4 h-100">
-
-						<div class="card-body p-4 p-lg-5">
-
-							<div class="d-flex justify-content-between align-items-start gap-3 mb-4">
-
-								<div class="d-flex align-items-center gap-3">
-
-									<div class="bg-primary text-white rounded-circle p-3">
-
-										<i class="bi bi-calendar-event fs-4"></i>
-
-									</div>
+								<div class="d-flex justify-content-between align-items-start gap-4 flex-wrap">
 
 									<div>
 
-										<p class="text-secondary mb-1">
+										<h1 class="display-5 fw-bold mb-3">
+											Mis reservas
+										</h1>
 
-											Reserva
-
+										<p class="text-secondary fs-5 mb-0">
+											Revisa tus reservas activas y los datos necesarios para cada jornada.
 										</p>
 
-										<h3 class="fw-bold mb-0" th:text="${reserva.nombreReserva}">
+									</div>
 
+									<div class="d-flex gap-2 flex-wrap">
+
+										<a th:href="@{/reservas/nuevo}" class="btn btn-dark rounded-pill px-4">
+											<i class="bi bi-plus-lg me-2"></i>
+											Nueva reserva
+										</a>
+
+										<a th:href="@{/}" class="btn btn-outline-secondary rounded-pill px-4">
+											Volver al inicio
+										</a>
+
+									</div>
+
+								</div>
+
+								<div class="row g-3 mt-4">
+
+									<div class="col-sm-4">
+
+										<div class="border rounded-3 p-3 h-100 bg-light">
+
+											<p class="text-secondary small mb-1">
+												Reservas
+											</p>
+
+											<p class="h3 fw-bold mb-0" th:text="${#lists.size(reservas)}">
+												0
+											</p>
+
+										</div>
+
+									</div>
+
+									<div class="col-sm-4">
+
+										<div class="border rounded-3 p-3 h-100 bg-light">
+
+											<p class="text-secondary small mb-1">
+												Acceso
+											</p>
+
+											<p class="h5 fw-bold mb-0">
+												Online
+											</p>
+
+										</div>
+
+									</div>
+
+									<div class="col-sm-4">
+
+										<div class="border rounded-3 p-3 h-100 bg-light">
+
+											<p class="text-secondary small mb-1">
+												Usuario
+											</p>
+
+											<p class="h5 fw-bold mb-0">
+												<span sec:authentication="name">user</span>
+											</p>
+
+										</div>
+
+									</div>
+
+								</div>
+
+							</div>
+
+						</div>
+
+						<div class="col-lg-4 d-none d-lg-block">
+
+							<img src="/img/ofis.png" class="w-100 h-100 object-fit-cover" style="min-height: 300px;"
+								alt="Espacio coworking">
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</section>
+
+			<section th:if="${!#lists.isEmpty(reservas)}">
+
+				<div class="d-flex justify-content-between align-items-center gap-3 flex-wrap mb-4">
+
+					<div>
+
+						<h2 class="fw-bold mb-1">
+							Pr&oacute;ximas reservas
+						</h2>
+
+						<p class="text-secondary mb-0">
+							Fechas, horarios, espacios y precio total.
+						</p>
+
+					</div>
+
+					<a th:href="@{/reservas/nuevo}" class="btn btn-outline-dark rounded-pill px-4">
+						A&ntilde;adir reserva
+					</a>
+
+				</div>
+
+				<div class="row g-4">
+
+					<div class="col-lg-6" th:each="reserva : ${reservas}">
+
+						<article class="card border-0 shadow-sm rounded-3 h-100">
+
+							<div class="card-body p-4">
+
+								<div class="d-flex justify-content-between align-items-start gap-3">
+
+									<div>
+
+										<p class="text-uppercase text-secondary small fw-semibold mb-2">
+											Reserva
+										</p>
+
+										<h3 class="h4 fw-bold mb-0" th:text="${reserva.nombreReserva}">
 											Nombre de reserva
-
 										</h3>
 
 									</div>
 
-								</div>
-
-								<span class="badge rounded-pill text-bg-primary px-3 py-2">
-
-									Registrada
-
-								</span>
-
-							</div>
-
-							<div class="row g-3 mb-4">
-
-								<div class="col-md-6">
-
-									<div class="bg-light border rounded-4 p-3 h-100">
-
-										<p class="text-secondary small fw-semibold text-uppercase mb-2">
-
-											Fecha
-
-										</p>
-
-										<div class="fw-bold">
-
-											<i class="bi bi-calendar3 me-2 text-primary"></i>
-
-											<span th:text="${reserva.fecha}"></span>
-
-										</div>
-
-									</div>
-
-								</div>
-
-								<div class="col-md-6">
-
-									<div class="bg-light border rounded-4 p-3 h-100">
-
-										<p class="text-secondary small fw-semibold text-uppercase mb-2">
-
-											Horario
-
-										</p>
-
-										<div class="fw-bold">
-
-											<i class="bi bi-clock me-2 text-primary"></i>
-
-											<span th:text="${reserva.horaInicio}"></span>
-
-											-
-
-											<span th:text="${reserva.horaFin}"></span>
-
-										</div>
-
-									</div>
-
-								</div>
-
-							</div>
-
-							<div class="mb-4">
-
-								<p class="text-secondary small fw-semibold text-uppercase mb-3">
-
-									Espacios reservados
-
-								</p>
-
-								<div class="d-flex flex-wrap gap-2"
-									th:if="${!#lists.isEmpty(reserva.reservasEspacios)}">
-
-									<span
-										class="badge rounded-pill bg-primary-subtle text-primary-emphasis border border-primary-subtle px-3 py-2"
-										th:each="re : ${reserva.reservasEspacios}">
-
-										<i class="bi bi-building me-1"></i>
-
-										<span th:text="${re.espacio.nombre}"></span>
-
+									<span class="badge text-bg-light border text-dark fw-semibold"
+										th:text="'#' + ${reserva.id}">
+										#1
 									</span>
 
 								</div>
 
+								<div class="row g-3 mt-3">
+
+									<div class="col-sm-6">
+
+										<div class="border rounded-3 p-3 h-100">
+
+											<p class="text-secondary small mb-2">
+												<i class="bi bi-calendar3 me-2"></i>
+												Fecha
+											</p>
+
+											<p class="fw-semibold mb-0" th:text="${reserva.fecha}">
+												2026-05-27
+											</p>
+
+										</div>
+
+									</div>
+
+									<div class="col-sm-6">
+
+										<div class="border rounded-3 p-3 h-100">
+
+											<p class="text-secondary small mb-2">
+												<i class="bi bi-clock me-2"></i>
+												Horario
+											</p>
+
+											<p class="fw-semibold mb-0">
+												<span th:text="${reserva.horaInicio}"></span>
+												-
+												<span th:text="${reserva.horaFin}"></span>
+											</p>
+
+										</div>
+
+									</div>
+
+									<div class="col-12">
+
+										<div class="border rounded-3 p-3">
+
+											<p class="text-secondary small mb-2">
+												<i class="bi bi-building me-2"></i>
+												Espacios
+											</p>
+
+											<div class="d-flex flex-wrap gap-2"
+												th:if="${!#lists.isEmpty(reserva.reservasEspacios)}">
+
+												<span class="badge bg-light border text-dark fw-normal px-3 py-2"
+													th:each="re : ${reserva.reservasEspacios}">
+
+													<span th:text="${re.espacio.nombre}"></span>
+
+												</span>
+
+											</div>
+
+											<p class="text-secondary mb-0"
+												th:if="${#lists.isEmpty(reserva.reservasEspacios)}">
+												Sin espacio asignado
+											</p>
+
+										</div>
+
+									</div>
+
+								</div>
+
+								<div class="d-flex justify-content-between align-items-center gap-3 flex-wrap mt-4 pt-4 border-top">
+
+									<div>
+
+										<p class="text-secondary small mb-1">
+											Precio total
+										</p>
+
+										<p class="h4 fw-bold mb-0">
+											<span th:text="${reserva.precioTotal}"></span>&euro;
+										</p>
+
+									</div>
+
+									<a th:href="@{/reservas/nuevo}" class="btn btn-outline-dark rounded-pill px-4">
+										Reservar de nuevo
+									</a>
+
+								</div>
+
 							</div>
 
-							<div class="d-flex justify-content-between align-items-center gap-3 flex-wrap">
+						</article>
 
-								<span class="badge text-bg-dark rounded-pill fs-6 px-3 py-2">
+					</div>
 
-									<span th:text="${reserva.precioTotal}"></span>€
+				</div>
 
-								</span>
+			</section>
 
-								<a th:href="@{/reservas/nuevo}" class="btn btn-outline-dark rounded-pill px-4">
+			<section th:if="${#lists.isEmpty(reservas)}">
 
-									<i class="bi bi-arrow-repeat me-2"></i>
+				<div class="card border-0 shadow-sm rounded-3">
 
-									Reservar otra vez
+					<div class="card-body p-5">
 
+						<div class="row align-items-center g-4">
+
+							<div class="col-lg-8">
+
+								<p class="text-uppercase text-primary small fw-bold mb-2">
+									Sin reservas
+								</p>
+
+								<h2 class="fw-bold mb-3">
+									Todav&iacute;a no tienes reservas
+								</h2>
+
+								<p class="text-secondary fs-5 mb-0">
+									Cuando hagas una reserva, aparecer&aacute; aqu&iacute; con su fecha, horario y precio.
+								</p>
+
+							</div>
+
+							<div class="col-lg-4 d-flex justify-content-lg-end gap-3 flex-wrap">
+
+								<a th:href="@{/reservas/nuevo}" class="btn btn-dark rounded-pill px-4">
+									Hacer una reserva
+								</a>
+
+								<a th:href="@{/espacios}" class="btn btn-outline-dark rounded-pill px-4">
+									Ver espacios
 								</a>
 
 							</div>
 
 						</div>
 
-					</article>
-
-				</div>
-
-			</div>
-
-			<div class="card border-0 shadow-sm rounded-4" th:if="${#lists.isEmpty(reservas)}">
-
-				<div class="card-body p-5 text-center">
-
-					<div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex p-4 mb-4">
-
-						<i class="bi bi-calendar-plus display-6 text-primary"></i>
-
-					</div>
-
-					<h2 class="fw-bold mb-3">
-
-						Todavía no tienes reservas
-
-					</h2>
-
-					<p class="text-secondary fs-5 mb-4 mx-auto">
-
-						Elige un espacio, selecciona tu horario y tu reserva aparecerá aquí lista para consultar.
-
-					</p>
-
-					<div class="d-flex justify-content-center gap-3 flex-wrap">
-
-						<a th:href="@{/reservas/nuevo}" class="btn btn-dark rounded-pill px-5">
-
-							<i class="bi bi-calendar-check me-2"></i>
-
-							Hacer una reserva
-
-						</a>
-
-						<a th:href="@{/espacios}" class="btn btn-outline-dark rounded-pill px-5">
-
-							Ver espacios
-
-						</a>
-
 					</div>
 
 				</div>
 
-			</div>
+			</section>
 
 		</div>
 
 	</main>
 
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+	<footer th:replace="~{fragments/layout :: footer}"></footer>
+
+	<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
 
 </body>
 
