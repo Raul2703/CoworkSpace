@@ -143,9 +143,18 @@
 
 					</div>
 
-					<a th:href="@{/reservas/nuevo}" class="btn btn-outline-dark rounded-pill px-4">
-						A&ntilde;adir reserva
-					</a>
+					<div class="d-flex gap-2 flex-wrap">
+
+						<a th:href="@{/mis-reservas/pdf}" class="btn btn-outline-dark rounded-pill px-4">
+							<i class="bi bi-file-earmark-pdf me-2"></i>
+							Exportar PDF
+						</a>
+
+						<a th:href="@{/reservas/nuevo}" class="btn btn-dark rounded-pill px-4">
+							A&ntilde;adir reserva
+						</a>
+
+					</div>
 
 				</div>
 

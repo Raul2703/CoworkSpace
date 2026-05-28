@@ -42,7 +42,8 @@ public class SecurityConfig {
 						"/reservas/editar/**", "/reservas/*/estado")
 				.hasRole("ADMIN")
 
-				.requestMatchers("/reservas/nuevo", "/reservas/guardar", "/reservas/confirmada", "/mis-reservas")
+				.requestMatchers("/reservas/nuevo", "/reservas/guardar", "/reservas/confirmada", "/mis-reservas",
+						"/mis-reservas/pdf")
 				.hasAnyRole("ADMIN", "USER")
 
 				.anyRequest().authenticated())
