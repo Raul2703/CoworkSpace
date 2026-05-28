@@ -13,13 +13,9 @@ public class EspacioService extends BaseServiceImpl<Espacio, Long, EspacioReposi
 
 	public List<Espacio> filtrar(String busqueda, Integer capacidadMinima, Double precioMaximo) {
 
-		String texto = busqueda != null ? busqueda.trim().toLowerCase() : "";
+		String texto = busqueda != null && !busqueda.isBlank() ? busqueda.trim() : null;
 
-		return findAll().stream()
-				.filter(espacio -> texto.isBlank() || espacio.getNombre().toLowerCase().contains(texto))
-				.filter(espacio -> capacidadMinima == null || espacio.getCapacidad() >= capacidadMinima)
-				.filter(espacio -> precioMaximo == null || espacio.getPrecio() <= precioMaximo)
-				.toList();
+		return repository.filtrarEspacios(texto, capacidadMinima, precioMaximo);
 	}
 
 }
