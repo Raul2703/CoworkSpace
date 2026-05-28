@@ -1,11 +1,7 @@
 package com.salesianostriana.dam.coworkspace.controller;
 
-import java.io.IOException;
 import java.util.List;
 
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +17,6 @@ import com.salesianostriana.dam.coworkspace.model.ReservaEspacio;
 import com.salesianostriana.dam.coworkspace.model.Usuario;
 import com.salesianostriana.dam.coworkspace.service.ActividadReservaService;
 import com.salesianostriana.dam.coworkspace.service.EspacioService;
-import com.salesianostriana.dam.coworkspace.service.ReservaPdfService;
 import com.salesianostriana.dam.coworkspace.service.ReservaService;
 import com.salesianostriana.dam.coworkspace.service.UsuarioService;
 
@@ -36,7 +31,6 @@ public class ReservaController {
 	private final UsuarioService usuarioService;
 	private final EspacioService espacioService;
 	private final ActividadReservaService actividadReservaService;
-	private final ReservaPdfService reservaPdfService;
 
 	@GetMapping("/reservas")
 	public String getReservas(Model model) {
@@ -49,18 +43,6 @@ public class ReservaController {
 	public String misReservas(Authentication authentication, Model model) {
 		model.addAttribute("reservas", reservaService.findByUsuarioNombre(authentication.getName()));
 		return "mis-reservas";
-	}
-
-	@GetMapping("/mis-reservas/pdf")
-	public ResponseEntity<byte[]> exportarMisReservas(Authentication authentication) throws IOException {
-
-		List<Reserva> reservas = reservaService.findByUsuarioNombre(authentication.getName());
-		byte[] pdf = reservaPdfService.generarMisReservasPdf(reservas, authentication.getName());
-
-		return ResponseEntity.ok()
-				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=mis-reservas.pdf")
-				.contentType(MediaType.APPLICATION_PDF)
-				.body(pdf);
 	}
 
 	@GetMapping("/reservas/nuevo")
