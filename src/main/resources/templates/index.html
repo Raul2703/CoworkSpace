@@ -153,6 +153,66 @@
 
 	</section>
 
+	<section class="position-relative z-2" style="margin-top:-72px;">
+
+		<div class="container">
+
+			<form th:action="@{/espacios}" method="get" class="bg-white rounded-5 shadow p-4">
+
+				<div class="row g-3 align-items-end">
+
+					<div class="col-lg-4">
+
+						<label for="tipoEspacio" class="form-label fw-semibold">
+							Tipo de espacio
+						</label>
+
+						<select id="tipoEspacio" name="busqueda" class="form-select rounded-pill py-3">
+							<option value="" selected>Cualquiera</option>
+							<option th:each="tipo : ${tiposEspacio}" th:value="${tipo.nombre}" th:text="${tipo.nombre}">
+								Oficina individual
+							</option>
+						</select>
+
+					</div>
+
+					<div class="col-md-6 col-lg-3">
+
+						<label for="capacidadMinima" class="form-label fw-semibold">
+							Personas
+						</label>
+
+						<input id="capacidadMinima" name="capacidadMinima" type="number" min="1"
+							class="form-control rounded-pill py-3" placeholder="Cualquier capacidad">
+
+					</div>
+
+					<div class="col-md-6 col-lg-3">
+
+						<label for="fechaBusqueda" class="form-label fw-semibold">
+							Fecha
+						</label>
+
+						<input id="fechaBusqueda" name="fecha" type="date" class="form-control rounded-pill py-3">
+
+					</div>
+
+					<div class="col-lg-2 d-grid">
+
+						<button type="submit" class="btn btn-primary rounded-pill py-3 fw-semibold">
+							Buscar
+						</button>
+
+					</div>
+
+				</div>
+
+			</form>
+
+		</div>
+
+	</section>
+
 	<section class="py-5">
 
 		<div class="container py-5">
