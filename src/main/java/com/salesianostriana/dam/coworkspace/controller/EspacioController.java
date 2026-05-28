@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.salesianostriana.dam.coworkspace.model.Espacio;
 import com.salesianostriana.dam.coworkspace.service.EspacioService;
@@ -39,7 +40,8 @@ public class EspacioController {
 	}
 
 	@PostMapping("/espacios/guardar")
-	public String guardarEspacio(@Valid @ModelAttribute Espacio espacio, BindingResult result) {
+	public String guardarEspacio(@Valid @ModelAttribute Espacio espacio, BindingResult result,
+			RedirectAttributes redirectAttributes) {
 
 		if (result.hasErrors()) {
 
@@ -47,6 +49,7 @@ public class EspacioController {
 		}
 
 		espacioService.save(espacio);
+		redirectAttributes.addFlashAttribute("mensajeExito", "Espacio guardado correctamente.");
 
 		return "redirect:/espacios";
 	}
@@ -60,9 +63,10 @@ public class EspacioController {
 	}
 
 	@GetMapping("/espacios/borrar/{id}")
-	public String borrarEspacio(@PathVariable Long id) {
+	public String borrarEspacio(@PathVariable Long id, RedirectAttributes redirectAttributes) {
 
 		espacioService.deleteById(id);
+		redirectAttributes.addFlashAttribute("mensajeExito", "Espacio eliminado correctamente.");
 
 		return "redirect:/espacios";
 	}

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.salesianostriana.dam.coworkspace.exception.EspacioNoSeleccionadoException;
 import com.salesianostriana.dam.coworkspace.model.Espacio;
@@ -54,7 +55,7 @@ public class ReservaController {
 	@PostMapping("/reservas/guardar")
 	public String guardarReserva(@Valid @ModelAttribute Reserva reservaForm, BindingResult result,
 			@RequestParam(name = "espacioIds", required = false) List<Long> espacioIds, Model model,
-			Authentication authentication) {
+			Authentication authentication, RedirectAttributes redirectAttributes) {
 
 		if (result.hasErrors()) {
 			cargarEspacios(model);
@@ -107,9 +108,11 @@ public class ReservaController {
 		boolean esAdmin = authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
 
 		if (esAdmin) {
+			redirectAttributes.addFlashAttribute("mensajeExito", "Reserva guardada correctamente.");
 			return "redirect:/reservas";
 		}
 
+		redirectAttributes.addFlashAttribute("mensajeExito", "Reserva registrada correctamente.");
 		return "redirect:/reservas/confirmada";
 	}
 
@@ -126,23 +129,27 @@ public class ReservaController {
 	}
 
 	@GetMapping("/reservas/borrar/{id}")
-	public String borrarReserva(@PathVariable Long id, Authentication authentication) {
+	public String borrarReserva(@PathVariable Long id, Authentication authentication,
+			RedirectAttributes redirectAttributes) {
 
 		Reserva reserva = reservaService.findById(id).orElseThrow();
 		actividadReservaService.registrar("Borrado", reserva, obtenerNombreUsuario(authentication),
 				"Se elimino la reserva");
 		reservaService.deleteById(id);
+		redirectAttributes.addFlashAttribute("mensajeExito", "Reserva eliminada correctamente.");
 
 		return "redirect:/reservas";
 	}
 
 	@PostMapping("/reservas/{id}/estado")
 	public String actualizarEstado(@PathVariable Long id, @RequestParam EstadoReserva estado,
-			@RequestParam(required = false) String observaciones, Authentication authentication) {
+			@RequestParam(required = false) String observaciones, Authentication authentication,
+			RedirectAttributes redirectAttributes) {
 
 		Reserva reserva = reservaService.actualizarEstado(id, estado, observaciones);
 		actividadReservaService.registrar("Estado", reserva, obtenerNombreUsuario(authentication),
 				"Estado actualizado a " + estado.getTexto());
+		redirectAttributes.addFlashAttribute("mensajeExito", "Estado actualizado correctamente.");
 
 		return "redirect:/reservas";
 	}

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.salesianostriana.dam.coworkspace.model.Usuario;
 import com.salesianostriana.dam.coworkspace.service.UsuarioService;
@@ -33,7 +34,8 @@ public class UsuarioController {
 	}
 
 	@PostMapping("/usuarios/guardar")
-	public String guardarUsuario(@Valid @ModelAttribute Usuario usuario, BindingResult result) {
+	public String guardarUsuario(@Valid @ModelAttribute Usuario usuario, BindingResult result,
+			RedirectAttributes redirectAttributes) {
 
 		validarUsuario(usuario, result);
 
@@ -42,6 +44,7 @@ public class UsuarioController {
 		}
 
 		usuarioService.save(usuario);
+		redirectAttributes.addFlashAttribute("mensajeExito", "Usuario guardado correctamente.");
 		return "redirect:/usuarios";
 	}
 
@@ -58,7 +61,8 @@ public class UsuarioController {
 	}
 
 	@PostMapping("/registro")
-	public String registrar(@Valid @ModelAttribute Usuario usuario, BindingResult result) {
+	public String registrar(@Valid @ModelAttribute Usuario usuario, BindingResult result,
+			RedirectAttributes redirectAttributes) {
 
 		usuario.setRol("USER");
 		validarUsuario(usuario, result);
@@ -68,12 +72,14 @@ public class UsuarioController {
 		}
 
 		usuarioService.save(usuario);
-		return "redirect:/login?registro";
+		redirectAttributes.addFlashAttribute("mensajeExito", "Cuenta creada correctamente. Ya puedes iniciar sesion.");
+		return "redirect:/login";
 	}
 
 	@GetMapping("/usuarios/borrar/{id}")
-	public String borrarUsuario(@PathVariable Long id) {
+	public String borrarUsuario(@PathVariable Long id, RedirectAttributes redirectAttributes) {
 		usuarioService.deleteById(id);
+		redirectAttributes.addFlashAttribute("mensajeExito", "Usuario eliminado correctamente.");
 		return "redirect:/usuarios";
 	}
 
