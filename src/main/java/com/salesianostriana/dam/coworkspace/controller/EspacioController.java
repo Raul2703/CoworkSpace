@@ -18,9 +18,14 @@ public class EspacioController {
 	private final EspacioService espacioService;
 
 	@GetMapping("/espacios")
-	public String getEspacios(Model model) {
+	public String getEspacios(@RequestParam(required = false) String busqueda,
+			@RequestParam(required = false) Integer capacidadMinima,
+			@RequestParam(required = false) Double precioMaximo, Model model) {
 
-		model.addAttribute("espacios", espacioService.findAll());
+		model.addAttribute("espacios", espacioService.filtrar(busqueda, capacidadMinima, precioMaximo));
+		model.addAttribute("busqueda", busqueda);
+		model.addAttribute("capacidadMinima", capacidadMinima);
+		model.addAttribute("precioMaximo", precioMaximo);
 
 		return "espacios";
 	}

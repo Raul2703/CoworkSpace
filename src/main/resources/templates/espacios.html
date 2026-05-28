@@ -27,6 +27,73 @@
 
 			</div>
 
+			<form th:action="@{/espacios}" method="get" class="card border-0 shadow-sm rounded-4 mb-5">
+
+				<div class="card-body p-4">
+
+					<div class="row g-3 align-items-end">
+
+						<div class="col-lg-5">
+
+							<label for="busqueda" class="form-label fw-semibold">
+								Nombre del espacio
+							</label>
+
+							<input id="busqueda" name="busqueda" type="text" class="form-control rounded-pill"
+								placeholder="Oficina, sala, zona..." th:value="${busqueda}">
+
+						</div>
+
+						<div class="col-md-6 col-lg-3">
+
+							<label for="capacidadMinima" class="form-label fw-semibold">
+								Capacidad minima
+							</label>
+
+							<input id="capacidadMinima" name="capacidadMinima" type="number" min="1"
+								class="form-control rounded-pill" placeholder="Personas"
+								th:value="${capacidadMinima}">
+
+						</div>
+
+						<div class="col-md-6 col-lg-2">
+
+							<label for="precioMaximo" class="form-label fw-semibold">
+								Precio maximo
+							</label>
+
+							<input id="precioMaximo" name="precioMaximo" type="number" min="0" step="0.5"
+								class="form-control rounded-pill" placeholder="Euros"
+								th:value="${precioMaximo}">
+
+						</div>
+
+						<div class="col-lg-2 d-grid gap-2">
+
+							<button type="submit" class="btn btn-dark rounded-pill">
+								Filtrar
+							</button>
+
+							<a th:href="@{/espacios}" class="btn btn-outline-secondary rounded-pill">
+								Limpiar
+							</a>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</form>
+
+			<div th:if="${#lists.isEmpty(espacios)}" class="card border-0 shadow-sm rounded-4 mb-4">
+
+				<div class="card-body p-4 text-secondary">
+					No se han encontrado espacios con esos filtros.
+				</div>
+
+			</div>
+
 			<div class="row g-4">
 
 				<div class="col-lg-3 col-md-6" th:each="espacio : ${espacios}">
