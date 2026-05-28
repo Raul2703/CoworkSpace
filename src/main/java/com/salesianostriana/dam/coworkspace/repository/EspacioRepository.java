@@ -12,10 +12,10 @@ public interface EspacioRepository extends JpaRepository<Espacio, Long> {
 
 	@Query(value = """
 			SELECT *
-			FROM espacio e
-			WHERE (:busqueda IS NULL OR LOWER(e.nombre) LIKE CONCAT('%', LOWER(:busqueda), '%'))
-			AND (:capacidadMinima IS NULL OR e.capacidad >= :capacidadMinima)
-			AND (:precioMaximo IS NULL OR e.precio <= :precioMaximo)
+			FROM espacio
+			WHERE (:busqueda IS NULL OR LOWER(nombre) LIKE LOWER(CONCAT('%', :busqueda, '%')))
+			AND (:capacidadMinima IS NULL OR capacidad >= :capacidadMinima)
+			AND (:precioMaximo IS NULL OR precio <= :precioMaximo)
 			""", nativeQuery = true)
 	List<Espacio> filtrarEspacios(@Param("busqueda") String busqueda,
 			@Param("capacidadMinima") Integer capacidadMinima,
