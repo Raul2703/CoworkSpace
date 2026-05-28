@@ -32,6 +32,7 @@ public class ReservaController {
 	@GetMapping("/reservas")
 	public String getReservas(Model model) {
 		model.addAttribute("reservas", reservaService.findAll());
+		model.addAttribute("estadosReserva", EstadoReserva.values());
 		return "reservas";
 	}
 
@@ -120,6 +121,15 @@ public class ReservaController {
 	@GetMapping("/reservas/borrar/{id}")
 	public String borrarReserva(@PathVariable Long id) {
 		reservaService.deleteById(id);
+		return "redirect:/reservas";
+	}
+
+	@PostMapping("/reservas/{id}/estado")
+	public String actualizarEstado(@PathVariable Long id, @RequestParam EstadoReserva estado,
+			@RequestParam(required = false) String observaciones) {
+
+		reservaService.actualizarEstado(id, estado, observaciones);
+
 		return "redirect:/reservas";
 	}
 

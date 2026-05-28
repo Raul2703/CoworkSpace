@@ -51,4 +51,9 @@ public class Reserva {
 	@OneToMany(mappedBy = "reserva", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ReservaEspacio> reservasEspacios = new ArrayList<>();
 
+	@Transient
+	public EstadoReserva getEstadoActual() {
+		return reservasEspacios.stream().findFirst().map(ReservaEspacio::getEstado).orElse(EstadoReserva.PENDIENTE);
+	}
+
 }

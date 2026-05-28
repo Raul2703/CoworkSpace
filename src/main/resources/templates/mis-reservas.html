@@ -171,9 +171,10 @@
 
 									</div>
 
-									<span class="badge text-bg-light border text-dark fw-semibold"
-										th:text="'#' + ${reserva.id}">
-										#1
+									<span class="badge rounded-pill"
+										th:classappend="' ' + ${reserva.estadoActual.badgeClass}"
+										th:text="${reserva.estadoActual.texto}">
+										Pendiente
 									</span>
 
 								</div>

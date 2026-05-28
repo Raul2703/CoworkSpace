@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.salesianostriana.dam.coworkspace.exception.DuracionInvalidaException;
 import com.salesianostriana.dam.coworkspace.exception.ReservaSolapadaException;
+import com.salesianostriana.dam.coworkspace.model.EstadoReserva;
 import com.salesianostriana.dam.coworkspace.model.Reserva;
 import com.salesianostriana.dam.coworkspace.model.ReservaEspacio;
 import com.salesianostriana.dam.coworkspace.repository.ReservaRepository;
@@ -34,6 +35,18 @@ public class ReservaService extends BaseServiceImpl<Reserva, Long, ReservaReposi
 
 	public List<Reserva> findByUsuarioNombre(String nombre) {
 		return repository.findByUsuario_NombreIgnoreCase(nombre);
+	}
+
+	public Reserva actualizarEstado(Long id, EstadoReserva estado, String observaciones) {
+
+		Reserva reserva = findById(id).orElseThrow();
+
+		for (ReservaEspacio reservaEspacio : reserva.getReservasEspacios()) {
+			reservaEspacio.setEstado(estado);
+			reservaEspacio.setObservaciones(observaciones);
+		}
+
+		return repository.save(reserva);
 	}
 
 	private void generarCodigo(Reserva reserva) {
