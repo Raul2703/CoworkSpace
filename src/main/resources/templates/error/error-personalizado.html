@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+	<th:block th:replace="~{fragments/layout :: headContent('Error')}"></th:block>
+</head>
+
+<body class="bg-light">
+
+	<nav th:replace="~{fragments/layout :: navbar}"></nav>
+
+	<section class="py-5">
+
+		<div class="container py-lg-5">
+
+			<div class="row justify-content-center">
+
+				<div class="col-lg-7">
+
+					<div class="card border-0 shadow-sm rounded-4">
+
+						<div class="card-body p-4 p-lg-5">
+
+							<div class="d-flex align-items-start gap-4">
+
+								<div
+									class="bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center flex-shrink-0"
+									style="width: 56px; height: 56px;">
+									<i class="bi bi-exclamation-circle fs-3"></i>
+								</div>
+
+								<div>
+
+									<p class="text-uppercase text-primary small fw-bold mb-2">
+										Aviso
+									</p>
+
+									<h1 class="fw-bold mb-3">
+										No se ha podido completar la accion
+									</h1>
+
+									<p class="text-secondary fs-5 mb-4" th:text="${error}">
+										Ha ocurrido un problema al procesar la solicitud.
+									</p>
+
+									<div class="d-flex gap-3 flex-wrap">
+
+										<a th:href="@{/reservas/nuevo}" class="btn btn-dark rounded-pill px-4">
+											Volver a reservar
+										</a>
+
+										<a th:href="@{/}" class="btn btn-outline-dark rounded-pill px-4">
+											Ir al inicio
+										</a>
+
+									</div>
+
+								</div>
+
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</section>
+
+	<footer th:replace="~{fragments/layout :: footer}"></footer>
+
+	<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+
+</body>
+
+</html>
