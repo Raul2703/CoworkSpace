@@ -94,6 +94,21 @@
 
 			</form>
 
+			<div class="d-flex justify-content-between align-items-center gap-3 flex-wrap mb-4">
+
+				<p class="text-secondary mb-0">
+					Mostrando
+					<span class="fw-semibold text-dark" th:text="${totalEspaciosFiltrados}">0</span>
+					espacios
+				</p>
+
+				<a th:if="${filtrosActivos}" th:href="@{/espacios}"
+					class="btn btn-outline-secondary btn-sm rounded-pill px-3">
+					Quitar filtros
+				</a>
+
+			</div>
+
 			<div th:if="${#lists.isEmpty(espacios)}" class="card border-0 shadow-sm rounded-4 mb-4">
 
 				<div class="card-body p-4 text-secondary">

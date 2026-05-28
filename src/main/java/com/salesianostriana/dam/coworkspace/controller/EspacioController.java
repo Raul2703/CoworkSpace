@@ -1,5 +1,7 @@
 package com.salesianostriana.dam.coworkspace.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,10 +25,14 @@ public class EspacioController {
 			@RequestParam(required = false) Integer capacidadMinima,
 			@RequestParam(required = false) Double precioMaximo, Model model) {
 
-		model.addAttribute("espacios", espacioService.filtrar(busqueda, capacidadMinima, precioMaximo));
+		List<Espacio> espacios = espacioService.filtrar(busqueda, capacidadMinima, precioMaximo);
+
+		model.addAttribute("espacios", espacios);
 		model.addAttribute("busqueda", busqueda);
 		model.addAttribute("capacidadMinima", capacidadMinima);
 		model.addAttribute("precioMaximo", precioMaximo);
+		model.addAttribute("totalEspaciosFiltrados", espacios.size());
+		model.addAttribute("filtrosActivos", hayFiltrosActivos(busqueda, capacidadMinima, precioMaximo));
 
 		return "espacios";
 	}
@@ -69,6 +75,10 @@ public class EspacioController {
 		redirectAttributes.addFlashAttribute("mensajeExito", "Espacio eliminado correctamente.");
 
 		return "redirect:/espacios";
+	}
+
+	private boolean hayFiltrosActivos(String busqueda, Integer capacidadMinima, Double precioMaximo) {
+		return (busqueda != null && !busqueda.isBlank()) || capacidadMinima != null || precioMaximo != null;
 	}
 
 }
