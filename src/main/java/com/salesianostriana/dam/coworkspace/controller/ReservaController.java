@@ -154,6 +154,19 @@ public class ReservaController {
 		return "redirect:/reservas";
 	}
 
+	@GetMapping("/reservas/cancelar/{id}")
+	public String cancelarReserva(@PathVariable Long id, Authentication authentication,
+			RedirectAttributes redirectAttributes) {
+
+		Reserva reserva = reservaService.findById(id).orElseThrow();
+		reservaService.actualizarEstado(id, EstadoReserva.CANCELADA, "Cancelada por el usuario");
+		actividadReservaService.registrar("Cancelacion", reserva, obtenerNombreUsuario(authentication),
+				"El usuario cancelo la reserva");
+		redirectAttributes.addFlashAttribute("mensajeExito", "Reserva cancelada correctamente.");
+
+		return "redirect:/mis-reservas";
+	}
+
 	private void cargarEspacios(Model model) {
 		model.addAttribute("espacios", espacioService.findAll());
 	}

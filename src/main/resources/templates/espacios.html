@@ -17,15 +17,23 @@
 
 		<div class="container">
 
-			<div class="mb-5">
+			<div class="d-flex justify-content-between align-items-center gap-3 flex-wrap mb-5">
 
-				<h1 class="display-4 fw-bold">
-					Todos los espacios
-				</h1>
+				<div>
 
-				<p class="text-secondary fs-5">
-					Explora todos los espacios disponibles.
-				</p>
+					<h1 class="display-4 fw-bold mb-1">
+						Todos los espacios
+					</h1>
+
+					<p class="text-secondary fs-5 mb-0">
+						Explora todos los espacios disponibles.
+					</p>
+
+				</div>
+
+				<a th:href="@{/espacios/nuevo}" class="btn btn-dark rounded-pill px-4" sec:authorize="hasRole('ADMIN')">
+					<i class="bi bi-plus-lg me-2"></i>Nuevo espacio
+				</a>
 
 			</div>
 
@@ -53,8 +61,7 @@
 							</label>
 
 							<input id="capacidadMinima" name="capacidadMinima" type="number" min="1"
-								class="form-control rounded-pill" placeholder="Personas"
-								th:value="${capacidadMinima}">
+								class="form-control rounded-pill" placeholder="Personas" th:value="${capacidadMinima}">
 
 						</div>
 
@@ -65,8 +72,7 @@
 							</label>
 
 							<input id="precioMaximo" name="precioMaximo" type="number" min="0" step="0.5"
-								class="form-control rounded-pill" placeholder="Euros"
-								th:value="${precioMaximo}">
+								class="form-control rounded-pill" placeholder="Euros" th:value="${precioMaximo}">
 
 						</div>
 
@@ -137,12 +143,23 @@
 
 							</p>
 
-							<div class="mt-auto">
+							<div class="mt-auto d-grid gap-2">
 
-								<a th:href="@{/reservas/nuevo}" class="btn btn-dark rounded-pill w-100">
-
+								<a th:href="@{/reservas/nuevo}" class="btn btn-dark rounded-pill w-100"
+									sec:authorize="hasRole('USER')">
 									Reservar
+								</a>
 
+								<a th:href="@{/espacios/editar/{id}(id=${espacio.id})}"
+									class="btn btn-outline-dark rounded-pill w-100" sec:authorize="hasRole('ADMIN')">
+									<i class="bi bi-pencil me-1"></i>Editar
+								</a>
+
+								<a th:href="@{/espacios/borrar/{id}(id=${espacio.id})}"
+									class="btn btn-dark rounded-pill w-100 js-confirm-delete"
+									data-confirm-message="¿Seguro que quieres borrar este espacio?"
+									sec:authorize="hasRole('ADMIN')">
+									<i class="bi bi-trash me-1"></i>Borrar
 								</a>
 
 							</div>
@@ -155,12 +172,21 @@
 
 			</div>
 
+			<div class="mt-4" sec:authorize="hasRole('ADMIN')">
+
+				<a th:href="@{/admin}" class="btn btn-outline-secondary rounded-pill px-4">
+					Volver al panel
+				</a>
+
+			</div>
+
 		</div>
 
 	</section>
 
 	<footer th:replace="~{fragments/layout :: footer}"></footer>
 
+	<script src="/js/confirm-delete.js"></script>
 	<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
 
 </body>

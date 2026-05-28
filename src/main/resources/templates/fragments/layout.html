@@ -46,10 +46,6 @@
 					Mis reservas
 				</a>
 
-				<a th:href="@{/admin}" class="btn btn-outline-dark rounded-pill px-4" sec:authorize="hasRole('ADMIN')">
-					Admin
-				</a>
-
 				<div sec:authorize="isAnonymous()">
 					<a th:href="@{/login}" class="btn btn-light rounded-pill px-4 fw-semibold border">
 						Iniciar sesion
@@ -75,12 +71,6 @@
 						<li sec:authorize="hasRole('USER')">
 							<a th:href="@{/mis-reservas}" class="dropdown-item py-2">
 								<i class="bi bi-calendar-check me-2"></i>Mis reservas
-							</a>
-						</li>
-
-						<li sec:authorize="hasRole('ADMIN')">
-							<a th:href="@{/admin}" class="dropdown-item py-2">
-								<i class="bi bi-speedometer2 me-2"></i>Panel admin
 							</a>
 						</li>
 
@@ -129,10 +119,14 @@
 					<h6 class="fw-bold mb-3">Navegacion</h6>
 
 					<ul class="list-unstyled d-grid gap-2 mb-0">
-						<li><a th:href="@{/}" class="link-light link-opacity-75-hover text-decoration-none">Inicio</a></li>
-						<li><a th:href="@{/espacios}" class="link-light link-opacity-75-hover text-decoration-none">Espacios</a></li>
-						<li><a th:href="@{/reservas/nuevo}" class="link-light link-opacity-75-hover text-decoration-none">Reservar</a></li>
-						<li><a th:href="@{/mis-reservas}" class="link-light link-opacity-75-hover text-decoration-none">Mis reservas</a></li>
+						<li><a th:href="@{/}" class="link-light link-opacity-75-hover text-decoration-none">Inicio</a>
+						</li>
+						<li><a th:href="@{/espacios}"
+								class="link-light link-opacity-75-hover text-decoration-none">Espacios</a></li>
+						<li><a th:href="@{/reservas/nuevo}"
+								class="link-light link-opacity-75-hover text-decoration-none">Reservar</a></li>
+						<li><a th:href="@{/mis-reservas}"
+								class="link-light link-opacity-75-hover text-decoration-none">Mis reservas</a></li>
 					</ul>
 
 				</div>
@@ -185,15 +179,15 @@
 
 		<div class="container mt-4" th:if="${mensajeExito != null || mensajeError != null}">
 
-			<div th:if="${mensajeExito != null}" class="alert alert-success alert-dismissible fade show rounded-4 border-0 shadow-sm"
-				role="alert">
+			<div th:if="${mensajeExito != null}"
+				class="alert alert-success alert-dismissible fade show rounded-4 border-0 shadow-sm" role="alert">
 				<i class="bi bi-check-circle me-2"></i>
 				<span th:text="${mensajeExito}">Operacion realizada correctamente.</span>
 				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
 			</div>
 
-			<div th:if="${mensajeError != null}" class="alert alert-danger alert-dismissible fade show rounded-4 border-0 shadow-sm"
-				role="alert">
+			<div th:if="${mensajeError != null}"
+				class="alert alert-danger alert-dismissible fade show rounded-4 border-0 shadow-sm" role="alert">
 				<i class="bi bi-exclamation-circle me-2"></i>
 				<span th:text="${mensajeError}">No se ha podido completar la operacion.</span>
 				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>

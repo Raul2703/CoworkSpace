@@ -38,11 +38,12 @@ public class SecurityConfig {
 
 				.requestMatchers("/admin/**", "/usuarios/borrar/**", "/usuarios/editar/**", "/usuarios/nuevo/**",
 						"/usuarios/guardar/**", "/espacios/nuevo/**", "/espacios/guardar/**", "/espacios/borrar/**",
-						"/espacios/editar/**", "/reservas", "/reservas/", "/reservas/borrar/**",
-						"/reservas/editar/**", "/reservas/*/estado")
+						"/espacios/editar/**", "/reservas", "/reservas/", "/reservas/borrar/**", "/reservas/editar/**",
+						"/reservas/*/estado")
 				.hasRole("ADMIN")
 
-				.requestMatchers("/reservas/nuevo", "/reservas/guardar", "/reservas/confirmada", "/mis-reservas")
+				.requestMatchers("/reservas/nuevo", "/reservas/guardar", "/reservas/confirmada", "/mis-reservas",
+						"/reservas/cancelar/**")
 				.hasAnyRole("ADMIN", "USER")
 
 				.anyRequest().authenticated())
@@ -70,4 +71,4 @@ public class SecurityConfig {
 				.orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
 	}
 
-}	
+}
