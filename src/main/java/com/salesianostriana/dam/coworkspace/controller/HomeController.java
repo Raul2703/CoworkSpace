@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.salesianostriana.dam.coworkspace.model.Espacio;
+import com.salesianostriana.dam.coworkspace.service.ActividadReservaService;
 import com.salesianostriana.dam.coworkspace.service.EspacioService;
 import com.salesianostriana.dam.coworkspace.service.ReservaService;
 import com.salesianostriana.dam.coworkspace.service.UsuarioService;
@@ -22,6 +23,7 @@ public class HomeController {
 	private final UsuarioService usuarioService;
 	private final EspacioService espacioService;
 	private final ReservaService reservaService;
+	private final ActividadReservaService actividadReservaService;
 
 	@GetMapping({ "/", "/index" })
 	public String index(Model model) {
@@ -58,6 +60,8 @@ public class HomeController {
 
 		model.addAttribute("ultimasReservas",
 				reservaService.findAll().stream().sorted((a, b) -> b.getId().compareTo(a.getId())).limit(5).toList());
+
+		model.addAttribute("ultimasActividades", actividadReservaService.findUltimas());
 
 		return "admin";
 	}

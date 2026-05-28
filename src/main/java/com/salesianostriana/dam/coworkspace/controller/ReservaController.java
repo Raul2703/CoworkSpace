@@ -14,6 +14,7 @@ import com.salesianostriana.dam.coworkspace.model.EstadoReserva;
 import com.salesianostriana.dam.coworkspace.model.Reserva;
 import com.salesianostriana.dam.coworkspace.model.ReservaEspacio;
 import com.salesianostriana.dam.coworkspace.model.Usuario;
+import com.salesianostriana.dam.coworkspace.service.ActividadReservaService;
 import com.salesianostriana.dam.coworkspace.service.EspacioService;
 import com.salesianostriana.dam.coworkspace.service.ReservaService;
 import com.salesianostriana.dam.coworkspace.service.UsuarioService;
@@ -28,6 +29,7 @@ public class ReservaController {
 	private final ReservaService reservaService;
 	private final UsuarioService usuarioService;
 	private final EspacioService espacioService;
+	private final ActividadReservaService actividadReservaService;
 
 	@GetMapping("/reservas")
 	public String getReservas(Model model) {
@@ -66,7 +68,9 @@ public class ReservaController {
 		Reserva reserva;
 		Usuario usuarioAutenticado = obtenerUsuarioAutenticado(authentication);
 
-		if (reservaForm.getId() != null) {
+		boolean esEdicion = reservaForm.getId() != null;
+
+		if (esEdicion) {
 
 			reserva = reservaService.findById(reservaForm.getId()).orElseThrow();
 
@@ -95,7 +99,10 @@ public class ReservaController {
 			}
 		}
 
-		reservaService.save(reserva);
+		Reserva reservaGuardada = reservaService.save(reserva);
+		actividadReservaService.registrar(esEdicion ? "Actualizacion" : "Creacion", reservaGuardada,
+				obtenerNombreUsuario(authentication),
+				esEdicion ? "Se actualizaron los datos de la reserva" : "Se creo una nueva reserva");
 
 		boolean esAdmin = authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
 
@@ -119,16 +126,23 @@ public class ReservaController {
 	}
 
 	@GetMapping("/reservas/borrar/{id}")
-	public String borrarReserva(@PathVariable Long id) {
+	public String borrarReserva(@PathVariable Long id, Authentication authentication) {
+
+		Reserva reserva = reservaService.findById(id).orElseThrow();
+		actividadReservaService.registrar("Borrado", reserva, obtenerNombreUsuario(authentication),
+				"Se elimino la reserva");
 		reservaService.deleteById(id);
+
 		return "redirect:/reservas";
 	}
 
 	@PostMapping("/reservas/{id}/estado")
 	public String actualizarEstado(@PathVariable Long id, @RequestParam EstadoReserva estado,
-			@RequestParam(required = false) String observaciones) {
+			@RequestParam(required = false) String observaciones, Authentication authentication) {
 
-		reservaService.actualizarEstado(id, estado, observaciones);
+		Reserva reserva = reservaService.actualizarEstado(id, estado, observaciones);
+		actividadReservaService.registrar("Estado", reserva, obtenerNombreUsuario(authentication),
+				"Estado actualizado a " + estado.getTexto());
 
 		return "redirect:/reservas";
 	}
@@ -150,6 +164,10 @@ public class ReservaController {
 
 			return usuarioService.save(usuario);
 		});
+	}
+
+	private String obtenerNombreUsuario(Authentication authentication) {
+		return authentication != null ? authentication.getName() : "sistema";
 	}
 
 }

@@ -201,6 +201,76 @@
 
 				</div>
 
+				<div class="col-lg-8">
+
+					<div class="card border-0 shadow-sm rounded-4 h-100">
+
+						<div class="card-body p-4">
+
+							<div class="d-flex justify-content-between align-items-center gap-3 flex-wrap mb-3">
+
+								<div>
+
+									<h4 class="fw-bold mb-1">
+										Actividad reciente
+									</h4>
+
+									<p class="text-secondary mb-0">
+										Ultimos cambios realizados sobre reservas.
+									</p>
+
+								</div>
+
+								<i class="bi bi-clock-history text-primary fs-3"></i>
+
+							</div>
+
+							<div th:if="${#lists.isEmpty(ultimasActividades)}"
+								class="border rounded-3 p-4 text-secondary">
+								Todavia no hay actividad registrada.
+							</div>
+
+							<div class="list-group list-group-flush" th:if="${!#lists.isEmpty(ultimasActividades)}">
+
+								<div class="list-group-item px-0" th:each="actividad : ${ultimasActividades}">
+
+									<div class="d-flex justify-content-between align-items-start gap-3">
+
+										<div>
+
+											<p class="fw-semibold mb-1">
+												<span th:text="${actividad.accion}">Creacion</span>
+												-
+												<span th:text="${actividad.reservaNombre}">Reserva</span>
+											</p>
+
+											<p class="text-secondary small mb-0">
+												<span th:text="${actividad.detalle}">Detalle</span>
+												<span th:if="${actividad.usuario != null}">
+													por
+													<span th:text="${actividad.usuario}">usuario</span>
+												</span>
+											</p>
+
+										</div>
+
+										<span class="text-secondary small text-nowrap"
+											th:text="${#temporals.format(actividad.fechaHora, 'dd/MM HH:mm')}">
+											01/01 10:00
+										</span>
+
+									</div>
+
+								</div>
+
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+
 			</div>
 
 		</div>
