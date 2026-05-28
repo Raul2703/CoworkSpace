@@ -6,17 +6,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
-
-import org.springframework.security.crypto.password.PasswordEncoder;
-
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.savedrequest.NullRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
+
+import com.salesianostriana.dam.coworkspace.repository.UsuarioRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -35,7 +33,7 @@ public class SecurityConfig {
 		http.authorizeHttpRequests(auth -> auth
 
 				.requestMatchers("/", "/index", "/login", "/espacios", "/css/**", "/js/**", "/img/**", "/error",
-						"/h2-console/**")
+						"/registro", "/h2-console/**")
 				.permitAll()
 
 				.requestMatchers("/admin/**", "/usuarios/borrar/**", "/usuarios/editar/**", "/usuarios/nuevo/**",
@@ -64,13 +62,12 @@ public class SecurityConfig {
 	}
 
 	@Bean
-	UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
+	UserDetailsService userDetailsService(UsuarioRepository usuarioRepository) {
 
-		var admin = User.builder().username("admin").password(passwordEncoder.encode("admin")).roles("ADMIN").build();
-
-		var user = User.builder().username("user").password(passwordEncoder.encode("user")).roles("USER").build();
-
-		return new InMemoryUserDetailsManager(admin, user);
+		return username -> usuarioRepository.findByNombreIgnoreCase(username)
+				.map(usuario -> org.springframework.security.core.userdetails.User.builder()
+						.username(usuario.getNombre()).password(usuario.getPassword()).roles(usuario.getRol()).build())
+				.orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
 	}
 
 }	

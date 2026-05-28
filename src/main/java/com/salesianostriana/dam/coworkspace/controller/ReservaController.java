@@ -155,15 +155,7 @@ public class ReservaController {
 
 		String nombre = authentication.getName();
 
-		return usuarioService.findByNombreIgnoreCase(nombre).orElseGet(() -> {
-
-			Usuario usuario = new Usuario();
-			usuario.setNombre(nombre);
-			usuario.setEmail(nombre.toLowerCase().replaceAll("[^a-z0-9._-]", ".") + "@coworkspace.local");
-			usuario.setTelefono("000000000");
-
-			return usuarioService.save(usuario);
-		});
+		return usuarioService.findByNombreIgnoreCase(nombre).orElseThrow();
 	}
 
 	private String obtenerNombreUsuario(Authentication authentication) {

@@ -35,6 +35,8 @@ public class UsuarioController {
 	@PostMapping("/usuarios/guardar")
 	public String guardarUsuario(@Valid @ModelAttribute Usuario usuario, BindingResult result) {
 
+		validarUsuario(usuario, result);
+
 		if (result.hasErrors()) {
 			return "form-usuario";
 		}
@@ -49,10 +51,50 @@ public class UsuarioController {
 		return "form-usuario";
 	}
 
+	@GetMapping("/registro")
+	public String registro(Model model) {
+		model.addAttribute("usuario", new Usuario());
+		return "registro";
+	}
+
+	@PostMapping("/registro")
+	public String registrar(@Valid @ModelAttribute Usuario usuario, BindingResult result) {
+
+		usuario.setRol("USER");
+		validarUsuario(usuario, result);
+
+		if (result.hasErrors()) {
+			return "registro";
+		}
+
+		usuarioService.save(usuario);
+		return "redirect:/login?registro";
+	}
+
 	@GetMapping("/usuarios/borrar/{id}")
 	public String borrarUsuario(@PathVariable Long id) {
 		usuarioService.deleteById(id);
 		return "redirect:/usuarios";
+	}
+
+	private void validarUsuario(Usuario usuario, BindingResult result) {
+
+		if (usuario.getId() == null && (usuario.getPassword() == null || usuario.getPassword().isBlank())) {
+			result.rejectValue("password", "password.empty", "La contrasena es obligatoria");
+		}
+
+		if (usuario.getNombre() != null && !usuario.getNombre().isBlank()) {
+			usuarioService.findByNombreIgnoreCase(usuario.getNombre())
+					.filter(usuarioGuardado -> !usuarioGuardado.getId().equals(usuario.getId()))
+					.ifPresent(usuarioGuardado -> result.rejectValue("nombre", "nombre.exists", "Ese usuario ya existe"));
+		}
+
+		if (usuario.getEmail() != null && !usuario.getEmail().isBlank()) {
+			usuarioService.findByEmailIgnoreCase(usuario.getEmail())
+					.filter(usuarioGuardado -> !usuarioGuardado.getId().equals(usuario.getId()))
+					.ifPresent(usuarioGuardado -> result.rejectValue("email", "email.exists",
+							"Ese email ya esta registrado"));
+		}
 	}
 
 }

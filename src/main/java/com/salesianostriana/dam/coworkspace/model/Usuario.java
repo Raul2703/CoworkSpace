@@ -35,6 +35,10 @@ public class Usuario {
 	@NotBlank
 	private String telefono;
 
+	private String password;
+
+	private String rol = "USER";
+
 	@OneToMany(mappedBy = "usuario")
 	private List<Reserva> reservas = new ArrayList<>();
 
