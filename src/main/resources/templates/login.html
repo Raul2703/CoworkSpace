@@ -11,9 +11,9 @@
 	</style>
 </head>
 
-<body style="overflow: hidden;">
+<body>
 
-	<div class="position-relative vh-100" style="background-image: url('/img/fondoLogin.png');
+	<div class="position-relative min-vh-100" style="background-image: url('/img/fondoLogin.png');
             background-size: cover;
             background-position: center;">
 
@@ -28,9 +28,15 @@
 					Cowork<span class="text-primary">Space</span>
 				</a>
 
-				<div class="collapse navbar-collapse">
+				<button class="navbar-toggler border-0 ms-auto" type="button" data-bs-toggle="collapse"
+					data-bs-target="#loginNavbar" aria-controls="loginNavbar" aria-expanded="false"
+					aria-label="Mostrar navegacion">
+					<span class="navbar-toggler-icon"></span>
+				</button>
 
-					<ul class="navbar-nav mx-auto gap-4">
+				<div class="collapse navbar-collapse mt-3 mt-lg-0" id="loginNavbar">
+
+					<ul class="navbar-nav mx-auto gap-lg-4">
 
 						<li class="nav-item">
 							<a class="nav-link fw-semibold text-white" th:href="@{/}">
@@ -52,7 +58,7 @@
 
 					</ul>
 
-					<a th:href="@{/login}" class="btn btn-light rounded-pill px-4 fw-semibold">
+					<a th:href="@{/login}" class="btn btn-light rounded-pill px-4 fw-semibold mt-3 mt-lg-0">
 						Iniciar sesion
 					</a>
 
@@ -62,15 +68,15 @@
 
 		</nav>
 
-		<div class="container-fluid position-relative z-2 h-100">
+		<div class="container-fluid position-relative z-2 min-vh-100">
 
-			<div class="row h-100">
+			<div class="row min-vh-100 py-5">
 
 				<div class="col-lg-6"></div>
 
-				<div class="col-lg-6 d-flex align-items-center justify-content-lg-start ps-lg-5">
+				<div class="col-lg-6 d-flex align-items-center justify-content-lg-start ps-lg-5 pt-5 pt-lg-0">
 
-					<div class="text-white p-5" style="width: 100%;
+					<div class="text-white p-4 p-md-5" style="width: 100%;
                             max-width: 520px;
                             border: 1px solid rgba(255,255,255,0.2);
                             background: rgba(0,0,0,0.25);

@@ -17,9 +17,15 @@
 				Cowork<span class="text-primary">Space</span>
 			</a>
 
-			<div class="collapse navbar-collapse">
+			<button class="navbar-toggler border-0 ms-auto" type="button" data-bs-toggle="collapse"
+				data-bs-target="#homeNavbar" aria-controls="homeNavbar" aria-expanded="false"
+				aria-label="Mostrar navegacion">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 
-				<ul class="navbar-nav mx-auto gap-4">
+			<div class="collapse navbar-collapse mt-3 mt-lg-0" id="homeNavbar">
+
+				<ul class="navbar-nav mx-auto gap-lg-4">
 
 					<li class="nav-item">
 						<a class="nav-link fw-medium text-white" th:href="@{/}">
@@ -53,7 +59,7 @@
 
 				</ul>
 
-				<div class="d-flex align-items-center">
+				<div class="d-flex align-items-center mt-3 mt-lg-0">
 
 					<div sec:authorize="isAnonymous()">
 						<a th:href="@{/login}" class="btn btn-light rounded-pill px-4 fw-semibold shadow-sm">
