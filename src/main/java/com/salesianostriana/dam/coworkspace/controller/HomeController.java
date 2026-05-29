@@ -63,6 +63,8 @@ public class HomeController {
 
 		model.addAttribute("espaciosMasUsados", espacioService.espaciosMasUsados());
 
+		model.addAttribute("reservasPorFecha", reservaService.reservasPorFecha());
+
 		model.addAttribute("ultimasActividades", actividadReservaService.findUltimas());
 
 		return "admin";

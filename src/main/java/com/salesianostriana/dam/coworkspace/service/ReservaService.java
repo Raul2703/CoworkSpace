@@ -37,6 +37,10 @@ public class ReservaService extends BaseServiceImpl<Reserva, Long, ReservaReposi
 		return repository.findByUsuario_NombreIgnoreCase(nombre);
 	}
 
+	public List<Object[]> reservasPorFecha() {
+		return repository.reservasPorFecha();
+	}
+
 	public Reserva actualizarEstado(Long id, EstadoReserva estado, String observaciones) {
 
 		Reserva reserva = findById(id).orElseThrow();
