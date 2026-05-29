@@ -21,4 +21,14 @@ public interface EspacioRepository extends JpaRepository<Espacio, Long> {
 			@Param("capacidadMinima") Integer capacidadMinima,
 			@Param("precioMaximo") Double precioMaximo);
 
+	@Query(value = """
+			SELECT e.nombre, COUNT(re.id) AS total
+			FROM espacio e
+			LEFT JOIN reserva_espacio re ON e.id = re.espacio_id
+			GROUP BY e.id, e.nombre
+			ORDER BY total DESC
+			LIMIT 5
+			""", nativeQuery = true)
+	List<Object[]> espaciosMasUsados();
+
 }

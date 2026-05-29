@@ -18,4 +18,8 @@ public class EspacioService extends BaseServiceImpl<Espacio, Long, EspacioReposi
 		return repository.filtrarEspacios(texto, capacidadMinima, precioMaximo);
 	}
 
+	public List<Object[]> espaciosMasUsados() {
+		return repository.espaciosMasUsados();
+	}
+
 }
