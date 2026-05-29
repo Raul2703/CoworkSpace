@@ -1,5 +1,6 @@
 package com.salesianostriana.dam.coworkspace.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -48,6 +49,10 @@ public class UsuarioService extends BaseServiceImpl<Usuario, Long, UsuarioReposi
 
 	public boolean existsByEmailIgnoreCase(String email) {
 		return repository.existsByEmailIgnoreCase(email);
+	}
+
+	public List<Object[]> usuariosFrecuentes() {
+		return repository.usuariosFrecuentes();
 	}
 
 }
