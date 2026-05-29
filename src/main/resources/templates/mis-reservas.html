@@ -125,7 +125,11 @@
 
 								<tr th:each="reserva : ${reservas}">
 
-									<td class="ps-4 fw-semibold" th:text="${reserva.nombreReserva}">
+									<td class="ps-4">
+										<div class="fw-semibold" th:text="${reserva.nombreReserva}">
+										</div>
+										<div class="text-secondary small" th:text="${reserva.codigo}">
+										</div>
 									</td>
 
 									<td th:text="${reserva.fecha}">
@@ -164,6 +168,7 @@
 									<td class="text-end pe-4">
 
 										<button th:data-nombre="${reserva.nombreReserva}"
+											th:data-codigo="${reserva.codigo}" th:data-dni="${reserva.dni}"
 											th:data-fecha="${reserva.fecha}" th:data-hora-inicio="${reserva.horaInicio}"
 											th:data-hora-fin="${reserva.horaFin}"
 											th:data-precio="${reserva.precioTotal}"
@@ -275,7 +280,7 @@
 
 	<script>
 		function imprimirReserva(btn) {
-			const {nombre, fecha, horaInicio, horaFin, precio, estado, espacios} = btn.dataset;
+			const {nombre, codigo, dni, fecha, horaInicio, horaFin, precio, estado, espacios} = btn.dataset;
 			const ventana = window.open('', '_blank', 'width=600,height=500');
 			ventana.document.write(`
 				<!DOCTYPE html>
@@ -304,6 +309,14 @@
 						<div class="item full">
 							<div class="label">Reserva</div>
 							<div class="value">${nombre}</div>
+						</div>
+						<div class="item">
+							<div class="label">Codigo</div>
+							<div class="value">${codigo}</div>
+						</div>
+						<div class="item">
+							<div class="label">DNI</div>
+							<div class="value">${dni}</div>
 						</div>
 						<div class="item">
 							<div class="label">Fecha</div>

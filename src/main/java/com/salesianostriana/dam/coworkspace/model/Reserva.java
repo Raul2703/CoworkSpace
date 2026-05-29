@@ -27,6 +27,9 @@ public class Reserva {
 	@NotBlank(message = "El nombre de la reserva es obligatorio")
 	private String nombreReserva;
 
+	@NotBlank(message = "El DNI es obligatorio")
+	private String dni;
+
 	@Column(unique = true)
 	private String codigo;
 

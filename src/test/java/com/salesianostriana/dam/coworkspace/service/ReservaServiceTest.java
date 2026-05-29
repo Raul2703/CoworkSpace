@@ -42,6 +42,7 @@ class ReservaServiceTest {
 
 		assertThat(guardada.getDuracion()).isEqualTo(3);
 		assertThat(guardada.getPrecioTotal()).isEqualTo(30.0);
+		assertThat(guardada.getCodigo()).startsWith("RES-");
 		assertThat(guardada.getReservasEspacios()).allMatch(re -> re.getReserva().equals(guardada));
 	}
 
@@ -72,8 +73,8 @@ class ReservaServiceTest {
 	private Reserva crearReserva(String nombre, String horaInicio, String horaFin, Usuario usuario, Espacio espacio) {
 
 		Reserva reserva = new Reserva();
-		reserva.setCodigo("TEST-" + System.nanoTime());
 		reserva.setNombreReserva(nombre);
+		reserva.setDni("12345678A");
 		reserva.setFecha(LocalDate.now().plusDays(1));
 		reserva.setHoraInicio(horaInicio);
 		reserva.setHoraFin(horaFin);

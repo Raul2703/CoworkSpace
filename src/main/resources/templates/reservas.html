@@ -91,7 +91,11 @@
 
 								<tr th:each="reserva : ${reservas}">
 
-									<td class="ps-4 fw-semibold" th:text="${reserva.nombreReserva}">
+									<td class="ps-4">
+										<div class="fw-semibold" th:text="${reserva.nombreReserva}">
+										</div>
+										<div class="text-secondary small" th:text="${reserva.codigo}">
+										</div>
 									</td>
 
 									<td th:text="${reserva.fecha}">
@@ -105,7 +109,11 @@
 
 									</td>
 
-									<td th:text="${reserva.usuario != null ? reserva.usuario.nombre : 'Sin usuario'}">
+									<td>
+										<div th:text="${reserva.usuario != null ? reserva.usuario.nombre : 'Sin usuario'}">
+										</div>
+										<div class="text-secondary small" th:text="${reserva.dni}">
+										</div>
 									</td>
 
 									<td>

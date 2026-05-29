@@ -76,6 +76,7 @@ public class ReservaController {
 			reserva = reservaService.findById(reservaForm.getId()).orElseThrow();
 
 			reserva.setNombreReserva(reservaForm.getNombreReserva());
+			reserva.setDni(reservaForm.getDni());
 			reserva.setFecha(reservaForm.getFecha());
 			reserva.setHoraInicio(reservaForm.getHoraInicio());
 			reserva.setHoraFin(reservaForm.getHoraFin());
@@ -113,6 +114,7 @@ public class ReservaController {
 		}
 
 		redirectAttributes.addFlashAttribute("mensajeExito", "Reserva registrada correctamente.");
+		redirectAttributes.addFlashAttribute("codigoReserva", reservaGuardada.getCodigo());
 		return "redirect:/reservas/confirmada";
 	}
 

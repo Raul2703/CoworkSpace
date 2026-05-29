@@ -52,7 +52,7 @@ public class ReservaService extends BaseServiceImpl<Reserva, Long, ReservaReposi
 	private void generarCodigo(Reserva reserva) {
 
 		if (reserva.getCodigo() == null || reserva.getCodigo().isBlank()) {
-			reserva.setCodigo("RES-" + System.currentTimeMillis());
+			reserva.setCodigo("RES-" + System.nanoTime());
 		}
 	}
 

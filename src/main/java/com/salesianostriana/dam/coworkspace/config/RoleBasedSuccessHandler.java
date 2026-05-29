@@ -21,7 +21,7 @@ public class RoleBasedSuccessHandler implements AuthenticationSuccessHandler {
 
 		if (esAdmin) {
 
-			response.sendRedirect("/espacios");
+			response.sendRedirect("/admin");
 
 		} else {
 

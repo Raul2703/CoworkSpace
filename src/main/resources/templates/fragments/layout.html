@@ -22,7 +22,7 @@
 
 <body>
 
-	<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-light bg-white border-bottom py-3">
+	<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-light bg-white py-3">
 
 		<div class="container">
 
@@ -32,6 +32,10 @@
 
 			<div class="d-flex align-items-center gap-2 ms-auto flex-wrap justify-content-end">
 
+				<a th:href="@{/}" class="btn btn-outline-dark rounded-pill px-4">
+					Inicio
+				</a>
+
 				<a th:href="@{/espacios}" class="btn btn-outline-dark rounded-pill px-4">
 					Espacios
 				</a>
@@ -39,11 +43,6 @@
 				<a th:href="@{/reservas/nuevo}" class="btn btn-dark rounded-pill px-4">
 					<i class="bi bi-calendar-plus me-2"></i>
 					Reservar
-				</a>
-
-				<a th:href="@{/mis-reservas}" class="btn btn-outline-dark rounded-pill px-4"
-					sec:authorize="hasRole('USER')">
-					Mis reservas
 				</a>
 
 				<div sec:authorize="isAnonymous()">
@@ -63,8 +62,14 @@
 					<ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-4">
 
 						<li>
-							<a th:href="@{/}" class="dropdown-item py-2">
-								<i class="bi bi-house me-2"></i>Inicio
+							<p class="dropdown-header mb-0">
+								Mi cuenta
+							</p>
+						</li>
+
+						<li sec:authorize="hasRole('ADMIN')">
+							<a th:href="@{/admin}" class="dropdown-item py-2">
+								<i class="bi bi-speedometer2 me-2"></i>Panel admin
 							</a>
 						</li>
 

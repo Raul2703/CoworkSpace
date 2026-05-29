@@ -33,6 +33,15 @@
 								Tu reserva se ha registrado correctamente.
 							</p>
 
+							<div th:if="${codigoReserva != null}" class="bg-light rounded-4 p-3 mb-4">
+								<p class="text-secondary small mb-1">
+									Codigo de reserva
+								</p>
+								<p class="fw-bold fs-4 mb-0" th:text="${codigoReserva}">
+									RES-0000
+								</p>
+							</div>
+
 							<div class="d-flex justify-content-center gap-3 flex-wrap">
 
 								<a th:href="@{/mis-reservas}" class="btn btn-dark rounded-pill px-4">

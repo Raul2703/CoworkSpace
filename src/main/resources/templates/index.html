@@ -45,18 +45,6 @@
 						</a>
 					</li>
 
-					<li class="nav-item" sec:authorize="hasRole('USER')">
-						<a class="nav-link fw-medium text-white" th:href="@{/mis-reservas}">
-							Mis reservas
-						</a>
-					</li>
-
-					<li class="nav-item" sec:authorize="hasRole('ADMIN')">
-						<a class="nav-link fw-medium text-white" th:href="@{/admin}">
-							Admin
-						</a>
-					</li>
-
 				</ul>
 
 				<div class="d-flex align-items-center mt-3 mt-lg-0">
@@ -78,15 +66,17 @@
 
 							<ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-4">
 
+								<li>
+									<p class="dropdown-header mb-0">
+										Mi cuenta
+									</p>
+								</li>
+
 								<li sec:authorize="hasRole('ADMIN')">
 									<a th:href="@{/admin}" class="dropdown-item py-2">
 										<i class="bi bi-speedometer2 me-2"></i>
 										Panel admin
 									</a>
-								</li>
-
-								<li sec:authorize="hasRole('ADMIN')">
-									<hr class="dropdown-divider">
 								</li>
 
 								<li sec:authorize="hasRole('USER')">
@@ -96,7 +86,7 @@
 									</a>
 								</li>
 
-								<li sec:authorize="hasRole('USER')">
+								<li sec:authorize="isAuthenticated()">
 									<hr class="dropdown-divider">
 								</li>
 

@@ -98,6 +98,26 @@
 								<div class="col-md-6 mb-3">
 
 									<label class="form-label text-white fw-semibold">
+										DNI
+									</label>
+
+									<input type="text" th:field="*{dni}"
+										class="form-control rounded-4 border-0 p-3 bg-white bg-opacity-10 text-white"
+										placeholder="Introduce tu DNI">
+
+									<div class="text-danger small mt-2" th:if="${#fields.hasErrors('dni')}"
+										th:errors="*{dni}">
+									</div>
+
+								</div>
+
+							</div>
+
+							<div class="row">
+
+								<div class="col-md-4 mb-3">
+
+									<label class="form-label text-white fw-semibold">
 										Fecha
 									</label>
 
@@ -111,11 +131,7 @@
 
 								</div>
 
-							</div>
-
-							<div class="row">
-
-								<div class="col-md-6 mb-3">
+								<div class="col-md-4 mb-3">
 
 									<label class="form-label text-white fw-semibold">
 										Hora inicio
@@ -149,7 +165,7 @@
 
 								</div>
 
-								<div class="col-md-6 mb-3">
+								<div class="col-md-4 mb-3">
 
 									<label class="form-label text-white fw-semibold">
 										Hora fin

@@ -1,109 +1,166 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 	<th:block th:replace="~{fragments/layout :: headContent('Registro')}"></th:block>
+
+	<style>
+		::placeholder {
+			color: rgba(255, 255, 255, 0.75) !important;
+		}
+	</style>
 </head>
 
-<body class="bg-light d-flex flex-column min-vh-100">
+<body style="overflow-y: scroll;">
 
-	<nav th:replace="~{fragments/layout :: navbar}"></nav>
+	<div class="position-relative min-vh-100" style="background-image: url('/img/fondoLogin.png');
+            background-size: cover;
+            background-position: center;">
 
-	<section class="py-5">
+		<div class="position-absolute top-0 start-0 w-100 h-100" style="background: rgba(0,0,0,0.45);"></div>
 
-		<div class="container py-lg-4">
+		<nav class="navbar navbar-expand-lg navbar-dark position-absolute top-0 start-0 w-100 py-3 z-3"
+			style="background: rgba(0, 0, 0, 0.35); backdrop-filter: blur(10px);">
 
-			<div class="row justify-content-center">
+			<div class="container">
 
-				<div class="col-lg-7">
+				<a class="navbar-brand fw-bold fs-2 text-white" th:href="@{/}">
+					Cowork<span class="text-primary">Space</span>
+				</a>
 
-					<div class="card border-0 shadow-sm rounded-4">
+				<div class="ms-auto">
 
-						<div class="card-body p-4 p-lg-5">
+					<a th:href="@{/}" class="btn btn-light rounded-pill px-4 fw-semibold">
+						Volver
+					</a>
 
-							<div class="text-center mb-4">
+				</div>
 
-								<h1 class="fw-bold">
-									Crear cuenta
-								</h1>
+			</div>
 
-								<p class="text-secondary mb-0">
-									Registrate para poder hacer y consultar tus reservas.
-								</p>
+		</nav>
+
+		<div class="container-fluid position-relative z-2" style="padding-top: 104px;">
+
+			<div class="row py-4" style="min-height: calc(100vh - 104px);">
+
+				<div class="col-lg-6"></div>
+
+				<div class="col-lg-6 d-flex align-items-center justify-content-lg-start ps-lg-5">
+
+					<div class="text-white p-4 p-lg-5" style="width: 100%;
+                            max-width: 520px;
+                            border: 1px solid rgba(255,255,255,0.2);
+                            background: rgba(0,0,0,0.25);
+                            backdrop-filter: blur(12px);
+                            border-radius: 32px;">
+
+						<h1 class="display-6 fw-bold mb-3">
+							Crea tu cuenta
+						</h1>
+
+						<p class="text-white-50 fs-5 mb-4">
+							Registrate para hacer reservas y consultar tus espacios.
+						</p>
+
+						<form th:action="@{/registro}" th:object="${usuario}" method="post">
+
+							<div class="mb-3">
+
+								<label class="form-label fw-semibold">
+									Usuario
+								</label>
+
+								<input type="text" th:field="*{nombre}" class="form-control"
+									placeholder="Introduce tu usuario" style="height: 52px;
+                                          border-radius: 16px;
+                                          background: rgba(255,255,255,0.08);
+                                          border: 1px solid rgba(255,255,255,0.2);
+                                          color: white;">
+
+								<div class="text-danger small mt-2" th:if="${#fields.hasErrors('nombre')}"
+									th:errors="*{nombre}">
+								</div>
 
 							</div>
 
-							<form th:action="@{/registro}" th:object="${usuario}" method="post">
+							<div class="mb-3">
 
-								<div class="mb-3">
+								<label class="form-label fw-semibold">
+									Email
+								</label>
 
-									<label class="form-label fw-semibold">
-										Usuario
-									</label>
+								<input type="email" th:field="*{email}" class="form-control"
+									placeholder="Introduce tu email" style="height: 52px;
+                                          border-radius: 16px;
+                                          background: rgba(255,255,255,0.08);
+                                          border: 1px solid rgba(255,255,255,0.2);
+                                          color: white;">
 
-									<input type="text" th:field="*{nombre}" class="form-control rounded-3">
-
-									<div class="text-danger small mt-2" th:if="${#fields.hasErrors('nombre')}"
-										th:errors="*{nombre}">
-									</div>
-
+								<div class="text-danger small mt-2" th:if="${#fields.hasErrors('email')}"
+									th:errors="*{email}">
 								</div>
 
-								<div class="mb-3">
+							</div>
 
-									<label class="form-label fw-semibold">
-										Email
-									</label>
+							<div class="mb-3">
 
-									<input type="email" th:field="*{email}" class="form-control rounded-3">
+								<label class="form-label fw-semibold">
+									Telefono
+								</label>
 
-									<div class="text-danger small mt-2" th:if="${#fields.hasErrors('email')}"
-										th:errors="*{email}">
-									</div>
+								<input type="text" th:field="*{telefono}" class="form-control"
+									placeholder="Introduce tu telefono" style="height: 52px;
+                                          border-radius: 16px;
+                                          background: rgba(255,255,255,0.08);
+                                          border: 1px solid rgba(255,255,255,0.2);
+                                          color: white;">
 
+								<div class="text-danger small mt-2" th:if="${#fields.hasErrors('telefono')}"
+									th:errors="*{telefono}">
 								</div>
 
-								<div class="mb-3">
+							</div>
 
-									<label class="form-label fw-semibold">
-										Telefono
-									</label>
+							<div class="mb-4">
 
-									<input type="text" th:field="*{telefono}" class="form-control rounded-3">
+								<label for="password" class="form-label fw-semibold">
+									Contrase&ntilde;a
+								</label>
 
-									<div class="text-danger small mt-2" th:if="${#fields.hasErrors('telefono')}"
-										th:errors="*{telefono}">
-									</div>
+								<input id="password" type="password" name="password" class="form-control"
+									placeholder="Introduce tu contrase&ntilde;a" style="height: 52px;
+                                          border-radius: 16px;
+                                          background: rgba(255,255,255,0.08);
+                                          border: 1px solid rgba(255,255,255,0.2);
+                                          color: white;">
 
+								<div class="text-danger small mt-2" th:if="${#fields.hasErrors('password')}"
+									th:errors="*{password}">
 								</div>
 
-								<div class="mb-4">
+							</div>
 
-									<label for="password" class="form-label fw-semibold">
-										Contrase&ntilde;a
-									</label>
+							<div class="d-grid mt-4">
 
-									<input id="password" type="password" name="password" class="form-control rounded-3">
+								<button type="submit" class="btn btn-light rounded-pill py-3 fw-semibold fs-5">
+									<i class="bi bi-person-plus me-2"></i>
+									Crear cuenta
+								</button>
 
-									<div class="text-danger small mt-2" th:if="${#fields.hasErrors('password')}"
-										th:errors="*{password}">
-									</div>
+							</div>
 
-								</div>
+						</form>
 
-								<div class="d-grid gap-3">
+						<div class="text-center mt-4">
 
-									<button type="submit" class="btn btn-dark rounded-pill py-3 fw-semibold">
-										Crear cuenta
-									</button>
+							<p class="text-white-50 mb-0">
+								&iquest;Ya tienes cuenta?
 
-									<a th:href="@{/login}" class="btn btn-outline-secondary rounded-pill py-3">
-										Ya tengo cuenta
-									</a>
-
-								</div>
-
-							</form>
+								<a th:href="@{/login}" class="text-white fw-semibold text-decoration-none">
+									Inicia sesion
+								</a>
+							</p>
 
 						</div>
 
@@ -115,9 +172,7 @@
 
 		</div>
 
-	</section>
-
-	<footer th:replace="~{fragments/layout :: footer}"></footer>
+	</div>
 
 	<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
 
