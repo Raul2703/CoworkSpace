@@ -9,6 +9,7 @@ import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,6 +29,7 @@ public class Reserva {
 	private String nombreReserva;
 
 	@NotBlank(message = "El DNI es obligatorio")
+	@Pattern(regexp = "\\d{8}[A-Za-z]", message = "El DNI debe tener 8 numeros y una letra")
 	private String dni;
 
 	@Column(unique = true)

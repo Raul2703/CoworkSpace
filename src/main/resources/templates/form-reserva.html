@@ -103,7 +103,8 @@
 
 									<input type="text" th:field="*{dni}"
 										class="form-control rounded-4 border-0 p-3 bg-white bg-opacity-10 text-white"
-										placeholder="Introduce tu DNI">
+										placeholder="12345678A" maxlength="9" pattern="[0-9]{8}[A-Za-z]"
+										title="Debe tener 8 numeros y una letra">
 
 									<div class="text-danger small mt-2" th:if="${#fields.hasErrors('dni')}"
 										th:errors="*{dni}">
